@@ -10,6 +10,33 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import header and footer
 
 function App() {
+  // Google Account signin integration
+  const [user, setUser] = useState({});
+  function handleCallbackResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+    var userObj = jwt_decode(response.credential);
+    console.log(userObj);
+    setUser(userObj);
+    
+    // if user not yet logged in, show SIGN IN Button
+    // if user exists, show LOG OUT button
+    document.getElementById("signInButton").hidden = true;
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInButton"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
+
   return (
     <div className='App'>
       <BrowserRouter>
