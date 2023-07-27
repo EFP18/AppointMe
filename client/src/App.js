@@ -53,6 +53,7 @@ function App() {
         <Route path='/calendarpage' element={<CalendarPage />} />
         <Route path='/vendorprofile' element={<VendorProfile />} />
         <Route path='/profileview' element={<ProfileView />} />
+        <Route path='/clientDb' element={<ClientDb />} />
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
