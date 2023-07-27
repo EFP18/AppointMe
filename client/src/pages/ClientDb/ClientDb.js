@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ClientModal from "../../components/ClientModal/ClientModal";
 import ClientTable, { rows } from "../../components/ClientTable/ClientTable";
+import Navbar from "../../components/Navbar";
 import "./ClientDb.css";
 
 export default function ClientDb() {
@@ -48,6 +49,7 @@ export default function ClientDb() {
 
   return (
     <div>
+      <Navbar />
       <ClientTable 
         rows={rows}
         page={page}

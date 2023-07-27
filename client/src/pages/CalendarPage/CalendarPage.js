@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "../../components/Calendar/Calendar";
+import Navbar from "../../components/Navbar";
 // import EventForm from "../../components/EventForm/EventForm";
 import "./CalendarPage.css";
 
@@ -26,6 +27,7 @@ const CalendarPage = () => {
 
   return (
     <div className="MainPage">
+        <Navbar />
       <h1>Calendar</h1>
       {/* <h2>Add New Event</h2>
       <EventForm onAddEvent={handleAddEvent} /> */}
