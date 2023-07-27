@@ -1,41 +1,60 @@
-import React from 'react';
-import { Button, TextField } from '@mui/material';
+import { React, useState } from 'react';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+// Import the Link component for routing
 import './LandingPage.css';
 import SearchBox from '../../components/SearchBox';
+import Page from '../../components/Page';
+import appointme from '../../images/appointme-lowercase-small.png';
+import services from '../../data/services';
+// Import the service pages
+import MusicServicePage from '../ServicesPages/MusicServicePage';
 
 function LandingPage() {
-  const handleSearch = (event) => {
-    // Handle search logic here
-  };
+  const [selectedService, setSelectedService] = useState(null);
 
-  const handleLoginSignup = () => {
-    // Handle login/signup logic here
+  const handleServiceNavigation = () => {
+    if (selectedService) {
+      switch (selectedService.type) {
+        case 'Music':
+          return <MusicServicePage />;
+        default:
+          return null;
+      }
+    }
   };
 
   return (
-    <div className='landing-page'>
-      <h1>AppointMe</h1>
-
+    <Page title={'AppointMe'} className='landing-page'>
+      <img className='' src={appointme} alt='appointme-text' style={{}} />
       <div className='login-signup-button'>
-        <Button variant='contained' color='primary' onClick={handleLoginSignup}>
+        {/* button leads to signup page */}
+        <Button
+          variant='contained'
+          color='primary'
+          accessibilityLabel='signup/login button'
+          // Use Link component instead of href
+          component={Link}
+          // URL to navigate when the button is clicked
+          to='/signup'
+        >
           Sign Up / Login
         </Button>
       </div>
-
       <div className='search-bar'>
-        <SearchBox />
-        {/* <TextField
-          label='Search vendors'
-          variant='outlined'
-          fullWidth
-          onKeyPress={(event) => {
-            if (event.key === 'Enter') {
-              handleSearch(event);
-            }
-          }}
-        /> */}
+        <SearchBox
+          details={services}
+          // Update the setSelectedService when a service is selected
+          onSelect={(service) => setSelectedService(service)}
+        />
       </div>
-    </div>
+      {/* Render the selected service page */}
+      {handleServiceNavigation()};<div>space for image</div>
+      <div>
+        Text about us, business model, link to contact us page? What we are, who
+        we are, services we offer, description of app.
+      </div>
+    </Page>
   );
 }
 
