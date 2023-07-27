@@ -5,12 +5,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { styled, lighten, darken } from '@mui/system';
 import { useTheme } from '@mui/material';
 import { Box } from '@mui/material';
+import services from '../data/services';
 
 const GroupItems = styled('ul')({
   padding: 0,
 });
 
-export default function SearchBox() {
+export default function SearchBox({ details }) {
   const theme = useTheme();
 
   const options = services.map((option) => {
@@ -21,13 +22,24 @@ export default function SearchBox() {
     };
   });
 
+  // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
 
+  // use the filter function on the details received from the parent
+  // const searchItem = details.filter((services) => {
+  //   return services.toLowerCase().includes(inputText.toLocaleLowerCase());
+  // });
+
   const handleSearch = (e) => {
-    const lowerCase = e.target.value.toLowerCase();
-    //convert input text to lower case
-    setInputText(lowerCase);
+    setInputText(e.target.value);
   };
+
+
+  // const handleSearch = (e) => {
+  //   const lowerCase = e.target.value.toLowerCase();
+  //   //convert input text to lower case
+  //   setInputText(lowerCase);
+  // };
 
   return (
     <Autocomplete
@@ -71,9 +83,3 @@ export default function SearchBox() {
     />
   );
 }
-
-const services = [
-  { type: 'music' },
-  { type: 'landscaping' },
-  { type: 'languages' },
-];

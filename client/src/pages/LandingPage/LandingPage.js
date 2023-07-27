@@ -17,16 +17,23 @@ function LandingPage() {
   //   // Handle search logic here
   // };
 
-  const handleLoginSignup = () => {
-    // Handle login/signup logic here
-  };
+  // const handleLoginSignup = () => {
+  //   // Handle login/signup logic here
+  // };
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
       <img className='' src={appointme} alt='appointme-text' style={{}} />
 
       <div className='login-signup-button'>
-        <Button variant='contained' color='primary' onClick={handleLoginSignup}>
+        {/* button leads to signup page */}
+        <Button
+          variant='contained'
+          color='primary'
+          // onClick={handleLoginSignup}
+          accessibilityLabel='signup/login button'
+          href='/signup'
+        >
           Sign Up / Login
         </Button>
       </div>
@@ -43,6 +50,11 @@ function LandingPage() {
             }
           }}
         /> */}
+      </div>
+      <div>space for image</div>
+      <div>
+        Text about us, business model, link to contact us page? What we are, who
+        we are, services we offer, description of app.
       </div>
     </Page>
   );
