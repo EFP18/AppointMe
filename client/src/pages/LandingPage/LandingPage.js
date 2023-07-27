@@ -23,7 +23,7 @@ function LandingPage() {
       </div>
 
       <div className='search-bar'>
-        <SearchBox/>
+        <SearchBox />
         {/* <TextField
           label='Search vendors'
           variant='outlined'
