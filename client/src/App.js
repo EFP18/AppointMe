@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ClientDb from './pages/ClientDb/ClientDb';
+import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 
 function App() {
   // Google Account signin integration
@@ -42,22 +43,23 @@ function App() {
 
   return (
     <div className='App'>
-    <BrowserRouter>
-      {/* <Header></Header> */}
-      {/* conditionally rendered routes */}
-      <Routes>
-        {/* endpoints */}
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/calendarpage' element={<CalendarPage />} />
-        <Route path='/vendorprofile' element={<VendorProfile />} />
-        <Route path='/profileview' element={<ProfileView />} />
-        <Route path='/clientDb' element={<ClientDb />} />
-      </Routes>
-      {/* <Footer /> */}
-    </BrowserRouter>
-  </div>
+      <BrowserRouter>
+        {/* <Header></Header> */}
+        {/* conditionally rendered routes */}
+        <Routes>
+          {/* endpoints */}
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/calendarpage' element={<CalendarPage />} />
+          <Route path='/vendorprofile' element={<VendorProfile />} />
+          <Route path='/profileview' element={<ProfileView />} />
+          <Route path='/services/music' element={<MusicServicePage />} />
+          <Route path='/clientDb' element={<ClientDb />} />
+        </Routes>
+        {/* <Footer /> */}
+      </BrowserRouter>
+    </div>
   );
 }
 
