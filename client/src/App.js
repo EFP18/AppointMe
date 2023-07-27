@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import Login from "./pages/Login/Login";
-import Signup from './pages/Signup/Signup';
-import CalendarPage from './pages/CalendarPage/CalendarPage'
-import VendorProfile from './pages/VendorProfile/VendorProfile';
-import ProfileView from './pages/ProfileView/ProfileView';
-import LandingPage from './pages/LandingPage/LandingPage';
-import ClientDb from './pages/ClientDb/ClientDb';
+import Signup from "./pages/Signup/Signup";
+import CalendarPage from "./pages/CalendarPage/CalendarPage";
+import VendorProfile from "./pages/VendorProfile/VendorProfile";
+import ProfileView from "./pages/ProfileView/ProfileView";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import ClientDb from "./pages/ClientDb/ClientDb";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 
@@ -18,7 +18,7 @@ function App() {
     var userObj = jwt_decode(response.credential);
     console.log(userObj);
     setUser(userObj);
-    
+
     // if user not yet logged in, show SIGN IN Button
     // if user exists, show LOG OUT button
     document.getElementById("signInButton").hidden = true;
@@ -45,8 +45,8 @@ function App() {
       {/* <Signup /> */}
       {/* <CalendarPage /> */}
       {/* <VendorProfile /> */}
-     {/* <ProfileView /> */}
-       <ClientDb />
+      {/* <ProfileView /> */}
+      <ClientDb />
     </div>
   );
 }
