@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, TextField } from '@mui/material';
 import './LandingPage.css';
 import SearchBox from '../../components/SearchBox';
+import Page from '../../components/Page';
 
 function LandingPage() {
   const handleSearch = (event) => {
@@ -13,7 +14,8 @@ function LandingPage() {
   };
 
   return (
-    <div className='landing-page'>
+    <Page title={'AppointMe'} className='landing-page'>
+      {/* <div className='landing-page'> */}
       <h1>AppointMe</h1>
 
       <div className='login-signup-button'>
@@ -35,7 +37,8 @@ function LandingPage() {
           }}
         /> */}
       </div>
-    </div>
+      {/* </div> */}
+    </Page>
   );
 }
 

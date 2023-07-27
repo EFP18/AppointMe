@@ -2,9 +2,8 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled, lighten, darken } from '@mui/system';
-import {useTheme} from '@mui/material';
-import {Box} from '@mui/material';
-
+import { useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const GroupItems = styled('ul')({
   padding: 0,
@@ -41,7 +40,10 @@ export default function SearchBox() {
               top: '-8px',
               padding: '4px 10px',
               color: 'primary',
-              backgroundColor: theme.palette.primary.main
+              backgroundColor:
+                theme.palette.mode === 'light'
+                  ? lighten(theme.palette.primary.light, 0.85)
+                  : darken(theme.palette.primary.main, 0.8),
             }}
           >
             {params.group}
