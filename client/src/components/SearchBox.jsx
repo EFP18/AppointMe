@@ -6,12 +6,13 @@ import { styled, lighten, darken } from '@mui/system';
 import { useTheme } from '@mui/material';
 import { Box } from '@mui/material';
 import services from '../data/services';
+import { Link } from 'react-router-dom'; // Import the Link component
 
 const GroupItems = styled('ul')({
   padding: 0,
 });
 
-export default function SearchBox({ details }) {
+export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
 
   const options = services.map((option) => {
@@ -25,21 +26,9 @@ export default function SearchBox({ details }) {
   // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
 
-  // use the filter function on the details received from the parent
-  // const searchItem = details.filter((services) => {
-  //   return services.toLowerCase().includes(inputText.toLocaleLowerCase());
-  // });
-
   const handleSearch = (e) => {
     setInputText(e.target.value);
   };
-
-
-  // const handleSearch = (e) => {
-  //   const lowerCase = e.target.value.toLowerCase();
-  //   //convert input text to lower case
-  //   setInputText(lowerCase);
-  // };
 
   return (
     <Autocomplete
@@ -60,6 +49,18 @@ export default function SearchBox({ details }) {
             }
           }}
         />
+      )}
+      // Call the onSelect function when a service is selected
+      onChange={(event, value) => {
+        if (value) {
+          onSelect(value);
+        }
+      }}
+      // Use Link component for navigation when a service is selected
+      renderOption={(props, option) => (
+        <Link to={`/services/${option.type}`} {...props}>
+          {option.type}
+        </Link>
       )}
       renderGroup={(params) => (
         <li key={params.key}>
