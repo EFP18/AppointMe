@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled, lighten, darken } from '@mui/system';
@@ -20,6 +21,14 @@ export default function SearchBox() {
     };
   });
 
+  const [inputText, setInputText] = useState('');
+
+  const handleSearch = (e) => {
+    const lowerCase = e.target.value.toLowerCase();
+    //convert input text to lower case
+    setInputText(lowerCase);
+  };
+
   return (
     <Autocomplete
       id='grouped-demo'
@@ -30,7 +39,15 @@ export default function SearchBox() {
       getOptionLabel={(option) => option.type}
       sx={{ width: 300 }}
       renderInput={(params) => (
-        <TextField {...params} label='With categories' />
+        <TextField
+          {...params}
+          label='Search vendors'
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              handleSearch(event);
+            }
+          }}
+        />
       )}
       renderGroup={(params) => (
         <li key={params.key}>

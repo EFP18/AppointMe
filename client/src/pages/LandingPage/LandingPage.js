@@ -1,13 +1,21 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import './LandingPage.css';
 import SearchBox from '../../components/SearchBox';
 import Page from '../../components/Page';
+import appointme from '../../images/appointme-lowercase-small.png';
 
 function LandingPage() {
-  const handleSearch = (event) => {
-    // Handle search logic here
-  };
+  // const [inputText, setInputText] = useState('');
+
+  // const handleSearch = (e) => {
+  //   const lowerCase = e.target.value.toLowerCase();
+  //   //convert input text to lower case
+  //   setInputText(lowerCase);
+  // };
+  // const handleSearch = (event) => {
+  //   // Handle search logic here
+  // };
 
   const handleLoginSignup = () => {
     // Handle login/signup logic here
@@ -15,8 +23,7 @@ function LandingPage() {
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
-      {/* <div className='landing-page'> */}
-      <h1>AppointMe</h1>
+      <img className='' src={appointme} alt='appointme-text' style={{}} />
 
       <div className='login-signup-button'>
         <Button variant='contained' color='primary' onClick={handleLoginSignup}>
@@ -37,7 +44,6 @@ function LandingPage() {
           }}
         /> */}
       </div>
-      {/* </div> */}
     </Page>
   );
 }
