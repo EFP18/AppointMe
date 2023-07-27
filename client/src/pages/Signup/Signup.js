@@ -21,7 +21,7 @@ const Signup = () => (
       <Button variant="contained" fullWidth>Sign in with Apple</Button>
       <Button variant="contained" fullWidth>Sign in with LinkedIn</Button>
     </Box>
-    <Link href="/signup" variant="body2">Already a user? LOGIN</Link>
+    <Link href="/login" variant="body2">Already a user? LOGIN</Link>
   </Container>
 );
 
