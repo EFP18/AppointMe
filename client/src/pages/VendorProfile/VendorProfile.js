@@ -16,12 +16,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import { colors } from '../../components/theme';
 import button from '../../components/button';
 import './VendorProfile.css';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function VendorProfile() {
   const [category, setCategory] = React.useState('');
   const [isSaved, setIsSaved] = useState(false);
-  const [services, setServices] = useState([{ name: "", cost: "" }]);
+  const [services, setServices] = useState([{ name: '', cost: '' }]);
 
   const handleChange = event => {
     setCategory(event.target.value);
@@ -29,7 +29,7 @@ export default function VendorProfile() {
 
   const handleServiceChange = (index, event) => {
     const values = [...services];
-    if (event.target.name === "name") {
+    if (event.target.name === 'name') {
       values[index].name = event.target.value;
     } else {
       values[index].cost = event.target.value;
@@ -39,14 +39,20 @@ export default function VendorProfile() {
 
   const handleAddService = () => {
     const values = [...services];
-    values.push({ name: "", cost: "" });
+    values.push({ name: '', cost: '' });
     setServices(values);
   };
-  
+
   return (
-    <div style={{ minHeight: '100vh'}}>
+    <div style={{ minHeight: '100vh', margin: '100px 10px' }}>
       <Navbar />
-      <Box sx={{ margin: '10px 250px', flexGrow: 1, backgroundColor: colors.white }}>
+      <Box
+        sx={{
+          margin: '10px 250px',
+          flexGrow: 1,
+          backgroundColor: colors.white,
+        }}
+      >
         <h1 style={{ textAlign: 'left' }}>Edit Profile</h1>
         <ThemeProvider theme={button}>
           <Stack
@@ -97,11 +103,11 @@ export default function VendorProfile() {
               />
             </Stack>
             <TextField
-                label='Business Name'
-                variant='outlined'
-                fullWidth
-                margin='normal'
-              />
+              label='Business Name'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
             <TextField
               label='Description'
               variant='outlined'
@@ -193,28 +199,48 @@ export default function VendorProfile() {
               style={{ margin: '30px 0', backgroundColor: colors.black }}
             />
             <h2 style={{ textAlign: 'left' }}>Services</h2>
-            <Stack direction='row' spacing={2} alignItems='baseline'>
-              <TextField
-                label='Service Name'
-                variant='outlined'
-                fullWidth
-                margin='normal'
-                style={{ marginBottom: '0px', flex: 2 }}
-              />
-              <TextField
-                label='Service Cost ($)'
-                variant='outlined'
-                fullWidth
-                margin='normal'
-                style={{ marginBottom: '0px', flex: 1 }}
-              />
-              <Button variant='contained' style={{ marginBottom: '0px' }}>
-                +
-              </Button>
-            </Stack>
+            {services.map((service, index) => (
+              <Stack key={index} direction='row' spacing={2}>
+                <TextField
+                  label='Service Name'
+                  variant='outlined'
+                  fullWidth
+                  margin='normal'
+                  style={{ marginBottom: '0px', flex: 3 }}
+                  name='name'
+                  value={service.name}
+                  onChange={event => handleServiceChange(index, event)}
+                />
 
-            <h2 style={{ textAlign: 'left' }}>Availability</h2>
-            {/* Add your availability component here */}
+                <Box
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='flex-end'
+                  flex={1}
+                >
+                  <TextField
+                    label='Service Cost ($)'
+                    variant='outlined'
+                    fullWidth
+                    margin='normal'
+                    style={{ marginBottom: '0px' }}
+                    name='cost'
+                    value={service.cost}
+                    onChange={event => handleServiceChange(index, event)}
+                  />
+                  {index === services.length - 1 && ( // Show '+' button only on the last row
+                    <Button
+                      variant='contained'
+                      style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                      onClick={handleAddService}
+                    >
+                      +
+                    </Button>
+                  )}
+                </Box>
+              </Stack>
+            ))}
+
             <Stack
               direction='row'
               spacing={2}
