@@ -28,6 +28,7 @@ const typeDefs = gql`
     }
 
     type Service {
+        _id: ID
         name: String
         description: String
         price: Float
@@ -51,8 +52,26 @@ const typeDefs = gql`
         firstName: String
         lastName: String
         email: String
-        password: String
         business: Business
+    }
+
+    type Auth {
+        token: ID!
+        user: Vendor
+    }
+
+    type Query {
+        vendor: Vendor
+        business: Business
+        businesses: [Business]
+        client: Client
+        clients: [Client]
+        tags: [Tag]
+    }
+
+    type Mutation {
+        addVendor (firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        login (email: String!, password: String!): Auth
     }
 `
 module.exports = typeDefs;
