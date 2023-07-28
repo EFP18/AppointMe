@@ -88,7 +88,7 @@ const Signup = () => {
         <Box style={{ color: colors.black }}>
           Already a user?{" "}
           <Link href="/login" variant="body2" style={{ color: colors.primary }}>
-            LOGIN
+            Login
           </Link>
         </Box>
       </StyledCard>

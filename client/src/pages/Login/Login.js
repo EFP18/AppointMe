@@ -99,8 +99,8 @@ const Login = () => {
           <Divider>OR</Divider>
         </Box>
         <Box my={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <img src={googleLogo} alt="Google" />
-          {/* <img src={appleLogo} alt="Apple" /> */}
+          {/* <img src={googleLogo} alt="Google" /> */}
+          <div id="signInButton" data-onsuccess="onSignIn"></div>
           <img src={linkedInLogo} alt="LinkedIn" />
         </Box>
         <Box style={{ color: colors.black }}>
