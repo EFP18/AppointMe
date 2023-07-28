@@ -14,8 +14,6 @@ import { colors } from "../../components/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import button from "../../components/button";
 import linkedInLogo from "../../assets/img/linkedin.png";
-import appleLogo from "../../assets/img/apple.png";
-import googleLogo from "../../assets/img/google.png";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./Signup.css";
@@ -64,7 +62,7 @@ const Signup = () => {
               <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
-                  onMouseDown={event => event.preventDefault()}
+                  onMouseDown={(event) => event.preventDefault()}
                 >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
@@ -81,8 +79,7 @@ const Signup = () => {
           <Divider>OR</Divider>
         </Box>
         <Box my={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <img src={googleLogo} alt="Google" />
-          {/* <img src={appleLogo} alt="Apple" /> */}
+          <div id="signInButton" data-onsuccess="onSignIn"></div>
           <img src={linkedInLogo} alt="LinkedIn" />
         </Box>
         <Box style={{ color: colors.black }}>
