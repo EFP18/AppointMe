@@ -64,7 +64,7 @@ const Signup = () => {
               <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
-                  onMouseDown={event => event.preventDefault()}
+                  onMouseDown={(event) => event.preventDefault()}
                 >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
@@ -81,8 +81,9 @@ const Signup = () => {
           <Divider>OR</Divider>
         </Box>
         <Box my={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <img src={googleLogo} alt="Google" />
+          {/* <img src={googleLogo} alt="Google" /> */}
           {/* <img src={appleLogo} alt="Apple" /> */}
+          <div id="signInButton" data-onsuccess="onSignIn"></div>
           <img src={linkedInLogo} alt="LinkedIn" />
         </Box>
         <Box style={{ color: colors.black }}>
