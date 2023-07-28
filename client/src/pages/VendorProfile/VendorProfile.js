@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Button,
   TextField,
@@ -8,157 +8,207 @@ import {
   FormControl,
   Box,
   Divider,
-} from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { colors } from "../../components/theme";
-import button from "../../components/button";
-import "./VendorProfile.css";
-import Navbar from "../../components/Navbar";
+  Stack,
+  IconButton,
+} from '@mui/material';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { ThemeProvider } from '@mui/material/styles';
+import { colors } from '../../components/theme';
+import button from '../../components/button';
+import './VendorProfile.css';
+import Navbar from '../../components/Navbar';
 
 export default function VendorProfile() {
-  const [category, setCategory] = React.useState("");
+  const [category, setCategory] = React.useState('');
   const [isSaved, setIsSaved] = useState(false);
 
   const handleChange = event => {
     setCategory(event.target.value);
   };
   return (
-    <div>
+    <div sx={{backgroundColor: colors.primary}}>
       <Navbar />
-      <Box sx={{  marginLeft: '100px', flexGrow: 1 }}>
-        <h1>Edit Profile</h1>
+      <Box sx={{ margin: '100px 250px', flexGrow: 1 }}>
+        <h1 style={{ textAlign: 'left' }}>Edit Profile</h1>
         <ThemeProvider theme={button}>
+          <Stack
+            direction='row'
+            alignItems='center'
+            justifyContent='space-evenly'
+            spacing={2}
+          >
+            <Box>
+              <IconButton
+                color='primary'
+                aria-label='upload picture'
+                component='label'
+                sx={{ fontSize: 40 }}
+              >
+                <input hidden accept='image/*' type='file' />
+                <PhotoCamera sx={{ fontSize: 40 }} />
+              </IconButton>
+              <p style={{ textAlign: 'center' }}>Upload Profile Picture</p>
+            </Box>
+            <Box>
+              <IconButton
+                color='primary'
+                aria-label='upload picture'
+                component='label'
+                sx={{ fontSize: 40 }}
+              >
+                <input hidden accept='image/*' type='file' />
+                <PhotoCamera sx={{ fontSize: 40 }} />
+              </IconButton>
+              <p style={{ textAlign: 'center' }}>Upload Background Picture</p>
+            </Box>
+          </Stack>
+
           <form>
+            <Stack direction='row' spacing={2} alignItems='center'>
+              <TextField
+                label='First Name'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+              />
+              <TextField
+                label='Last Name'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+              />
+            </Stack>
             <TextField
-              label="Name"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              placeholder="John Doe"
-            />
-            <TextField
-              label="Description"
-              variant="outlined"
+              label='Description'
+              variant='outlined'
               multiline
               rows={4}
               fullWidth
-              margin="normal"
-              placeholder="Describe your business in a few words"
-            />
-            <Button variant="contained" component="label" fullWidth>
-              Upload Profile Picture
-              <input type="file" hidden />
-            </Button>
-
-            <Divider
-              style={{ margin: "30px 0", backgroundColor: colors.black }}
+              margin='normal'
+              placeholder='Describe your business in a few words'
             />
 
-            <h2>Categories/Tags</h2>
-            <FormControl fullWidth variant="outlined" margin="normal">
-              <InputLabel id="category-label">Category *</InputLabel>
+            <FormControl fullWidth variant='outlined' margin='normal'>
+              <InputLabel id='category-label'>Category *</InputLabel>
               <Select
-                labelId="category-label"
+                labelId='category-label'
                 value={category}
                 onChange={handleChange}
-                label="Category"
+                label='Category'
               >
-                <MenuItem value={"hair-beauty"}>Hair/Beauty</MenuItem>
-                <MenuItem value={"music"}>Music</MenuItem>
-                <MenuItem value={"lawn-gardening"}>Lawn/Gardening</MenuItem>
-                <MenuItem value={"cooking"}>Cooking</MenuItem>
-                <MenuItem value={"other"}>Other</MenuItem>
+                <MenuItem value={'hair-beauty'}>Hair/Beauty</MenuItem>
+                <MenuItem value={'music'}>Music</MenuItem>
+                <MenuItem value={'lawn-gardening'}>Lawn/Gardening</MenuItem>
+                <MenuItem value={'cooking'}>Cooking</MenuItem>
+                <MenuItem value={'other'}>Other</MenuItem>
               </Select>
             </FormControl>
 
-            <h2>Social Links</h2>
-            <TextField
-              label="Youtube"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Facebook"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Instagram"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Facebook"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="TikTok"
-              variant="outlined"
-              fullWidth
-              margin="normal"
+            <Divider
+              style={{ margin: '30px 0', backgroundColor: colors.black }}
             />
 
-<h2>Contact Information</h2>
+            <h2 style={{ textAlign: 'left' }}>Contact Information</h2>
             <TextField
-              label="Email"
-              variant="outlined"
+              label='Email'
+              variant='outlined'
               fullWidth
-              margin="normal"
+              margin='normal'
             />
             <TextField
-              label="Phone Number"
-              variant="outlined"
+              label='Phone Number'
+              variant='outlined'
               fullWidth
-              margin="normal"
-            />
-
-            <h2>Location</h2>
-            <TextField
-              label="Location"
-              variant="outlined"
-              fullWidth
-              margin="normal"
+              margin='normal'
             />
 
-            <h2>Services</h2>
             <TextField
-              label="Service Name"
-              variant="outlined"
+              label='Location'
+              variant='outlined'
               fullWidth
-              margin="normal"
+              margin='normal'
+              placeholder='Your city'
             />
-            <TextField
-              label="Service Cost ($)"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <Button variant="contained" fullWidth>
-              Add Another Service
-            </Button>
 
-            <h2>Availability</h2>
+            <Divider
+              style={{ margin: '30px 0', backgroundColor: colors.black }}
+            />
+            <h2 style={{ textAlign: 'left' }}>Social Links</h2>
+            <TextField
+              label='Youtube'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Facebook'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Instagram'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Facebook'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='TikTok'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+
+            <Divider
+              style={{ margin: '30px 0', backgroundColor: colors.black }}
+            />
+            <h2 style={{ textAlign: 'left' }}>Services</h2>
+            <Stack direction='row' spacing={2} alignItems='baseline'>
+              <TextField
+                label='Service Name'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+                style={{ marginBottom: '0px', flex: 2 }}
+              />
+              <TextField
+                label='Service Cost ($)'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+                style={{ marginBottom: '0px', flex: 1 }}
+              />
+              <Button variant='contained' style={{ marginBottom: '0px' }}>
+                +
+              </Button>
+            </Stack>
+
+            <h2 style={{ textAlign: 'left' }}>Availability</h2>
             {/* Add your availability component here */}
-
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={() => setIsSaved(true)}
-              style={{ marginTop: "30px" }}
+            <Stack
+              direction='row'
+              spacing={2}
+              alignItems='baseline'
+              justifyContent='center'
             >
-              Save Profile
-            </Button>
+              <Button
+                variant='contained'
+                onClick={() => setIsSaved(true)}
+                style={{ marginTop: '30px', marginBottom: '0px' }}
+              >
+                Save Profile
+              </Button>
 
-            {/* Show a message after the user clicks "Save Profile" */}
-            {isSaved && <p>Your profile has been saved!</p>}
-            <Button variant="contained" fullWidth style={{ marginTop: "15px" }}>
-              View Profile
-            </Button>
+              <Button variant='contained' style={{ marginBottom: '0px' }}>
+                View Profile
+              </Button>
+            </Stack>
           </form>
         </ThemeProvider>
       </Box>
