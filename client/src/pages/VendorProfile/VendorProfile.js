@@ -21,14 +21,32 @@ import Navbar from '../../components/Navbar';
 export default function VendorProfile() {
   const [category, setCategory] = React.useState('');
   const [isSaved, setIsSaved] = useState(false);
+  const [services, setServices] = useState([{ name: "", cost: "" }]);
 
   const handleChange = event => {
     setCategory(event.target.value);
   };
+
+  const handleServiceChange = (index, event) => {
+    const values = [...services];
+    if (event.target.name === "name") {
+      values[index].name = event.target.value;
+    } else {
+      values[index].cost = event.target.value;
+    }
+    setServices(values);
+  };
+
+  const handleAddService = () => {
+    const values = [...services];
+    values.push({ name: "", cost: "" });
+    setServices(values);
+  };
+  
   return (
-    <div sx={{backgroundColor: colors.primary}}>
+    <div style={{ minHeight: '100vh'}}>
       <Navbar />
-      <Box sx={{ margin: '100px 250px', flexGrow: 1 }}>
+      <Box sx={{ margin: '10px 250px', flexGrow: 1, backgroundColor: colors.white }}>
         <h1 style={{ textAlign: 'left' }}>Edit Profile</h1>
         <ThemeProvider theme={button}>
           <Stack
@@ -78,6 +96,12 @@ export default function VendorProfile() {
                 margin='normal'
               />
             </Stack>
+            <TextField
+                label='Business Name'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+              />
             <TextField
               label='Description'
               variant='outlined'
