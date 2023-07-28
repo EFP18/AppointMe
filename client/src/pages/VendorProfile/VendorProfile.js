@@ -16,7 +16,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { colors } from '../../components/theme';
 import button from '../../components/button';
 import './VendorProfile.css';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function VendorProfile() {
   const [category, setCategory] = React.useState('');
