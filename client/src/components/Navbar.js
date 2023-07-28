@@ -125,7 +125,7 @@ function Navbar() {
                     pointerEvents: 'auto',
                   }}
                 >
-                  Client's
+                  Clients
                 </Link>
               )}
             </IconButton>
