@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
+import { Box } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,27 +14,29 @@ export default function MusicServicePage() {
   return (
     <Page>
       <Navbar />
-      <div>Industry Title</div>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component='img'
-          alt='music-image'
-          height='150'
-          image={musicImg}
-        />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
-            Vendor Name
-          </Typography>
-          <Typography variant='body2' color='text.secondary'>
-            Vendor's Bio
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size='small'>Share</Button>
-          <Button size='small'>Learn More</Button>
-        </CardActions>
-      </Card>
+      <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
+        <div>Industry Title</div>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            component='img'
+            alt='music-image'
+            height='150'
+            image={musicImg}
+          />
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='div'>
+              Vendor Name
+            </Typography>
+            <Typography variant='body2' color='text.secondary'>
+              Vendor's Bio
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size='small'>Share</Button>
+            <Button size='small'>Learn More</Button>
+          </CardActions>
+        </Card>
+      </Box>
     </Page>
   );
 }
