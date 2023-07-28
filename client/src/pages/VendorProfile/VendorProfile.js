@@ -199,44 +199,48 @@ export default function VendorProfile() {
               style={{ margin: '30px 0', backgroundColor: colors.black }}
             />
             <h2 style={{ textAlign: 'left' }}>Services</h2>
-{services.map((service, index) => (
-  <Stack key={index} direction='row' spacing={2}>
-    <TextField
-      label='Service Name'
-      variant='outlined'
-      fullWidth
-      margin='normal'
-      style={{ marginBottom: '0px', flex: 3 }}
-      name='name'
-      value={service.name}
-      onChange={event => handleServiceChange(index, event)}
-    />
+            {services.map((service, index) => (
+              <Stack key={index} direction='row' spacing={2}>
+                <TextField
+                  label='Service Name'
+                  variant='outlined'
+                  fullWidth
+                  margin='normal'
+                  style={{ marginBottom: '0px', flex: 3 }}
+                  name='name'
+                  value={service.name}
+                  onChange={event => handleServiceChange(index, event)}
+                />
 
-    <Box display='flex' flexDirection='column' alignItems='flex-end' flex={1}>
-      <TextField
-        label='Service Cost ($)'
-        variant='outlined'
-        fullWidth
-        margin='normal'
-        style={{ marginBottom: '0px' }}
-        name='cost'
-        value={service.cost}
-        onChange={event => handleServiceChange(index, event)}
-      />
-      {index === services.length - 1 && (  // Show '+' button only on the last row
-        <Button
-          variant='contained'
-          style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-          onClick={handleAddService}
-        >
-          +
-        </Button>
-      )}
-    </Box>
-  </Stack>
-))}
-            <h2 style={{ textAlign: 'left' }}>Availability</h2>
-            {/* Add your availability component here */}
+                <Box
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='flex-end'
+                  flex={1}
+                >
+                  <TextField
+                    label='Service Cost ($)'
+                    variant='outlined'
+                    fullWidth
+                    margin='normal'
+                    style={{ marginBottom: '0px' }}
+                    name='cost'
+                    value={service.cost}
+                    onChange={event => handleServiceChange(index, event)}
+                  />
+                  {index === services.length - 1 && ( // Show '+' button only on the last row
+                    <Button
+                      variant='contained'
+                      style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                      onClick={handleAddService}
+                    >
+                      +
+                    </Button>
+                  )}
+                </Box>
+              </Stack>
+            ))}
+
             <Stack
               direction='row'
               spacing={2}
