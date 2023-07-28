@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   TextField,
@@ -10,32 +10,30 @@ import {
   Divider,
   InputAdornment,
   IconButton,
-} from "@mui/material";
-import { styled } from "@mui/system";
-import { colors } from "../../components/theme";
-import linkedInLogo from "../../assets/img/linkedin.png";
-import { ThemeProvider } from "@mui/material/styles";
-import button from "../../components/button";
-import appleLogo from "../../assets/img/apple.png";
-import googleLogo from "../../assets/img/google.png";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+} from '@mui/material';
+import { styled } from '@mui/system';
+import { colors } from '../../components/theme';
+import linkedInLogo from '../../assets/img/linkedin.png';
+import { ThemeProvider } from '@mui/material/styles';
+import button from '../../components/button';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Container = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  minHeight: "100vh",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
   backgroundColor: colors.grey,
   boxShadow: colors.shadow,
 });
 
 const StyledCard = styled(Card)({
-  padding: "20px",
-  width: "400px",
-  boxSizing: "border-box",
-  borderRadius: "15px",
+  padding: '20px',
+  width: '400px',
+  boxSizing: 'border-box',
+  borderRadius: '15px',
   backgroundColor: colors.white,
   boxShadow: colors.shadow,
 });
@@ -46,31 +44,31 @@ const Login = () => {
   return (
     <Container>
       <StyledCard>
-        <h1 style={{ textAlign: "left" }}>Login</h1>
+        <h1 style={{ textAlign: 'left' }}>Login</h1>
         <TextField
-          label="Email"
-          variant="outlined"
-          margin="normal"
+          label='Email'
+          variant='outlined'
+          margin='normal'
           required
           fullWidth
           InputProps={{
-            style: { borderRadius: "10px" },
+            style: { borderRadius: '10px' },
           }}
         />
         <TextField
-          label="Password"
-          variant="outlined"
-          margin="normal"
+          label='Password'
+          variant='outlined'
+          margin='normal'
           required
           fullWidth
-          type={showPassword ? "text" : "password"}
+          type={showPassword ? 'text' : 'password'}
           InputProps={{
-            style: { borderRadius: "10px" },
+            style: { borderRadius: '10px' },
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment position='end'>
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
-                  onMouseDown={event => event.preventDefault()}
+                  onMouseDown={(event) => event.preventDefault()}
                 >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
@@ -81,33 +79,32 @@ const Login = () => {
         <FormControlLabel
           control={
             <Checkbox
-              value="remember"
+              value='remember'
               sx={{
                 color: colors.primary,
-                "&.Mui-checked": { color: colors.primary },
+                '&.Mui-checked': { color: colors.primary },
               }}
             />
           }
-          label="Remember me"
+          label='Remember me'
         />
         <ThemeProvider theme={button}>
-          <Button type="submit" variant="contained" fullWidth>
-            <Box fontWeight="fontWeightBold">LOGIN</Box>
+          <Button type='submit' variant='contained' fullWidth>
+            <Box fontWeight='fontWeightBold'>LOGIN</Box>
           </Button>
         </ThemeProvider>
         <Box my={3}>
           <Divider>OR</Divider>
         </Box>
-        <Box my={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          {/* <img src={googleLogo} alt="Google" /> */}
-          <div id="signInButton" data-onsuccess="onSignIn"></div>
-          <img src={linkedInLogo} alt="LinkedIn" />
+        <Box my={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div id='signInButton' data-onsuccess='onSignIn'></div>
+          <img src={linkedInLogo} alt='LinkedIn' />
         </Box>
         <Box style={{ color: colors.black }}>
-          Need an account?{" "}
+          Need an account?{' '}
           <Link
-            href="/signup"
-            variant="body2"
+            href='/signup'
+            variant='body2'
             style={{ color: colors.primary }}
           >
             Sign Up
