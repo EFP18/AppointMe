@@ -36,7 +36,7 @@ function LandingPage() {
           // Use Link component instead of href
           component={Link}
           // URL to navigate when the button is clicked
-          to='/signup'
+          to='/login'
         >
           Sign Up / Login
         </Button>
