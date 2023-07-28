@@ -23,8 +23,8 @@ function Navbar() {
 
   return (
     <div>
-      {Auth.loggedIn() ? (
-        <>
+      {/* {Auth.loggedIn() ? (
+        <> */}
           <Box
             sx={{
               position: 'fixed',
@@ -157,10 +157,10 @@ function Navbar() {
               </IconButton>
             </Box>
           </Box>
-        </>
+        {/* </>
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 }
