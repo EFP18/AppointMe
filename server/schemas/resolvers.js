@@ -5,9 +5,21 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         vendor: async () => {
-            return Vendor.findOne({ _id: context.user._id});
+            return Vendor.findOne({ _id });
         },
-
+        business: async () => {
+            return Business.findOne({ _id });
+        },
+        businesses: async () => {
+            return Business.find()
+                .populate('tags')
+                .populate('services')
+                .populate('clients')
+        },
+        client: async () => {
+            return Client.findOne({ _id }).populate('previousShopping
+            ')
+        }
     },
     
     Mutation: {
