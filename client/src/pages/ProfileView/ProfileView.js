@@ -85,7 +85,7 @@ function ProfileView(props) {
         <h2>Availability</h2>
         {/* Render availability based on its structure */}
 
-        {tags && <p>Category: {tags}</p>}
+    
 
         <Button variant="contained" fullWidth>
           View Profile
