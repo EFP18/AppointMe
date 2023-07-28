@@ -28,7 +28,7 @@ const serviceSchema = require('./Service');
             type: String,
         },
         phone: {
-            type: Number,
+            type: String,
         },
         email: {
             type: String,
