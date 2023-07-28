@@ -8,12 +8,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import musicImg from '../../images/music.jpg';
 import Page from '../../components/Page';
-import Navbar from '../../components/Navbar';
+import Header from '../../components/Header';
 
 export default function MusicServicePage() {
   return (
     <Page>
-      <Navbar />
+      <Header />
       <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
         <div>Industry Title</div>
         <Card sx={{ maxWidth: 345 }}>
