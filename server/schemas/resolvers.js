@@ -5,14 +5,38 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         vendor: async () => {
-            return Vendor.findOne({ _id: context.user._id});
+            return Vendor.findOne({ _id });
         },
-
+        business: async () => {
+            return Business.findOne({ _id })
+            .populate('tags')
+            .populate('services')
+            .populate('clients');
+        },
+        businesses: async () => {
+            return Business.find()
+                .populate('tags')
+                .populate('services')
+                .populate('clients');
+        },
+        client: async () => {
+            return Client.findOne({ _id }).populate('previousShopping');
+        },
+        clients: async () => {
+            return Client.find().populate('previousShopping');
+        },
+        tags: async () => {
+            return Tag.find();
+        },
     },
     
+
+    // TODO: add business, del business, upd business, add tag, del tag, +
+    // TODO: add service, del service, add client, del client, 
+    // TODO: upd socialmedia, del social media,  add vendor, del vendor, upd vendor
     Mutation: {
-        addUser: async (parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+        addVendor: async (parent, { firstName, lastName, email, password }) => {
+            const user = await Vendor.create({ firstName, lastName, email, password });
             const token = signToken(user);
             return { token, user };
         },
@@ -36,4 +60,4 @@ const resolvers = {
     },
 };
 
-    module.exports = resolvers;
+module.exports = resolvers;
