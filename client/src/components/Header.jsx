@@ -61,7 +61,10 @@ export default function Header() {
             <SearchBox
               details={services}
               // Update the setSelectedService when a service is selected
-              onSelect={(service) => setSelectedService(service)}
+              onSelect={(service) => {
+                setSelectedService(service);
+                // Call the function to update selected industry
+              }}
             />
           </div>
           {/* Render the selected service page */}

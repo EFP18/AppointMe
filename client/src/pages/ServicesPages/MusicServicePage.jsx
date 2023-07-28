@@ -9,13 +9,18 @@ import Typography from '@mui/material/Typography';
 import musicImg from '../../images/music.jpg';
 import Page from '../../components/Page';
 import Header from '../../components/Header';
+// import services from '../../data/services';
+import SearchBox from '../../components/SearchBox';
+import { useState } from 'react';
 
-export default function MusicServicePage() {
+export default function MusicServicePage({ selectedIndustry }) {
   return (
     <Page>
       <Header />
       <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
-        <div>Industry Title</div>
+        {/* Use the selectedIndustry state to display the dynamically updated title */}
+        <h1>'Industry Title'</h1>
+
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             component='img'
@@ -40,17 +45,3 @@ export default function MusicServicePage() {
     </Page>
   );
 }
-// function MusicServicePage() {
-//   return (
-//     <div>
-//       <div>List different music vendors here</div>
-//       <p>this is an example service page</p>
-//       <p>
-//         different vendors go to different cards with their logo(?) and short
-//         bio/name?
-//       </p>
-//     </div>
-//   );
-// }
-
-// export default MusicServicePage;
