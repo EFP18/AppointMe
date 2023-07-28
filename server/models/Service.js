@@ -12,6 +12,7 @@ const { Schema } = require('mongoose');
         },
         price: {
             type: Number,
+            required: true,
         },
     });
 
