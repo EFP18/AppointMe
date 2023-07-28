@@ -134,24 +134,6 @@ export default function VendorProfile() {
               </Select>
             </FormControl>
 
-            <Divider
-              style={{ margin: '30px 0', backgroundColor: colors.black }}
-            />
-
-            <h2 style={{ textAlign: 'left' }}>Contact Information</h2>
-            <TextField
-              label='Email'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-            <TextField
-              label='Phone Number'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-
             <TextField
               label='Location'
               variant='outlined'
@@ -159,45 +141,10 @@ export default function VendorProfile() {
               margin='normal'
               placeholder='Your city'
             />
-
             <Divider
               style={{ margin: '30px 0', backgroundColor: colors.black }}
             />
-            <h2 style={{ textAlign: 'left' }}>Social Links</h2>
-            <TextField
-              label='Youtube'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-            <TextField
-              label='Facebook'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-            <TextField
-              label='Instagram'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-            <TextField
-              label='Facebook'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
-            <TextField
-              label='TikTok'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-            />
 
-            <Divider
-              style={{ margin: '30px 0', backgroundColor: colors.black }}
-            />
             <h2 style={{ textAlign: 'left' }}>Services</h2>
             {services.map((service, index) => (
               <Stack key={index} direction='row' spacing={2}>
@@ -240,6 +187,58 @@ export default function VendorProfile() {
                 </Box>
               </Stack>
             ))}
+            <Divider
+              style={{ margin: '30px 0', backgroundColor: colors.black }}
+            />
+            <h2 style={{ textAlign: 'left' }}>Contact Information</h2>
+            <TextField
+              label='Email'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Phone Number'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+
+            <Divider
+              style={{ margin: '30px 0', backgroundColor: colors.black }}
+            />
+
+            <h2 style={{ textAlign: 'left' }}>Social Links</h2>
+            <TextField
+              label='Youtube'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Facebook'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Instagram'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='Facebook'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
+            <TextField
+              label='TikTok'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+            />
 
             <Stack
               direction='row'
@@ -255,7 +254,9 @@ export default function VendorProfile() {
                 Save Profile
               </Button>
 
-              <Button variant='contained' style={{ marginBottom: '0px' }}>
+              <Button 
+              href='/profileview'
+              variant='contained' style={{ marginBottom: '0px' }}>
                 View Profile
               </Button>
             </Stack>
