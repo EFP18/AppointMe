@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ClientModal from "../../components/ClientModal/ClientModal";
 import ClientTable, { rows } from "../../components/ClientTable/ClientTable";
 import Navbar from "../../components/Navbar";
+import { Box } from "@mui/material";
 import "./ClientDb.css";
 
 export default function ClientDb() {
@@ -43,31 +44,33 @@ export default function ClientDb() {
     setEditMode(false);
   };
 
-  const handleNoteChange = (event) => {
+  const handleNoteChange = event => {
     setNote(event.target.value);
   };
 
   return (
-    <div>
+    <div sx={{ display: "flex" }}>
       <Navbar />
-      <ClientTable 
-        rows={rows}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
-        handleOpen={handleOpen}
-      />
-      <ClientModal 
-        open={open} 
-        handleClose={handleClose} 
-        selectedClient={selectedClient}
-        handleEdit={handleEdit}
-        handleSave={handleSave}
-        editMode={editMode}
-        handleNoteChange={handleNoteChange}
-        notes={note}
-      />
+      <Box sx={{ marginLeft: "100px", flexGrow: 1 }}>
+        <ClientTable
+          rows={rows}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleOpen={handleOpen}
+        />
+        <ClientModal
+          open={open}
+          handleClose={handleClose}
+          selectedClient={selectedClient}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          editMode={editMode}
+          handleNoteChange={handleNoteChange}
+          notes={note}
+        />
+      </Box>
     </div>
   );
 }
