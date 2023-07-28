@@ -25,7 +25,7 @@ export default function VendorProfile() {
   return (
     <div>
       <Navbar />
-      <Box sx={{ maxWidth: 500, margin: "0 auto" }}>
+      <Box sx={{  marginLeft: '100px', flexGrow: 1 }}>
         <h1>Edit Profile</h1>
         <ThemeProvider theme={button}>
           <form>
