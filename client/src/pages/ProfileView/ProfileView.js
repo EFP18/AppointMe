@@ -6,6 +6,7 @@ import facebookLogo from './img/facebook.png';
 import instagramLogo from './img/instagram.png';
 import linkedInLogo from './img/linkedin.png';
 import tiktokLogo from './img/tik-tok.png';
+import Page from '../../components/Page';
 
 function ProfileView(props) {
   const {
@@ -33,62 +34,64 @@ function ProfileView(props) {
   } = props;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Navbar />
-      <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
-        <h1>{name}</h1>
-        <p>{description}</p>
+    <Page title={'My Profile - AppointMe'} className='landing-page'>
+      <Box sx={{ display: 'flex' }}>
+        <Navbar />
+        <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
+          <h1>{name}</h1>
+          <p>{description}</p>
 
-        {imageUrl && <img src={imageUrl} alt='Vendor' />}
+          {imageUrl && <img src={imageUrl} alt='Vendor' />}
 
-        {facebookUrl && (
-          <a href={facebookUrl} target='_blank' rel='noopener noreferrer'>
-            <img src={facebookLogo} alt='Facebook' />
-          </a>
-        )}
-        {youtubeUrl && (
-          <a href={youtubeUrl} target='_blank' rel='noopener noreferrer'>
-            <img src={youtubeLogo} alt='YouTube' />
-          </a>
-        )}
-        {instagramUrl && (
-          <a href={instagramUrl} target='_blank' rel='noopener noreferrer'>
-            <img src={instagramLogo} alt='Instagram' />
-          </a>
-        )}
-        {linkedInUrl && (
-          <a href={linkedInUrl} target='_blank' rel='noopener noreferrer'>
-            <img src={linkedInLogo} alt='LinkedIn' />
-          </a>
-        )}
-        {tiktokUrl && (
-          <a href={tiktokUrl} target='_blank' rel='noopener noreferrer'>
-            <img src={tiktokLogo} alt='TikTok' />
-          </a>
-        )}
+          {facebookUrl && (
+            <a href={facebookUrl} target='_blank' rel='noopener noreferrer'>
+              <img src={facebookLogo} alt='Facebook' />
+            </a>
+          )}
+          {youtubeUrl && (
+            <a href={youtubeUrl} target='_blank' rel='noopener noreferrer'>
+              <img src={youtubeLogo} alt='YouTube' />
+            </a>
+          )}
+          {instagramUrl && (
+            <a href={instagramUrl} target='_blank' rel='noopener noreferrer'>
+              <img src={instagramLogo} alt='Instagram' />
+            </a>
+          )}
+          {linkedInUrl && (
+            <a href={linkedInUrl} target='_blank' rel='noopener noreferrer'>
+              <img src={linkedInLogo} alt='LinkedIn' />
+            </a>
+          )}
+          {tiktokUrl && (
+            <a href={tiktokUrl} target='_blank' rel='noopener noreferrer'>
+              <img src={tiktokLogo} alt='TikTok' />
+            </a>
+          )}
 
-        {email && <p>Email: {email}</p>}
+          {email && <p>Email: {email}</p>}
 
-        <h2>Services</h2>
-        {services.length > 0 ? (
-          services.map((service, index) => (
-            <div key={index}>
-              <p>Service: {service.name}</p>
-              <p>Price: {service.price}</p>
-            </div>
-          ))
-        ) : (
-          <p>No services listed.</p>
-        )}
+          <h2>Services</h2>
+          {services.length > 0 ? (
+            services.map((service, index) => (
+              <div key={index}>
+                <p>Service: {service.name}</p>
+                <p>Price: {service.price}</p>
+              </div>
+            ))
+          ) : (
+            <p>No services listed.</p>
+          )}
 
-        <h2>Availability</h2>
-        {/* Render availability based on its structure */}
+          <h2>Availability</h2>
+          {/* Render availability based on its structure */}
 
-        <Button variant='contained' fullWidth>
-          View Profile
-        </Button>
+          <Button variant='contained' fullWidth>
+            View Profile
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </Page>
   );
 }
 
