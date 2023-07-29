@@ -13,6 +13,7 @@ import tiktokLogo from './img/tik-tok2.png';
 import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
+import Page from '../../components/Page';
 
 const useStyles = makeStyles({
   profile: {
@@ -115,130 +116,140 @@ function ProfileView(props) {
   const [checkedService, setCheckedService] = useState(null);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Navbar />
-      <Box className={classes.profile}>
-        <Box className={classes.header}>
-          <img
-            className={classes.bgImage}
-            src={backgroundImg ? backgroundImg : stockBackgroundImg}
-            alt='Background'
-          />
-          <Box className={classes.profileInfo}>
+    <Page title={'My Profile - AppointMe'} className='landing-page'>
+      <Box sx={{ display: 'flex' }}>
+        <Navbar />
+        <Box className={classes.profile}>
+          <Box className={classes.header}>
             <img
-              className={classes.profileImage}
-              src={image ? image : stockImg}
-              alt='Profile'
+              className={classes.bgImage}
+              src={backgroundImg ? backgroundImg : stockBackgroundImg}
+              alt='Background'
             />
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '100%',
-              }}
-            >
-              <Box>
-                <Typography variant='h4' className={classes.name}>
-                  {name}
-                </Typography>
-                <Typography variant='body1' className={classes.location}>
-                  {location}
-                </Typography>
-              </Box>
-              <Box>
-                <ThemeProvider theme={button}>
-                  <Button
-                    href='/vendorprofile'
-                    variant='contained'
-                    style={{ marginRight: '40px' }}
-                  >
-                    ✎ Edit Profile
-                  </Button>
-                </ThemeProvider>
+            <Box className={classes.profileInfo}>
+              <img
+                className={classes.profileImage}
+                src={image ? image : stockImg}
+                alt='Profile'
+              />
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
+                <Box>
+                  <Typography variant='h4' className={classes.name}>
+                    {name}
+                  </Typography>
+                  <Typography variant='body1' className={classes.location}>
+                    {location}
+                  </Typography>
+                </Box>
+                <Box>
+                  <ThemeProvider theme={button}>
+                    <Button
+                      href='/vendorprofile'
+                      variant='contained'
+                      style={{ marginRight: '40px' }}
+                    >
+                      ✎ Edit Profile
+                    </Button>
+                  </ThemeProvider>
+                </Box>
               </Box>
             </Box>
           </Box>
-        </Box>
 
-        <Typography className={classes.description}>{description}</Typography>
+          <Typography className={classes.description}>{description}</Typography>
 
-        <Divider
-          style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
-        />
+          <Divider
+            style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
+          />
 
-        <h2>Services</h2>
-        {services.length > 0 ? (
-          services.map((service, index) => (
-            <Box key={index} className={classes.service}>
-              <Checkbox
-                value='remember'
-                sx={{
-                  color: colors.primary,
-                  '&.Mui-checked': { color: colors.primary },
-                }}
-                checked={checkedService === index}
-                onChange={() => setCheckedService(index)}
+          <h2>Services</h2>
+          {services.length > 0 ? (
+            services.map((service, index) => (
+              <Box key={index} className={classes.service}>
+                <Checkbox
+                  value='remember'
+                  sx={{
+                    color: colors.primary,
+                    '&.Mui-checked': { color: colors.primary },
+                  }}
+                  checked={checkedService === index}
+                  onChange={() => setCheckedService(index)}
+                />
+                <Typography className={classes.serviceName}>
+                  {service.name}
+                </Typography>
+                <Typography>${service.price}</Typography>
+              </Box>
+            ))
+          ) : (
+            <p>No services listed.</p>
+          )}
+
+          {/* <h2>Availability</h2> */}
+          {/* Render availability based on its structure */}
+          {facebookUrl && (
+            <a href={facebookUrl} target='_blank' rel='noopener noreferrer'>
+              <img
+                className={classes.socialIcon}
+                src={facebookLogo}
+                alt='Facebook'
               />
-              <Typography className={classes.serviceName}>
-                {service.name}
-              </Typography>
-              <Typography>${service.price}</Typography>
-            </Box>
-          ))
-        ) : (
-          <p>No services listed.</p>
-        )}
-
-        {/* <h2>Availability</h2> */}
-        {/* Render availability based on its structure */}
-        {facebookUrl && (
-          <a href={facebookUrl} target='_blank' rel='noopener noreferrer'>
-            <img
-              className={classes.socialIcon}
-              src={facebookLogo}
-              alt='Facebook'
-            />
-          </a>
-        )}
-        {youtubeUrl && (
-          <a href={youtubeUrl} target='_blank' rel='noopener noreferrer'>
-            <img
-              className={classes.socialIcon}
-              src={youtubeLogo}
-              alt='YouTube'
-            />
-          </a>
-        )}
-        {instagramUrl && (
-          <a href={instagramUrl} target='_blank' rel='noopener noreferrer'>
-            <img
-              className={classes.socialIcon}
-              src={instagramLogo}
-              alt='Instagram'
-            />
-          </a>
-        )}
-        {linkedInUrl && (
-          <a href={linkedInUrl} target='_blank' rel='noopener noreferrer'>
-            <img
-              className={classes.socialIcon}
-              src={linkedInLogo}
-              alt='LinkedIn'
-            />
-          </a>
-        )}
-        {tiktokUrl && (
-          <a href={tiktokUrl} target='_blank' rel='noopener noreferrer'>
-            <img className={classes.socialIcon} src={tiktokLogo} alt='TikTok' />
-          </a>
-        )}
-        {email && (
-          <a href={`mailto:${email}`} target='_blank' rel='noopener noreferrer'>
-            <img className={classes.socialIcon} src={emailLogo} alt='Email' />
-          </a>
-        )}
+            </a>
+          )}
+          {youtubeUrl && (
+            <a href={youtubeUrl} target='_blank' rel='noopener noreferrer'>
+              <img
+                className={classes.socialIcon}
+                src={youtubeLogo}
+                alt='YouTube'
+              />
+            </a>
+          )}
+          {instagramUrl && (
+            <a href={instagramUrl} target='_blank' rel='noopener noreferrer'>
+              <img
+                className={classes.socialIcon}
+                src={instagramLogo}
+                alt='Instagram'
+              />
+            </a>
+          )}
+          {linkedInUrl && (
+            <a href={linkedInUrl} target='_blank' rel='noopener noreferrer'>
+              <img
+                className={classes.socialIcon}
+                src={linkedInLogo}
+                alt='LinkedIn'
+              />
+            </a>
+          )}
+          {tiktokUrl && (
+            <a href={tiktokUrl} target='_blank' rel='noopener noreferrer'>
+              <img
+                className={classes.socialIcon}
+                src={tiktokLogo}
+                alt='TikTok'
+              />
+            </a>
+          )}
+          {email && (
+            <a
+              href={`mailto:${email}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <img className={classes.socialIcon} src={emailLogo} alt='Email' />
+            </a>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </Page>
   );
 }
 
