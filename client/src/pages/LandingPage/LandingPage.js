@@ -1,61 +1,94 @@
-import { React, useState } from 'react';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-// Import the Link component for routing
+import * as React from 'react';
+import Header from '../../components/Header';
 import './LandingPage.css';
-import SearchBox from '../../components/SearchBox';
 import Page from '../../components/Page';
-import appointme from '../../images/appointme-lowercase-small.png';
 import appointmeLogo from '../../images/appointme-logo.png';
-import services from '../../data/services';
-// Import the service pages
-import MusicServicePage from '../ServicesPages/MusicServicePage';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import Container from '@mui/material/Container';
 
 function LandingPage() {
-  const [selectedService, setSelectedService] = useState(null);
+  // const [selectedService, setSelectedService] = useState(null);
 
-  const handleServiceNavigation = () => {
-    if (selectedService) {
-      switch (selectedService.type) {
-        case 'Music':
-          return <MusicServicePage />;
-        default:
-          return null;
-      }
-    }
-  };
+  // const handleServiceNavigation = () => {
+  //   if (selectedService) {
+  //     switch (selectedService.type) {
+  //       case 'Music':
+  //         return <MusicServicePage />;
+  //       default:
+  //         return null;
+  //     }
+  //   }
+  // };
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
-      <img className='' src={appointmeLogo} alt='appointme-logo' style={{}} />
-      <img className='' src={appointme} alt='appointme-text' style={{}} />
-      <div className='login-signup-button'>
-        {/* button leads to signup page */}
-        <Button
-          variant='contained'
-          color='primary'
-          accessibilityLabel='signup/login button'
-          // Use Link component instead of href
-          component={Link}
-          // URL to navigate when the button is clicked
-          to='/login'
-        >
-          Sign Up / Login
-        </Button>
-      </div>
-      <div className='search-bar'>
-        <SearchBox
-          details={services}
-          // Update the setSelectedService when a service is selected
-          onSelect={(service) => setSelectedService(service)}
-        />
-      </div>
-      {/* Render the selected service page */}
-      {handleServiceNavigation()};<div>space for image</div>
-      <div>
-        Text about us, business model, link to contact us page? What we are, who
-        we are, services we offer, description of app.
-      </div>
+      <Header />
+      <Container maxWidth='sm'>
+        {/* <img className='' src={appointmeLogo} alt='appointme-logo' style={{}} /> */}
+        {/* <div className='search-bar'>
+          <SearchBox
+            details={services}
+            // Update the setSelectedService when a service is selected
+            onSelect={(service) => setSelectedService(service)}
+          />
+        </div> */}
+        {/* Render the selected service page */}
+        {/* {handleServiceNavigation()}; */}
+        <img alt='' src='' />
+        <div>
+          <h3> Welcome to AppointMe! </h3>
+          <h4>A platform that combines it all! </h4>
+          <p>
+            AppointMe offers a place where vendors can create their own page
+            with their services, and where they can organize their schedule. In
+            turn, clients can access a vendor's profile, browse through the
+            different services offered, and book them, using the integrated
+            calendar that connects to a vendor's schedule. All that, under the
+            same roof!
+          </p>
+          <h4> Who are we? </h4>
+          <p>
+            We are a group of friends who are about to start our careers as Web
+            Developers, and saw a need in the market for a CRM for everyone,
+            small and large business, as well as individuals, who need an
+            accessible, easy-to-use website, that will help them acquire new
+            clients, manage them, and keep track of their business analytics,
+            all in one place.
+          </p>
+          <p>
+            Vendors will also be able to accept payment from their client
+            through our integrated Stripe system.
+          </p>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea>
+              <CardMedia
+                component='img'
+                height='140'
+                image={appointmeLogo}
+                alt='appointme-logo'
+              />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='div'>
+                  Contact Us
+                </Typography>
+                <Typography variant='body2' color='text.secondary'>
+                  Have any questions or technical difficulties?
+                </Typography>
+                <Typography variant='body2' color='text.secondary'>
+                  <ul className='contactus'>
+                    <li>Give us a call at: 555-555-5555</li>
+                    <li>You can also email us at info@appointme.com </li>
+                  </ul>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </div>
+      </Container>
     </Page>
   );
 }

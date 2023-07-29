@@ -12,7 +12,10 @@ const GroupItems = styled('ul')({
   padding: 0,
 });
 
-export default function SearchBox({ details, onSelect }) {
+export default function SearchBox({
+  details,
+  onSelect,
+}) {
   const theme = useTheme();
 
   const options = services.map((option) => {
@@ -53,7 +56,7 @@ export default function SearchBox({ details, onSelect }) {
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
-          onSelect(value);
+          onSelect(value.type);
         }
       }}
       // Use Link component for navigation when a service is selected

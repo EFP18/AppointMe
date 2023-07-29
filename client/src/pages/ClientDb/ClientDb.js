@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import ClientModal from "../../components/ClientModal/ClientModal";
-import ClientTable, { rows } from "../../components/ClientTable/ClientTable";
-import Navbar from "../../components/Navbar";
-import { Box } from "@mui/material";
-import "./ClientDb.css";
+import React, { useState } from 'react';
+import ClientModal from '../../components/ClientModal/ClientModal';
+import ClientTable, { rows } from '../../components/ClientTable/ClientTable';
+import Navbar from '../../components/Navbar/Navbar';
+import { Box } from '@mui/material';
+import './ClientDb.css';
 
 export default function ClientDb() {
   const [page, setPage] = useState(0);
@@ -11,7 +11,7 @@ export default function ClientDb() {
   const [open, setOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState('');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,9 +49,9 @@ export default function ClientDb() {
   };
 
   return (
-    <div sx={{ display: "flex" }}>
+    <div sx={{ display: 'flex' }}>
       <Navbar />
-      <Box sx={{ marginLeft: "100px", flexGrow: 1 }}>
+      <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
         <ClientTable
           rows={rows}
           page={page}
