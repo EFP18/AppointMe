@@ -52,8 +52,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/calendarpage' element={<CalendarPage />} />
-          <Route path='/editprofile' element={<VendorProfile />} />
-          <Route path='/myprofile' element={<ProfileView />} />
+          <Route path='/vendorprofile' element={<VendorProfile />} />
+          <Route path='/profileview' element={<ProfileView />} />
           <Route path='/services/music' element={<MusicServicePage />} />
           <Route path='/clientDb' element={<ClientDb />} />
         </Routes>
