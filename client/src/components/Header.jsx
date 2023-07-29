@@ -1,7 +1,7 @@
 // This is the header for the landing page and services pages
 // It will be replaced by the navbar component when the user is logged in
 import { useState } from 'react';
-import MusicServicePage from '../pages/ServicesPages/MusicServicePage';
+// import MusicServicePage from '../pages/ServicesPages/MusicServicePage';
 // Import the Link component for routing
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -18,21 +18,22 @@ import services from '../data/services';
 export default function Header() {
   const [selectedService, setSelectedService] = useState(null);
 
-  const handleServiceNavigation = () => {
-    if (selectedService) {
-      switch (selectedService.type) {
-        case 'Music':
-          return <MusicServicePage />;
-        default:
-          return null;
-      }
-    }
-  };
+  // const handleServiceNavigation = () => {
+  //   if (selectedService) {
+  //     switch (selectedService.type) {
+  //       case 'Music':
+  //         return <MusicServicePage />;
+  //       default:
+  //         return null;
+  //     }
+  //   }
+  // };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
-          <img className='' src={appointme} alt='appointme-text' style={{}} />
+          {/* logo or text appointme with link behind it to lead back to landing page */}
+          {/* <img className='' src={appointme} alt='appointme-text' style={{}} /> */}
           <Typography
             variant='h6'
             noWrap
@@ -63,12 +64,11 @@ export default function Header() {
               // Update the setSelectedService when a service is selected
               onSelect={(service) => {
                 setSelectedService(service);
-                // Call the function to update selected industry
               }}
             />
           </div>
           {/* Render the selected service page */}
-          {handleServiceNavigation()}
+          {/* {handleServiceNavigation()} */}
         </Toolbar>
       </AppBar>
     </Box>

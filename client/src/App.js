@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ClientDb from './pages/ClientDb/ClientDb';
-import MusicServicePage from './pages/ServicesPages/MusicServicePage';
+import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 
 function App() {
   // Google Account signin integration
@@ -54,7 +54,7 @@ function App() {
           <Route path='/calendarpage' element={<CalendarPage />} />
           <Route path='/vendorprofile' element={<VendorProfile />} />
           <Route path='/profileview' element={<ProfileView />} />
-          <Route path='/services/music' element={<MusicServicePage />} />
+          <Route path='/services/:service' element={<ServicePage />} />
           <Route path='/clientDb' element={<ClientDb />} />
         </Routes>
         {/* <Footer /> */}
