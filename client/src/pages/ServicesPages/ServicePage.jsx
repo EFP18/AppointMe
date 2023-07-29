@@ -25,7 +25,7 @@ export default function ServicePage() {
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             component='img'
-            alt='music-image'
+            alt='vendor-image'
             height='150'
             // image should be each vendor's profile or logo image
             image={musicImg}

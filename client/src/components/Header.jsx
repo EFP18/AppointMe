@@ -1,7 +1,6 @@
 // This is the header for the landing page and services pages
 // It will be replaced by the navbar component when the user is logged in
 import { useState } from 'react';
-// import MusicServicePage from '../pages/ServicesPages/MusicServicePage';
 // Import the Link component for routing
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -34,7 +33,6 @@ export default function Header() {
           {/* logo or text appointme with link behind it to lead back to landing page */}
           <Typography
             variant='h5'
-            
             component='div'
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >

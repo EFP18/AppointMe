@@ -88,7 +88,7 @@ function Navbar() {
           <CustomIconButton
             icon={logoutIcon}
             altText='logout'
-            linkPath='#'
+            linkPath='/'
             linkText='Sign Out'
             onClick={logout}
             isHovered={isHovered}

@@ -25,13 +25,17 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    window.location.assign('/profileview');
   }
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
+    // once logged out, redirect to landing page
+    // window.location.reload();
   }
 }
 
-export default new AuthService();
+// instead of using an anonymous default export when exporting the AuthService instance,
+//  give it a name and then export it as a default module.
+const authServiceInstance = new AuthService();
+export default authServiceInstance;
