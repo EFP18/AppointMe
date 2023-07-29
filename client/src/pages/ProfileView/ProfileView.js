@@ -14,6 +14,7 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   profile: {
@@ -93,11 +94,12 @@ function ProfileView(props) {
     description = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     image,
     backgroundImg,
-    youtubeUrl = 'www.youtube.com',
-    facebookUrl = 'www.facebook.com',
-    instagramUrl = 'www.instagram.com',
-    linkedInUrl = 'www.linkedIn.com',
-    tiktokUrl = 'www.tiktok.com',
+    // external links require // in front of them to redirect successfully
+    youtubeUrl = '//www.youtube.com',
+    facebookUrl = '//www.facebook.com',
+    instagramUrl = '//www.instagram.com',
+    linkedInUrl = '//www.linkedIn.com',
+    tiktokUrl = '//www.tiktok.com',
     email = 'test@yahoo.com',
     services = [
       {
@@ -194,58 +196,58 @@ function ProfileView(props) {
           {/* <h2>Availability</h2> */}
           {/* Render availability based on its structure */}
           {facebookUrl && (
-            <a href={facebookUrl} target='_blank' rel='noopener noreferrer'>
+            <Link to={facebookUrl} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={facebookLogo}
                 alt='Facebook'
               />
-            </a>
+            </Link>
           )}
           {youtubeUrl && (
-            <a href={youtubeUrl} target='_blank' rel='noopener noreferrer'>
+            <Link to={youtubeUrl} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={youtubeLogo}
                 alt='YouTube'
               />
-            </a>
+            </Link>
           )}
           {instagramUrl && (
-            <a href={instagramUrl} target='_blank' rel='noopener noreferrer'>
+            <Link to={instagramUrl} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={instagramLogo}
                 alt='Instagram'
               />
-            </a>
+            </Link>
           )}
           {linkedInUrl && (
-            <a href={linkedInUrl} target='_blank' rel='noopener noreferrer'>
+            <Link to={linkedInUrl} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={linkedInLogo}
                 alt='LinkedIn'
               />
-            </a>
+            </Link>
           )}
           {tiktokUrl && (
-            <a href={tiktokUrl} target='_blank' rel='noopener noreferrer'>
+            <Link to={tiktokUrl} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={tiktokLogo}
                 alt='TikTok'
               />
-            </a>
+            </Link>
           )}
           {email && (
-            <a
-              href={`mailto:${email}`}
+            <Link
+              to={`mailto:${email}`}
               target='_blank'
               rel='noopener noreferrer'
             >
               <img className={classes.socialIcon} src={emailLogo} alt='Email' />
-            </a>
+            </Link>
           )}
         </Box>
       </Box>
