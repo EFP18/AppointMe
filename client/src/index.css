@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
-  font-family: 'League Spartan';
+  font-family: 'League Spartan', sans-serif;
   /* font-family: 'Poppins'; */
   /* font-family: 'Roboto'; */
   /* font-family: -apple-system, BlinkMacSystemFont, "Gudea", "Montserrat",
