@@ -25,13 +25,12 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/profileview');
+    // window.location.assign('/profileview');
   }
 
   logout() {
     localStorage.removeItem('id_token');
     // once logged out, redirect to landing page
-    // window.location.reload();
   }
 }
 
