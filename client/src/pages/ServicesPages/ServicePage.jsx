@@ -11,7 +11,7 @@ import Page from '../../components/Page';
 import Header from '../../components/Header';
 import { useParams } from 'react-router-dom';
 
-export default function MusicServicePage() {
+export default function ServicePage() {
   // grab the value of service from useParams to dynamically create the title of each service page
   const { service } = useParams();
 
@@ -20,13 +20,14 @@ export default function MusicServicePage() {
       <Header />
       <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
         {/* Use the selectedIndustry state to display the dynamically updated title */}
-        <Typography>{service}</Typography>
+        <Typography variant='h5'>{service}</Typography>
 
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             component='img'
             alt='music-image'
             height='150'
+            // image should be each vendor's profile or logo image
             image={musicImg}
           />
           <CardContent>

@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import * as React from 'react';
-import appointme from '../images/appointme-lowercase-small.png';
 import '../../src/pages/LandingPage/LandingPage';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -33,14 +32,15 @@ export default function Header() {
       <AppBar position='static'>
         <Toolbar>
           {/* logo or text appointme with link behind it to lead back to landing page */}
-          {/* <img className='' src={appointme} alt='appointme-text' style={{}} /> */}
           <Typography
-            variant='h6'
-            noWrap
+            variant='h5'
+            
             component='div'
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            {/* <this is the appointme image> */}
+            <Link to='/' style={{ textDecoration: 'none', float: 'left' }}>
+              appointme.
+            </Link>
           </Typography>
           <div className='Header pb-4'>
             <div className='login-signup-button'>
