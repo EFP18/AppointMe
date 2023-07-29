@@ -1,7 +1,7 @@
 {
   "name": "appoint-me",
   "version": "1.0.0",
-  "description": "",
+  "description": "crm for freelancers",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",

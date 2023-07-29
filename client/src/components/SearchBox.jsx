@@ -12,12 +12,8 @@ const GroupItems = styled('ul')({
   padding: 0,
 });
 
-export default function SearchBox({
-  details,
-  onSelect,
-}) {
+export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
-
   const options = services.map((option) => {
     const firstLetter = option.type[0].toUpperCase();
     return {
@@ -31,6 +27,7 @@ export default function SearchBox({
 
   const handleSearch = (e) => {
     setInputText(e.target.value);
+    // console.log
   };
 
   return (
@@ -53,6 +50,7 @@ export default function SearchBox({
           }}
         />
       )}
+
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
@@ -65,6 +63,7 @@ export default function SearchBox({
           {option.type}
         </Link>
       )}
+      
       renderGroup={(params) => (
         <li key={params.key}>
           <Box
