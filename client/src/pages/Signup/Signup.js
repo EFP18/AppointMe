@@ -17,6 +17,7 @@ import linkedInLogo from "../../assets/img/linkedin.png";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./Signup.css";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Container = styled(Box)({
   display: "flex",
