@@ -5,6 +5,8 @@ import Signup from './pages/Signup/Signup';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
+import ClientView from './pages/VendorPage-ClientView/ClientView';
+
 import LandingPage from './pages/LandingPage/LandingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import header and footer
@@ -56,6 +58,7 @@ function App() {
           <Route path='/profileview' element={<ProfileView />} />
           <Route path='/services/:service' element={<ServicePage />} />
           <Route path='/clientDb' element={<ClientDb />} />
+          <Route path='/clientview' element={<ClientView />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
