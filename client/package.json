@@ -31,8 +31,8 @@
     "react-linkedin-login-oauth2": "^2.0.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "react-share": "^4.4.1"
+    "react-share": "^4.4.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

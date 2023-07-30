@@ -13,6 +13,9 @@ import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
+import phoneIcon from './img/phone.png';
+import Fab from '@mui/material/Fab';
+import CallIcon from '@mui/icons-material/Call';
 
 const useStyles = makeStyles({
   profile: {
@@ -100,6 +103,7 @@ function ClientView(props) {
     linkedInUrl = '//www.linkedIn.com',
     tiktokUrl = '//www.tiktok.com',
     email = 'test@yahoo.com',
+    phone = '555-555-5555',
     services = [
       {
         name: 'Guitar Lesson',
@@ -118,8 +122,9 @@ function ClientView(props) {
 
   return (
     // dynamically create vendor or business name
-    <Page title={'Vendor Profile - AppointMe'} className='landing-page'>
+    <Page title={'Vendor Profile - AppointMe'}>
       <Header />
+
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>
@@ -134,6 +139,7 @@ function ClientView(props) {
                 src={image ? image : stockImg}
                 alt='Profile'
               />
+
               <Box
                 sx={{
                   display: 'flex',
@@ -158,6 +164,23 @@ function ClientView(props) {
           <Divider
             style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
           />
+
+          {phone && (
+            <div
+              className='floating-button'
+              style={{ display: 'flex', justifyContent: 'flex-end' }}
+            >
+              <Fab color='#1ABC9C'>
+                <Link
+                  to={`tel:${phone}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img src={phoneIcon} alt='Background' />
+                </Link>
+              </Fab>
+            </div>
+          )}
 
           <h2>Services</h2>
           {services.length > 0 ? (
