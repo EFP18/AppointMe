@@ -9,36 +9,21 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Container from '@mui/material/Container';
+import peopleWorking from '../../images/laptops-working.jpg';
 
 function LandingPage() {
   // const [selectedService, setSelectedService] = useState(null);
-
-  // const handleServiceNavigation = () => {
-  //   if (selectedService) {
-  //     switch (selectedService.type) {
-  //       case 'Music':
-  //         return <MusicServicePage />;
-  //       default:
-  //         return null;
-  //     }
-  //   }
-  // };
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
       <Header />
       <Container maxWidth='sm'>
         {/* <img className='' src={appointmeLogo} alt='appointme-logo' style={{}} /> */}
-        {/* <div className='search-bar'>
-          <SearchBox
-            details={services}
-            // Update the setSelectedService when a service is selected
-            onSelect={(service) => setSelectedService(service)}
-          />
-        </div> */}
-        {/* Render the selected service page */}
-        {/* {handleServiceNavigation()}; */}
-        <img alt='' src='' />
+        <img
+          alt='people-working'
+          src={peopleWorking}
+          style={{ height: '220px', width: '90%' }}
+        />
         <div>
           <h3> Welcome to AppointMe! </h3>
           <h4>A platform that combines it all! </h4>

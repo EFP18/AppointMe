@@ -6,24 +6,24 @@ import clientsIcon from '../../assets/img/clients.png';
 import editIcon from '../../assets/img/edit.png';
 import logoutIcon from '../../assets/img/logout.png';
 import viewIcon from '../../assets/img/view.png';
-import Auth from '../../utils/auth';
+import authServiceInstance from '../../utils/auth';
 import { CustomIconButton } from './NavbarFunction';
 
 function Navbar() {
-  const logout = event => {
+  const logout = (event) => {
     event.preventDefault();
-    Auth.logout();
+    authServiceInstance.logout();
   };
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleHover = hover => event => {
+  const handleHover = (hover) => (event) => {
     setIsHovered(hover);
   };
 
   return (
     <div>
-      {/* {Auth.loggedIn() ? (
+      {/* {authServiceInstance.loggedIn() ? (
         <> */}
       <Box
         sx={{
@@ -88,7 +88,8 @@ function Navbar() {
           <CustomIconButton
             icon={logoutIcon}
             altText='logout'
-            linkPath='#'
+            // once logged out, redirect to landing page
+            linkPath='/'
             linkText='Sign Out'
             onClick={logout}
             isHovered={isHovered}

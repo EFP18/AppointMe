@@ -5,6 +5,8 @@ import Signup from './pages/Signup/Signup';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
+import ClientView from './pages/VendorPage-ClientView/ClientView';
+
 import LandingPage from './pages/LandingPage/LandingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import header and footer
@@ -14,6 +16,7 @@ import ClientDb from './pages/ClientDb/ClientDb';
 import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
+import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 
 function App() {
   // Google Account signin integration
@@ -68,8 +71,9 @@ function App() {
           <Route path='/calendarpage' element={<CalendarPage />} />
           <Route path='/vendorprofile' element={<VendorProfile />} />
           <Route path='/profileview' element={<ProfileView />} />
-          <Route path='/services/music' element={<MusicServicePage />} />
+          <Route path='/services/:service' element={<ServicePage />} />
           <Route path='/clientDb' element={<ClientDb />} />
+          <Route path='/clientview' element={<ClientView />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
