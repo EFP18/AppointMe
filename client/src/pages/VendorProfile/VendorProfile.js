@@ -230,7 +230,7 @@ export default function VendorProfile() {
                 margin='normal'
               />
               <TextField
-                label='Facebook'
+                label='Email'
                 variant='outlined'
                 fullWidth
                 margin='normal'

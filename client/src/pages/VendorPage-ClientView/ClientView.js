@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Box, Checkbox, Typography, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import button from '../../components/button';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { colors } from '../../components/theme';
-import Navbar from '../../components/Navbar/Navbar';
 import youtubeLogo from './img/youtube2.png';
 import facebookLogo from './img/facebook2.png';
 import instagramLogo from './img/instagram2.png';
@@ -86,7 +83,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProfileView(props) {
+function ClientView(props) {
   const classes = useStyles();
   const {
     name = 'Test Name',
@@ -95,6 +92,7 @@ function ProfileView(props) {
     image,
     backgroundImg,
     // external links require // in front of them to redirect successfully
+    // dynamically create parameter for social urls
     youtubeUrl = '//www.youtube.com',
     facebookUrl = '//www.facebook.com',
     instagramUrl = '//www.instagram.com',
@@ -118,9 +116,9 @@ function ProfileView(props) {
   const [checkedService, setCheckedService] = useState(null);
 
   return (
+    // dynamically create vendor or business name
     <Page title={'My Profile - AppointMe'} className='landing-page'>
       <Box sx={{ display: 'flex' }}>
-        <Navbar />
         <Box className={classes.profile}>
           <Box className={classes.header}>
             <img
@@ -148,17 +146,6 @@ function ProfileView(props) {
                   <Typography variant='body1' className={classes.location}>
                     {location}
                   </Typography>
-                </Box>
-                <Box>
-                  <ThemeProvider theme={button}>
-                    <Button
-                      href='/vendorprofile'
-                      variant='contained'
-                      style={{ marginRight: '40px' }}
-                    >
-                      ✎ Edit Profile
-                    </Button>
-                  </ThemeProvider>
                 </Box>
               </Box>
             </Box>
@@ -255,4 +242,4 @@ function ProfileView(props) {
   );
 }
 
-export default ProfileView;
+export default ClientView;
