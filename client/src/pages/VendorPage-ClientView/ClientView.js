@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import phoneIcon from './img/phone.png';
 import Fab from '@mui/material/Fab';
-import CallIcon from '@mui/icons-material/Call';
 
 const useStyles = makeStyles({
   profile: {
@@ -165,10 +164,15 @@ function ClientView(props) {
             style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
           />
 
+          {/* need to make it fixed while scrolling */}
           {phone && (
-            <div
-              className='floating-button'
-              style={{ display: 'flex', justifyContent: 'flex-end' }}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: '20px',
+                position: 'fixed',
+              }}
             >
               <Fab color='#1ABC9C'>
                 <Link
@@ -179,7 +183,7 @@ function ClientView(props) {
                   <img src={phoneIcon} alt='Background' />
                 </Link>
               </Fab>
-            </div>
+            </Box>
           )}
 
           <h2>Services</h2>
