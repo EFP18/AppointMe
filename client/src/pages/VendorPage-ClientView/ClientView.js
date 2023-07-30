@@ -12,6 +12,7 @@ import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header';
 
 const useStyles = makeStyles({
   profile: {
@@ -117,7 +118,8 @@ function ClientView(props) {
 
   return (
     // dynamically create vendor or business name
-    <Page title={'My Profile - AppointMe'} className='landing-page'>
+    <Page title={'Vendor Profile - AppointMe'} className='landing-page'>
+      <Header />
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>

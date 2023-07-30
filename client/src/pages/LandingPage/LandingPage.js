@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Container from '@mui/material/Container';
 import peopleWorking from '../../images/laptops-working.jpg';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
   // const [selectedService, setSelectedService] = useState(null);
@@ -66,7 +67,15 @@ function LandingPage() {
                 <Typography variant='body2' color='text.secondary'>
                   <ul className='contactus'>
                     <li>Give us a call at: 555-555-5555</li>
-                    <li>You can also email us at info@appointme.com </li>
+                    <li>
+                      <div
+                        onClick={(e) => {
+                          window.location.href = 'mailto:info@appointme.com';
+                        }}
+                      >
+                        Email us directly at info@appointme.com{' '}
+                      </div>
+                    </li>
                   </ul>
                 </Typography>
               </CardContent>
