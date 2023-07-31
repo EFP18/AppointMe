@@ -1,17 +1,19 @@
-import React from "react";
-import "./App.css";
-import Login from "./pages/Login/Login";
+import React from 'react';
+import './App.css';
+import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
-import CalendarPage from './pages/CalendarPage/CalendarPage'
+import CalendarPage from './pages/CalendarPage/CalendarPage';
 import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
+import ClientView from './pages/VendorPage-ClientView/ClientView';
+
 import LandingPage from './pages/LandingPage/LandingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import header and footer
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ClientDb from './pages/ClientDb/ClientDb';
-import MusicServicePage from './pages/ServicesPages/MusicServicePage';
+import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 
 function App() {
   // Google Account signin integration
@@ -54,8 +56,9 @@ function App() {
           <Route path='/calendarpage' element={<CalendarPage />} />
           <Route path='/vendorprofile' element={<VendorProfile />} />
           <Route path='/profileview' element={<ProfileView />} />
-          <Route path='/services/music' element={<MusicServicePage />} />
+          <Route path='/services/:service' element={<ServicePage />} />
           <Route path='/clientDb' element={<ClientDb />} />
+          <Route path='/clientview' element={<ClientView />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

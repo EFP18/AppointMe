@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Box, Checkbox, Typography, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import button from '../../components/button';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { colors } from '../../components/theme';
-import Navbar from '../../components/Navbar/Navbar';
 import youtubeLogo from './img/youtube2.png';
 import facebookLogo from './img/facebook2.png';
 import instagramLogo from './img/instagram2.png';
@@ -15,6 +12,9 @@ import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header';
+import phoneIcon from './img/phone.png';
+import Fab from '@mui/material/Fab';
 
 const useStyles = makeStyles({
   profile: {
@@ -86,7 +86,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProfileView(props) {
+function ClientView(props) {
   const classes = useStyles();
   const {
     name = 'Test Name',
@@ -95,12 +95,14 @@ function ProfileView(props) {
     image,
     backgroundImg,
     // external links require // in front of them to redirect successfully
+    // dynamically create parameter for social urls
     youtubeUrl = '//www.youtube.com',
     facebookUrl = '//www.facebook.com',
     instagramUrl = '//www.instagram.com',
     linkedInUrl = '//www.linkedIn.com',
     tiktokUrl = '//www.tiktok.com',
     email = 'test@yahoo.com',
+    phone = '555-555-5555',
     services = [
       {
         name: 'Guitar Lesson',
@@ -118,9 +120,11 @@ function ProfileView(props) {
   const [checkedService, setCheckedService] = useState(null);
 
   return (
-    <Page title={'My Profile - AppointMe'} className='landing-page'>
+    // dynamically create vendor or business name
+    <Page title={'Vendor Profile - AppointMe'}>
+      <Header />
+
       <Box sx={{ display: 'flex' }}>
-        <Navbar />
         <Box className={classes.profile}>
           <Box className={classes.header}>
             <img
@@ -134,6 +138,7 @@ function ProfileView(props) {
                 src={image ? image : stockImg}
                 alt='Profile'
               />
+
               <Box
                 sx={{
                   display: 'flex',
@@ -149,17 +154,6 @@ function ProfileView(props) {
                     {location}
                   </Typography>
                 </Box>
-                <Box>
-                  <ThemeProvider theme={button}>
-                    <Button
-                      href='/vendorprofile'
-                      variant='contained'
-                      style={{ marginRight: '40px' }}
-                    >
-                      ✎ Edit Profile
-                    </Button>
-                  </ThemeProvider>
-                </Box>
               </Box>
             </Box>
           </Box>
@@ -169,6 +163,28 @@ function ProfileView(props) {
           <Divider
             style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
           />
+
+          {/* need to make it fixed while scrolling */}
+          {phone && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: '20px',
+                position: 'fixed',
+              }}
+            >
+              <Fab color='#1ABC9C'>
+                <Link
+                  to={`tel:${phone}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img src={phoneIcon} alt='Background' />
+                </Link>
+              </Fab>
+            </Box>
+          )}
 
           <h2>Services</h2>
           {services.length > 0 ? (
@@ -255,4 +271,4 @@ function ProfileView(props) {
   );
 }
 
-export default ProfileView;
+export default ClientView;

@@ -14,7 +14,6 @@ const GroupItems = styled('ul')({
 
 export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
-
   const options = services.map((option) => {
     const firstLetter = option.type[0].toUpperCase();
     return {
@@ -28,6 +27,7 @@ export default function SearchBox({ details, onSelect }) {
 
   const handleSearch = (e) => {
     setInputText(e.target.value);
+    // console.log
   };
 
   return (
@@ -50,10 +50,11 @@ export default function SearchBox({ details, onSelect }) {
           }}
         />
       )}
+
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
-          onSelect(value);
+          onSelect(value.type);
         }
       }}
       // Use Link component for navigation when a service is selected
@@ -62,6 +63,7 @@ export default function SearchBox({ details, onSelect }) {
           {option.type}
         </Link>
       )}
+      
       renderGroup={(params) => (
         <li key={params.key}>
           <Box
