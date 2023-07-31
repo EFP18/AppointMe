@@ -18,11 +18,19 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
+// temporary seed file for testing
+import categoryData from './categorySeeds.json';
+// import { GET_TAGS } from '../../utils/queries';
+// import { useQuery } from '@apollo/client';
 
 export default function VendorProfile() {
   const [category, setCategory] = React.useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [services, setServices] = useState([{ name: '', cost: '' }]);
+
+  // const [loading, data] = useQuery(GET_TAGS);
+  // // either an empty array or data queried with useQuery
+  // const categoryData = data?.tags || [];
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -43,6 +51,8 @@ export default function VendorProfile() {
     values.push({ name: '', cost: '' });
     setServices(values);
   };
+
+  // console.log(categoryData);
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
@@ -128,11 +138,17 @@ export default function VendorProfile() {
                   onChange={handleChange}
                   label='Category'
                 >
-                  <MenuItem value={'hair-beauty'}>Hair/Beauty</MenuItem>
-                  <MenuItem value={'music'}>Music</MenuItem>
-                  <MenuItem value={'lawn-gardening'}>Lawn/Gardening</MenuItem>
-                  <MenuItem value={'cooking'}>Cooking</MenuItem>
-                  <MenuItem value={'other'}>Other</MenuItem>
+                  {/* dynamically create the different industries/categories */}
+                  {/* key returns null */}
+                  {categoryData.map((category) => {
+                    return (
+                      <div>
+                        <MenuItem key={category.id} value={category.name}>
+                          {category.name}
+                        </MenuItem>
+                      </div>
+                    );
+                  })}
                 </Select>
               </FormControl>
 
