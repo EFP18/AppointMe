@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const resolvers = {
     Query: {
         vendor: async () => {
+            // need to define id parameter to indicate which vendor this queries
             return Vendor.findOne({ _id });
         },
         business: async () => {
