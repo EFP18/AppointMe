@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import { TextField, Autocomplete, Typography } from '@mui/material';
 import { styled, lighten, darken } from '@mui/system';
 import { useTheme } from '@mui/material';
 import { Box } from '@mui/material';
 import services from '../data/services';
-import { Link } from 'react-router-dom'; // Import the Link component
+import { Link } from 'react-router-dom';
+import { colors } from '../components/theme';
 
 const GroupItems = styled('ul')({
   padding: 0,
@@ -14,7 +14,7 @@ const GroupItems = styled('ul')({
 
 export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
-  const options = services.map((option) => {
+  const options = services.map(option => {
     const firstLetter = option.type[0].toUpperCase();
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
@@ -25,7 +25,7 @@ export default function SearchBox({ details, onSelect }) {
   // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     setInputText(e.target.value);
     // console.log
   };
@@ -36,21 +36,55 @@ export default function SearchBox({ details, onSelect }) {
       options={options.sort(
         (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
       )}
-      groupBy={(option) => option.firstLetter}
-      getOptionLabel={(option) => option.type}
-      sx={{ width: 300 }}
-      renderInput={(params) => (
+      groupBy={option => option.firstLetter}
+      getOptionLabel={option => option.type}
+      sx={{
+        width: 300,
+        '& .MuiOutlinedInput-root': {
+          borderRadius: 0,
+          '& fieldset': {
+            borderColor: 'transparent',
+          },
+          '&:hover fieldset': {
+            borderColor: 'transparent',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: 'transparent',
+          },
+        },
+        color: colors.black,
+        fontFamily: 'League Spartan',
+        fontSize: '24px',
+      }}
+      renderInput={params => (
         <TextField
           {...params}
-          label='Search vendors'
-          onKeyPress={(event) => {
+          label='Vendor'
+          onKeyPress={event => {
             if (event.key === 'Enter') {
               handleSearch(event);
             }
           }}
+          InputProps={{
+            ...params.InputProps,
+            style: {
+              borderBottom: `1px solid ${colors.black}`,
+              paddingRight: '50px',
+              fontFamily: 'League Spartan',
+              fontSize: '16px',
+            },
+          }}
+          InputLabelProps={{
+            shrink: true,
+            style: {
+              fontSize: '50px',
+              paddingTop: '15px',
+              fontFamily: 'League Spartan',
+            },
+          }}
+          variant='outlined'
         />
       )}
-
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
@@ -59,27 +93,41 @@ export default function SearchBox({ details, onSelect }) {
       }}
       // Use Link component for navigation when a service is selected
       renderOption={(props, option) => (
-        <Link to={`/services/${option.type}`} {...props}>
-          {option.type}
+        <Link
+          to={`/services/${option.type}`}
+          style={{ textDecoration: 'none' }}
+          {...props}
+        >
+          <Typography
+            style={{
+              fontFamily: 'League Spartan',
+              fontSize: '20px',
+              color: colors.black,
+              backgroundColor: colors.white,
+              fontWeight: 'bolder',
+            }}
+          >
+            {option.type}
+          </Typography>
         </Link>
       )}
-      
-      renderGroup={(params) => (
+      renderGroup={params => (
         <li key={params.key}>
           <Box
             sx={{
               position: 'sticky',
               top: '-8px',
               padding: '4px 10px',
-              color: 'primary',
-              backgroundColor:
-                theme.palette.mode === 'light'
-                  ? lighten(theme.palette.primary.light, 0.85)
-                  : darken(theme.palette.primary.main, 0.8),
+              color: colors.black,
+              backgroundColor: colors.secondary,
+              fontFamily: 'League Spartan',
+              fontSize: '20px',
+              fontWeight: 'bolder',
             }}
           >
             {params.group}
           </Box>
+
           <GroupItems>{params.children}</GroupItems>
         </li>
       )}
