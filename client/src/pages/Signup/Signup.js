@@ -18,7 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Signup.css';
 import Page from '../../components/Page';
-import { GoogleLogin } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -82,7 +82,7 @@ const Signup = () => {
             <Divider>OR</Divider>
           </Box>
           <Box my={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <div id='signInButton' data-onsuccess='onSignIn'></div>
+            {/* <div id='signInButton' data-onsuccess='onSignIn'></div> */}
             <img src={linkedInLogo} alt='LinkedIn' />
           </Box>
           <Box style={{ color: colors.black }}>

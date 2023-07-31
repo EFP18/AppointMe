@@ -13,50 +13,50 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ClientDb from './pages/ClientDb/ClientDb';
-import MusicServicePage from './pages/ServicesPages/MusicServicePage';
+// import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 
 function App() {
   // Google Account signin integration
-  const [user, setUser] = useState({});
-  function handleCallbackResponse(response) {
-    console.log('Encoded JWT ID token: ' + response.credential);
-    var userObj = jwt_decode(response.credential);
-    console.log(userObj);
-    setUser(userObj);
+  // const [user, setUser] = useState({});
+  // function handleCallbackResponse(response) {
+  //   console.log('Encoded JWT ID token: ' + response.credential);
+  //   var userObj = jwt_decode(response.credential);
+  //   console.log(userObj);
+  //   setUser(userObj);
 
     // if user not yet logged in, show SIGN IN Button
     // if user exists, show LOG OUT button
-    document.getElementById('signInButton').hidden = true;
-  }
-  <GoogleLogin
-    onSuccess={(credentialResponse) => {
-      console.log(credentialResponse);
-    }}
-    onError={() => {
-      console.log('Login Failed');
-    }}
-  />;
+  //   document.getElementById('signInButton').hidden = true;
+  // }
+  // <GoogleLogin
+  //   onSuccess={(credentialResponse) => {
+  //     console.log(credentialResponse);
+  //   }}
+  //   onError={() => {
+  //     console.log('Login Failed');
+  //   }}
+  // />;
   // signout
   // function handleSignOut(event) {
   //   setUser({});
   //   document.getElementById('signInButton').hidden = false;
   // }
-  useEffect(() => {
+  // useEffect(() => {
     /* global google */
-    google.accounts.id.initialize({
-      client_id:
-        '14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com',
-      callback: handleCallbackResponse,
-    });
+  //   google.accounts.id.initialize({
+  //     client_id:
+  //       '14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com',
+  //     callback: handleCallbackResponse,
+  //   });
 
-    google.accounts.id.renderButton(document.getElementById('signInButton'), {
-      theme: 'outline',
-      size: 'large',
-    });
-  }, []);
+  //   google.accounts.id.renderButton(document.getElementById('signInButton'), {
+  //     theme: 'outline',
+  //     size: 'large',
+  //   });
+  // }, []);
 
   return (
     <div className='App'>

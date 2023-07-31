@@ -19,9 +19,8 @@ import button from '../../components/button';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Page from '../../components/Page';
-import { GoogleLogin } from '@react-oauth/google';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
+// import { GoogleLogin } from '@react-oauth/google';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -46,9 +45,11 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <GoogleOAuthProvider clientId='14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com'>
+    // <GoogleOAuthProvider
+    //   clientId='14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com'
+    // >
       <Page title={'Login - AppointMe'}>
-      <Container>
+        <Container>
           <StyledCard>
             <h1 style={{ textAlign: 'left' }}>Login</h1>
             <TextField
@@ -102,16 +103,19 @@ const Login = () => {
             <Box my={3}>
               <Divider>OR</Divider>
             </Box>
-            <Box my={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            {/* google */}
-              <GoogleLogin
-              onSuccess={credentialResponse => {
-                console.log(credentialResponse);
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            />;
+            <Box
+              my={2}
+              sx={{ display: 'flex', justifyContent: 'space-evenly' }}
+            >
+              {/* google */}
+              {/* <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              /> */}
               <img src={linkedInLogo} alt='LinkedIn' />
             </Box>
             <Box style={{ color: colors.black }}>
@@ -127,8 +131,7 @@ const Login = () => {
           </StyledCard>
         </Container>
       </Page>
-    </GoogleOAuthProvider>
-
+    // </GoogleOAuthProvider>
   );
 };
 
