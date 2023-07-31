@@ -18,6 +18,10 @@ import { Link } from 'react-router-dom';
 import { GET_VENDOR } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
+// get all --> returns an []
+// get one --> returns an {}
+// map only when it's an array
+
 const useStyles = makeStyles({
   profile: {
     marginLeft: '90px',
@@ -89,38 +93,37 @@ const useStyles = makeStyles({
 });
 
 function ProfileView(props) {
-  const classes = useStyles();
-
   // for testing
-  // const id = '8hef9efhefe9h';
-  // const [loading, data] = useQuery(GET_VENDOR, { variables: { _id: id } });
-  // const vendorData = data?.vendor || {};
+  const id = '8hef9efhefe9h';
 
+  const [loading, data] = useQuery(GET_VENDOR, { variables: { _id: id } });
+  const vendorData = data?.vendor || {};
+
+  const classes = useStyles();
   const {
-    name = 'Test Name',
-    location = 'Peru',
-    description = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-    image,
-    backgroundImg,
+    name = vendorData.business.name,
+    // vendor name
+    firstName = vendorData.firstName,
+    // location = 'Peru',
+    description = vendorData.business.description,
+    image = vendorData.business.image,
+    logo = vendorData.business.logo,
     // external links require // in front of them to redirect successfully
-    youtubeUrl = '//www.youtube.com',
-    facebookUrl = '//www.facebook.com',
-    instagramUrl = '//www.instagram.com',
-    linkedInUrl = '//www.linkedIn.com',
-    tiktokUrl = '//www.tiktok.com',
-    email = 'test@yahoo.com',
+    youTube = '//' + vendorData.business.socialMedia.youTube,
+    facebook = '//' + vendorData.business.socialMedia.facebook,
+    instagram = '//' + vendorData.business.socialMedia.instagram,
+    linkedIn = '//' + vendorData.business.socialMedia.linkedIn,
+    tikTok = '//' + vendorData.business.socialMedia.tikTok,
+    email = vendorData.business.email,
     services = [
       {
-        name: 'Guitar Lesson',
-        price: 30,
-      },
-      {
-        name: 'Piano Lesson',
-        price: 25,
+        name: vendorData.business.services.name,
+        description: vendorData.business.services.description,
+        price: vendorData.business.services.price,
       },
     ],
     availability,
-    tags = 'Music',
+    tags = vendorData.business.tags.name,
   } = props;
 
   const [checkedService, setCheckedService] = useState(null);
@@ -133,8 +136,8 @@ function ProfileView(props) {
           <Box className={classes.header}>
             <img
               className={classes.bgImage}
-              src={backgroundImg ? backgroundImg : stockBackgroundImg}
-              alt='Background'
+              src={logo ? logo : stockBackgroundImg}
+              alt='logo'
             />
             <Box className={classes.profileInfo}>
               <img
@@ -154,7 +157,7 @@ function ProfileView(props) {
                     {name}
                   </Typography>
                   <Typography variant='body1' className={classes.location}>
-                    {location}
+                    {firstName}
                   </Typography>
                 </Box>
                 <Box>
@@ -203,8 +206,8 @@ function ProfileView(props) {
 
           {/* <h2>Availability</h2> */}
           {/* Render availability based on its structure */}
-          {facebookUrl && (
-            <Link to={facebookUrl} target='_blank' rel='noopener noreferrer'>
+          {facebook && (
+            <Link to={facebook} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={facebookLogo}
@@ -212,8 +215,8 @@ function ProfileView(props) {
               />
             </Link>
           )}
-          {youtubeUrl && (
-            <Link to={youtubeUrl} target='_blank' rel='noopener noreferrer'>
+          {youTube && (
+            <Link to={youTube} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={youtubeLogo}
@@ -221,8 +224,8 @@ function ProfileView(props) {
               />
             </Link>
           )}
-          {instagramUrl && (
-            <Link to={instagramUrl} target='_blank' rel='noopener noreferrer'>
+          {instagram && (
+            <Link to={instagram} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={instagramLogo}
@@ -230,8 +233,8 @@ function ProfileView(props) {
               />
             </Link>
           )}
-          {linkedInUrl && (
-            <Link to={linkedInUrl} target='_blank' rel='noopener noreferrer'>
+          {linkedIn && (
+            <Link to={linkedIn} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={linkedInLogo}
@@ -239,8 +242,8 @@ function ProfileView(props) {
               />
             </Link>
           )}
-          {tiktokUrl && (
-            <Link to={tiktokUrl} target='_blank' rel='noopener noreferrer'>
+          {tikTok && (
+            <Link to={tikTok} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={tiktokLogo}
@@ -264,3 +267,6 @@ function ProfileView(props) {
 }
 
 export default ProfileView;
+
+
+

@@ -6,7 +6,7 @@ import CalendarPage from './pages/CalendarPage/CalendarPage';
 import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
 import ClientView from './pages/VendorPage-ClientView/ClientView';
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import LandingPage from './pages/LandingPage/LandingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import header and footer
@@ -18,6 +18,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
+
 function App() {
   // Google Account signin integration
   // const [user, setUser] = useState({});
@@ -27,8 +32,8 @@ function App() {
   //   console.log(userObj);
   //   setUser(userObj);
 
-    // if user not yet logged in, show SIGN IN Button
-    // if user exists, show LOG OUT button
+  // if user not yet logged in, show SIGN IN Button
+  // if user exists, show LOG OUT button
   //   document.getElementById('signInButton').hidden = true;
   // }
   // <GoogleLogin
@@ -45,7 +50,7 @@ function App() {
   //   document.getElementById('signInButton').hidden = false;
   // }
   // useEffect(() => {
-    /* global google */
+  /* global google */
   //   google.accounts.id.initialize({
   //     client_id:
   //       '14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com',
@@ -59,26 +64,27 @@ function App() {
   // }, []);
 
   return (
-    <div className='App'>
-      <BrowserRouter>
-        {/* <Header></Header> */}
-        {/* conditionally rendered routes */}
-        <Routes>
-          {/* endpoints */}
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/calendarpage' element={<CalendarPage />} />
-          <Route path='/vendorprofile' element={<VendorProfile />} />
-          <Route path='/profileview' element={<ProfileView />} />
-          <Route path='/services/:service' element={<ServicePage />} />
-          <Route path='/clientDb' element={<ClientDb />} />
-          <Route path='/clientview' element={<ClientView />} />
-        </Routes>
-        {/* <Footer /> */}
-      </BrowserRouter>
-      ;
-    </div>
+    <ApolloProvider client={client}>
+      <div className='App'>
+        <BrowserRouter>
+          {/* <Header></Header> */}
+          {/* conditionally rendered routes */}
+          <Routes>
+            {/* endpoints */}
+            <Route path='/' element={<LandingPage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/calendarpage' element={<CalendarPage />} />
+            <Route path='/vendorprofile' element={<VendorProfile />} />
+            <Route path='/profileview' element={<ProfileView />} />
+            <Route path='/services/:service' element={<ServicePage />} />
+            <Route path='/clientDb' element={<ClientDb />} />
+            <Route path='/clientview' element={<ClientView />} />
+          </Routes>
+          {/* <Footer /> */}
+        </BrowserRouter>
+      </div>
+    </ApolloProvider>
   );
 }
 
