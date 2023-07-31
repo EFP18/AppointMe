@@ -95,7 +95,7 @@ function ProfileView() {
 
   // id is for testing
   // const id = '8hef9efhefe9h';
-  // const [loading, data] = useQuery(GET_VENDOR, { variables: { _id: id } });
+  // const {loading, data} = useQuery(GET_VENDOR);
   // const vendorData = data?.vendor || {};
 
   const [checkedService, setCheckedService] = useState(null);
