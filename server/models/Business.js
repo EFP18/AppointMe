@@ -2,8 +2,6 @@ const { Schema, model } = require('mongoose');
 
 // import social media schema for links
 const socialMediaSchema = require('./SocialMedia');
-// import service schema to save services within business profile
-const serviceSchema = require('./Service');
 
 // business information
     const businessSchema = new Schema(
@@ -11,7 +9,6 @@ const serviceSchema = require('./Service');
         name: {
             type: String,
             required: true,
-            unique: true,
         },
         description: {
             type: String,
@@ -32,7 +29,6 @@ const serviceSchema = require('./Service');
         },
         email: {
             type: String,
-            required: true,
             unique: true,
             match: [/.+@.+\..+/, 'Must use a valid email address'],
         },
@@ -43,7 +39,12 @@ const serviceSchema = require('./Service');
                 ref: 'Tag',
             },
         ],
-        services: [serviceSchema],
+        services: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Service',
+            }
+        ],
         clients: [
             {
                 type: Schema.Types.ObjectId,
