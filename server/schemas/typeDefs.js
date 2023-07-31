@@ -29,9 +29,9 @@ const typeDefs = gql`
 
     type Service {
         _id: ID
-        name: String
+        name: String!
         description: String
-        price: Float
+        price: Float!
     }
 
     type SocialMedia {
@@ -61,16 +61,31 @@ const typeDefs = gql`
     }
 
     type Query {
-        vendor: Vendor
-        business: Business
+        vendor (_id: ID!): Vendor
+        business (_id: ID!): Business
         businesses: [Business]
-        client: Client
+        client (_id: ID!): Client
         clients: [Client]
         tags: [Tag]
     }
 
     type Mutation {
-        addVendor (firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        addVendor (email: String!, password: String!): Auth
+        delVendor (_id: ID!): Vendor
+        updVendor (firstName: String, lastName: String, email: String!, password: String!): Vendor
+        addBusiness (name: String, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
+        delBusiness: Business
+        updBusiness (name: String!, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
+        createTag (name: String): Tag
+        addTag (_id: ID!): Business
+        rmvTag (_id: ID!): Business
+        addService (name: String!, description: String, price: Float!): Service
+        delService (_id: ID!): Service
+        updService (_id: ID!, name: String!, description: String, price: Float!): Service
+        addClient (firstName: String, lastName: String, email: String, address: String, phone: String, note: String): Client
+        delClient (_id: ID!): Client
+        updClient (_id: ID!, firstName: String, lastName: String, email: String, address: String, phone: String, note: String): Client
+        updSocialMedia(facebook: String, instagram: String, youTube: String, tikTok: String, linkedIn: String): Business
         login (email: String!, password: String!): Auth
     }
 `
