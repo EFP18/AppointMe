@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // service information saved in Business schema
     const serviceSchema = new Schema(
@@ -16,4 +16,6 @@ const { Schema } = require('mongoose');
         },
     });
 
-module.exports = serviceSchema;
+const Service = model('Service', serviceSchema);
+
+module.exports = Service;
