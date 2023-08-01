@@ -19,8 +19,9 @@ import button from '../../components/button';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Page from '../../components/Page';
-// import { GoogleLogin } from '@react-oauth/google';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useMutation } from '@apollo/client';
+import { LOGIN_VENDOR } from '../../utils/mutation';
+import Auth from '../../utils/auth';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -43,11 +44,47 @@ const StyledCard = styled(Card)({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  // set initial form state
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  // set state for form validation
+  const [validated] = useState(false);
 
-  return (
-    // <GoogleOAuthProvider
-    //   clientId='14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com'
-    // >
+  const [loginVendor_mutator] = useMutation(LOGIN_VENDOR);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log({ userFormData });
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      // const response = await createUser(userFormData);
+      const response = await loginVendor_mutator({
+        variables: userFormData,
+      });
+
+      const { token } = response?.data?.loginVendor;
+      Auth.login(token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      email: '',
+      password: '',
+    });
+
+    return (
       <Page title={'Login - AppointMe'}>
         <Container>
           <StyledCard>
@@ -61,14 +98,22 @@ const Login = () => {
               InputProps={{
                 style: { borderRadius: '10px' },
               }}
+              name='email'
+              value={userFormData.email}
+              placeholder='Your email'
+              onChange={handleInputChange}
             />
             <TextField
+              placeholder='Your password'
               label='Password'
+              name='password'
+              value={userFormData.password}
               variant='outlined'
               margin='normal'
               required
               fullWidth
               type={showPassword ? 'text' : 'password'}
+              onChange={handleInputChange}
               InputProps={{
                 style: { borderRadius: '10px' },
                 endAdornment: (
@@ -96,7 +141,13 @@ const Login = () => {
               label='Remember me'
             />
             <ThemeProvider theme={button}>
-              <Button type='submit' variant='contained' fullWidth>
+              <Button
+                type='submit'
+                variant='contained'
+                fullWidth
+                onClick={handleFormSubmit}
+                disabled={!(userFormData.email && userFormData.password)}
+              >
                 <Box fontWeight='fontWeightBold'>LOGIN</Box>
               </Button>
             </ThemeProvider>
@@ -107,15 +158,6 @@ const Login = () => {
               my={2}
               sx={{ display: 'flex', justifyContent: 'space-evenly' }}
             >
-              {/* google */}
-              {/* <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              /> */}
               <img src={linkedInLogo} alt='LinkedIn' />
             </Box>
             <Box style={{ color: colors.black }}>
@@ -131,8 +173,8 @@ const Login = () => {
           </StyledCard>
         </Container>
       </Page>
-    // </GoogleOAuthProvider>
-  );
+    );
+  };
 };
 
 export default Login;

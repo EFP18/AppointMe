@@ -57,7 +57,7 @@ const typeDefs = gql`
 
     type Auth {
         token: ID!
-        user: Vendor
+        vendor: Vendor
     }
 
     type Query {
