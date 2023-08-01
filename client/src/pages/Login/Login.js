@@ -143,7 +143,6 @@ const Login = () => {
           />
           <ThemeProvider theme={button}>
             <Button
-              type='submit'
               variant='contained'
               fullWidth
               onClick={handleFormSubmit}

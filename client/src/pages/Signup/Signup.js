@@ -86,47 +86,6 @@ const Signup = () => {
 
   return (
     <Page title={'Signup - AppointMe'}>
-      {/* <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          variant='danger'
-        >
-          Something went wrong with your signup!
-        </Alert>
-
-        <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Your email address'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>
-            Email is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>
-            Password is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-      </Form> */}
-
       <Container>
         <StyledCard>
           <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
@@ -135,6 +94,7 @@ const Signup = () => {
             value={userFormData.email}
             placeholder='Your email'
             label='Email'
+            name='email'
             variant='outlined'
             margin='normal'
             required
@@ -150,6 +110,8 @@ const Signup = () => {
             margin='normal'
             required
             fullWidth
+            onChange={handleInputChange}
+            value={userFormData.password}
             type={showPassword ? 'text' : 'password'}
             onChange={handleInputChange}
             InputProps={{
@@ -167,7 +129,6 @@ const Signup = () => {
           />
           <ThemeProvider theme={button}>
             <Button
-              type='submit'
               variant='contained'
               fullWidth
               onClick={handleFormSubmit}
