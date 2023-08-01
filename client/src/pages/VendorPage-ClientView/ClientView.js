@@ -103,7 +103,6 @@ function ClientView(props) {
     <Page title={'Vendor Profile - AppointMe'}>
       <Header />
       {vendorData.map((vendor) => (
-
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>
