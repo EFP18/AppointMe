@@ -14,9 +14,9 @@ const resolvers = {
         },
         business: async () => {
             return Business.findOne({ _id })
-            .populate('tags')
-            .populate('services')
-            .populate('clients');
+                .populate('tags')
+                .populate('services')
+                .populate('clients');
         },
         businesses: async () => {
             return Business.find()
@@ -42,11 +42,11 @@ const resolvers = {
             return { token, vendor };
         },
         delVendor: async (parent, { _id }) => {
-            const delVendor = await Vendor.findOneAndDelete({_id});
+            const delVendor = await Vendor.findOneAndDelete({ _id });
             return delVendor;
         },
         updVendor: async (parent, { firstName, lastName, email, password }, context) => {
-            if (context.vendor){
+            if (context.vendor) {
                 const updatedVendor = await Vendor.findOneAndUpdate(
                     { _id: context.vendor._id },
                     { $set: { firstName, lastName, email, password } },
@@ -57,29 +57,29 @@ const resolvers = {
         },
         addBusiness: async (parent, { name, description, logo, image, address, phone, email }, context) => {
             const newBusiness = await Business.create({ name, description, logo, image, address, phone, email })
-            if (context.vendor){
+            if (context.vendor) {
                 const updatedVendor = await Vendor.findOneAndUpdate(
-                    { _id: context.vendor._id},
-                    { $set: { business: newBusiness._id }},
+                    { _id: context.vendor._id },
+                    { $set: { business: newBusiness._id } },
                     { new: true },
                 );
-            return newBusiness;
+                return newBusiness;
             }
         },
-        updBusiness: async (parent, { name, description, logo, image, address, phone, email  }, context) => {
-            if (context.vendor){
-                const currVendor = await Vendor.findOne( { _id: context.vendor._id });
+        updBusiness: async (parent, { name, description, logo, image, address, phone, email }, context) => {
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $set: { name, description, logo, image, address, phone, email  } },
+                    { $set: { name, description, logo, image, address, phone, email } },
                     { new: true },
                 );
                 return updatedBusiness;
             }
         },
-        delBusiness: async (parent, {  }, context) => {
-            if (context.vendor){
-                const currVendor = await Vendor.findOne( { _id: context.vendor._id });
+        delBusiness: async (parent, { }, context) => {
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndDelete(
                     { _id: currVendor.business._id }
                 );
@@ -96,11 +96,11 @@ const resolvers = {
             return newTag;
         },
         addTag: async (parent, { _id }, context) => {
-            if (context.vendor){
-                const currVendor = await Vendor.findOne( { _id: context.vendor._id });
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $addToSet: { tags: _id }},
+                    { $addToSet: { tags: _id } },
                     { new: true },
                 );
                 return updatedBusiness;
@@ -108,12 +108,12 @@ const resolvers = {
         },
         // convert _id to Object id type
         rmvTag: async (parent, { _id }, context) => {
-            if (context.vendor){
+            if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const tagId = new mongoose.Types.ObjectId(_id)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $pull: { tags:  tagId }},
+                    { $pull: { tags: tagId } },
                     { new: true },
                 );
                 return updatedBusiness;
@@ -121,11 +121,11 @@ const resolvers = {
         },
         addService: async (parent, { name, description, price }, context) => {
             const newService = await Service.create({ name, description, price })
-            if (context.vendor){
-                const currVendor = await Vendor.findOne( { _id: context.vendor._id });
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $addToSet: { services: newService._id }},
+                    { $addToSet: { services: newService._id } },
                     { new: true },
                 );
                 return updatedBusiness;
@@ -140,30 +140,30 @@ const resolvers = {
             return updService;
         },
         delService: async (parent, { _id }, context) => {
-            if (context.vendor){
+            if (context.vendor) {
                 const serviceId = new mongoose.Types.ObjectId(_id)
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $pull: { services: serviceId }},
+                    { $pull: { services: serviceId } },
                     { new: true },
                 );
                 const delService = await Service.findOneAndDelete(
-                    {_id: serviceId}
+                    { _id: serviceId }
                 )
                 return delService;
             }
         },
         addClient: async (parent, { firstName, lastName, email, address, phone, note }, context) => {
             const newClient = await Client.create({ firstName, lastName, email, address, phone, note })
-            if (context.vendor){
-                    const currVendor = await Vendor.findOne( { _id: context.vendor._id });
-                    const updatedBusiness = await Business.findOneAndUpdate(
-                        { _id: currVendor.business._id },
-                        { $addToSet: { clients: newClient._id }},
-                        { new: true },
-                    );
-                    return newClient;
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+                const updatedBusiness = await Business.findOneAndUpdate(
+                    { _id: currVendor.business._id },
+                    { $addToSet: { clients: newClient._id } },
+                    { new: true },
+                );
+                return newClient;
             }
         },
         updClient: async (parent, { _id, firstName, lastName, email, address, phone, note }) => {
@@ -175,23 +175,23 @@ const resolvers = {
             return updClient;
         },
         delClient: async (parent, { _id }, context) => {
-            if (context.vendor){
+            if (context.vendor) {
                 const clientId = new mongoose.Types.ObjectId(_id)
-                const currVendor = await Vendor.findOne({ _id: context.vendor._id});
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $pull: { clients: clientId }},
+                    { $pull: { clients: clientId } },
                     { new: true },
                 );
                 const delClient = await Client.findOneAndDelete(
-                    {_id: clientId}
+                    { _id: clientId }
                 )
                 return delClient;
             }
         },
         updSocialMedia: async (parent, { facebook, instagram, youTube, tikTok, linkedIn }, context) => {
-            if (context.vendor){
-                const currVendor = await Vendor.findOne( { _id: context.vendor._id });
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
 
                 const updateObject = {
                     'socialMedia.facebook': facebook,
@@ -203,8 +203,8 @@ const resolvers = {
 
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $set: updateObject},
-                    { new: true}
+                    { $set: updateObject },
+                    { new: true }
                 );
 
                 return updatedBusiness;
