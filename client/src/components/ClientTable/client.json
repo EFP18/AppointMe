@@ -6,7 +6,7 @@
     "email": "teest@test.com",
     "address": "hdhdh",
     "phone": "37837",
-    "note": "hello"
+    "notes": "hello"
   },
   {
     "_id": "2",
@@ -16,6 +16,6 @@
     "email": "teest@test.com",
     "address": "hdhdh",
     "phone": "37837",
-    "note": "hello"
+    "notes": "hello"
   }
 ]
