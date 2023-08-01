@@ -86,6 +86,8 @@ export default function ServiceCard({ name, description, image }) {
             SHARE
           </Typography>
           <div>
+
+            {/* dynamic creation of urls  */}
             <WhatsappShareButton
               url={'https://www.example.com'}
               quote={'Dummy text!'}
