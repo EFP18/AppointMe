@@ -19,8 +19,9 @@ import button from '../../components/button';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Page from '../../components/Page';
-// import { GoogleLogin } from '@react-oauth/google';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useMutation } from '@apollo/client';
+import { LOGIN_VENDOR } from '../../utils/mutation';
+import Auth from '../../utils/auth';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -43,95 +44,132 @@ const StyledCard = styled(Card)({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  // set initial form state
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  // set state for form validation
+  const [validated] = useState(false);
+
+  const [loginVendor_mutator] = useMutation(LOGIN_VENDOR);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log({ userFormData });
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      // const response = await createUser(userFormData);
+      const response = await loginVendor_mutator({
+        variables: userFormData,
+      });
+
+      const { token } = response?.data?.login;
+      Auth.login(token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      email: '',
+      password: '',
+    });
+  };
 
   return (
-    // <GoogleOAuthProvider
-    //   clientId='14362999735-d6did93g2g0t0nipqoq7ge2pu2tuu2bu.apps.googleusercontent.com'
-    // >
-      <Page title={'Login - AppointMe'}>
-        <Container>
-          <StyledCard>
-            <h1 style={{ textAlign: 'left' }}>Login</h1>
-            <TextField
-              label='Email'
-              variant='outlined'
-              margin='normal'
-              required
+    <Page title={'Login - AppointMe'}>
+      <Container>
+        <StyledCard>
+          <h1 style={{ textAlign: 'left' }}>Login</h1>
+          <TextField
+            label='Email'
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            InputProps={{
+              style: { borderRadius: '10px' },
+            }}
+            name='email'
+            value={userFormData.email}
+            placeholder='Your email'
+            onChange={handleInputChange}
+          />
+          <TextField
+            placeholder='Your password'
+            label='Password'
+            name='password'
+            value={userFormData.password}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            type={showPassword ? 'text' : 'password'}
+            onChange={handleInputChange}
+            InputProps={{
+              style: { borderRadius: '10px' },
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={(event) => event.preventDefault()}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value='remember'
+                sx={{
+                  color: colors.primary,
+                  '&.Mui-checked': { color: colors.primary },
+                }}
+              />
+            }
+            label='Remember me'
+          />
+          <ThemeProvider theme={button}>
+            <Button
+              variant='contained'
               fullWidth
-              InputProps={{
-                style: { borderRadius: '10px' },
-              }}
-            />
-            <TextField
-              label='Password'
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              type={showPassword ? 'text' : 'password'}
-              InputProps={{
-                style: { borderRadius: '10px' },
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      onClick={() => setShowPassword(!showPassword)}
-                      onMouseDown={(event) => event.preventDefault()}
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value='remember'
-                  sx={{
-                    color: colors.primary,
-                    '&.Mui-checked': { color: colors.primary },
-                  }}
-                />
-              }
-              label='Remember me'
-            />
-            <ThemeProvider theme={button}>
-              <Button type='submit' variant='contained' fullWidth>
-                <Box fontWeight='fontWeightBold'>LOGIN</Box>
-              </Button>
-            </ThemeProvider>
-            <Box my={3}>
-              <Divider>OR</Divider>
-            </Box>
-            <Box
-              my={2}
-              sx={{ display: 'flex', justifyContent: 'space-evenly' }}
+              onClick={handleFormSubmit}
+              disabled={!(userFormData.email && userFormData.password)}
             >
-              {/* google */}
-              {/* <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              /> */}
-              <img src={linkedInLogo} alt='LinkedIn' />
-            </Box>
-            <Box style={{ color: colors.black }}>
-              Need an account?{' '}
-              <Link
-                href='/signup'
-                variant='body2'
-                style={{ color: colors.primary }}
-              >
-                Sign Up
-              </Link>
-            </Box>
-          </StyledCard>
-        </Container>
-      </Page>
-    // </GoogleOAuthProvider>
+              <Box fontWeight='fontWeightBold'>LOGIN</Box>
+            </Button>
+          </ThemeProvider>
+          <Box my={3}>
+            <Divider>OR</Divider>
+          </Box>
+          <Box my={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <img src={linkedInLogo} alt='LinkedIn' />
+          </Box>
+          <Box style={{ color: colors.black }}>
+            Need an account?{' '}
+            <Link
+              href='/signup'
+              variant='body2'
+              style={{ color: colors.primary }}
+            >
+              Sign Up
+            </Link>
+          </Box>
+        </StyledCard>
+      </Container>
+    </Page>
   );
 };
 

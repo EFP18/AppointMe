@@ -1,0 +1,44 @@
+[
+  {
+    "firstName": "Ted",
+    "lastName": "Doan",
+    "name": "fitness instructor",
+    "email": "doan.teddy@gmail.com",
+    "password": "password01",
+    "business": "",
+    "description": "an app to track exercise frequency",
+    "logo": "URL_TO_LOGO_IMAGE",
+    "image": "URL_TO_PROFILE_IMAGE",
+    "youTube": "//www.youtube.com",
+    "facebook": "//www.facebook.com",
+    "instagram": "//www.instagram.com",
+    "linkedIn": "//www.linkedIn.com",
+    "tikTok": "//www.tiktok.com",
+    "email": "test@yahoo.com",
+    "services": [
+      {
+        "name": "Guitar Lesson",
+        "price": 30
+      },
+      {
+        "name": "Piano Lesson",
+        "price": 25
+      }
+    ],
+    "availability": "AVAILABILITY_INFO",
+    "tags": "Music"
+  },
+  {
+    "firstName": "Drew",
+    "lastName": "Smith",
+    "email": "drew.smith@gmail.com",
+    "password": "password02",
+    "business": "",
+    "services": [
+      {
+
+      },{}
+
+    ]
+  }
+]

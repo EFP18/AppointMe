@@ -4,9 +4,10 @@ import { TextField, Autocomplete, Typography } from '@mui/material';
 import { styled, lighten, darken } from '@mui/system';
 import { useTheme } from '@mui/material';
 import { Box } from '@mui/material';
-import services from '../data/services';
+// import services from '../data/services';
 import { Link } from 'react-router-dom';
 import { colors } from '../components/theme';
+import categoryData from '../pages/VendorProfile/categorySeeds.json';
 
 const GroupItems = styled('ul')({
   padding: 0,
@@ -14,8 +15,8 @@ const GroupItems = styled('ul')({
 
 export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
-  const options = services.map(option => {
-    const firstLetter = option.type[0].toUpperCase();
+  const options = categoryData.map((option) => {
+    const firstLetter = option.name[0].toUpperCase();
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
       ...option,
@@ -25,7 +26,7 @@ export default function SearchBox({ details, onSelect }) {
   // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     setInputText(e.target.value);
     // console.log
   };
@@ -36,8 +37,8 @@ export default function SearchBox({ details, onSelect }) {
       options={options.sort(
         (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
       )}
-      groupBy={option => option.firstLetter}
-      getOptionLabel={option => option.type}
+      groupBy={(option) => option.firstLetter}
+      getOptionLabel={(option) => option.name}
       sx={{
         width: 300,
         '& .MuiOutlinedInput-root': {
@@ -56,11 +57,11 @@ export default function SearchBox({ details, onSelect }) {
         fontFamily: 'League Spartan',
         fontSize: '24px',
       }}
-      renderInput={params => (
+      renderInput={(params) => (
         <TextField
           {...params}
-          label='Vendor'
-          onKeyPress={event => {
+          label='Business'
+          onKeyPress={(event) => {
             if (event.key === 'Enter') {
               handleSearch(event);
             }
@@ -88,13 +89,13 @@ export default function SearchBox({ details, onSelect }) {
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
-          onSelect(value.type);
+          onSelect(value.option.name);
         }
       }}
       // Use Link component for navigation when a service is selected
       renderOption={(props, option) => (
         <Link
-          to={`/services/${option.type}`}
+          to={`/services/${option.name}`}
           style={{ textDecoration: 'none' }}
           {...props}
         >
@@ -107,11 +108,11 @@ export default function SearchBox({ details, onSelect }) {
               fontWeight: 'bolder',
             }}
           >
-            {option.type}
+            {option.name}
           </Typography>
         </Link>
       )}
-      renderGroup={params => (
+      renderGroup={(params) => (
         <li key={params.key}>
           <Box
             sx={{
