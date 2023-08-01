@@ -3,7 +3,7 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 // this gives access to the server to the information from the .env file
-require('dotenv').config();
+require('dotenv').config({ path: './.env'});
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
