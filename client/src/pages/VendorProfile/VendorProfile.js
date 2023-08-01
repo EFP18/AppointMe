@@ -73,7 +73,7 @@ export default function VendorProfile() {
     }
   };
 
-  // const [loading, data] = useQuery(GET_TAGS);
+  // const {loading, data} = useQuery(GET_TAGS);
   // // either an empty array or data queried with useQuery
   // const categoryData = data?.tags || [];
 

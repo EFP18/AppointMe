@@ -36,8 +36,8 @@ const resolvers = {
     },
 
     Mutation: {
-        addVendor: async (parent, { firstName, lastName, email, password }) => {
-            const vendor = await Vendor.create({ firstName, lastName, email, password });
+        addVendor: async (parent, { email, password }) => {
+            const vendor = await Vendor.create({ email, password });
             const token = signToken(vendor);
             return { token, vendor };
         },
@@ -45,11 +45,11 @@ const resolvers = {
             const delVendor = await Vendor.findOneAndDelete({_id});
             return delVendor;
         },
-        updVendor: async (parent, { firstName, lastName, email }, context) => {
+        updVendor: async (parent, { firstName, lastName, email, password }, context) => {
             if (context.vendor){
                 const updatedVendor = await Vendor.findOneAndUpdate(
                     { _id: context.vendor._id },
-                    { $set: { firstName, lastName, email } },
+                    { $set: { firstName, lastName, email, password } },
                     { new: true },
                 );
                 return updatedVendor;
