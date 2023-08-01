@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   TextField,
@@ -27,12 +28,56 @@ export default function VendorProfile() {
   const [category, setCategory] = React.useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [services, setServices] = useState([{ name: '', cost: '' }]);
+  const [businessName, setBusinessName] = useState('');
+  const [businessNameError, setBusinessNameError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [description, setDescription] = useState('');
+  const [descriptionError, setDescriptionError] = useState(false);
+  const emailValidation = /.+@.+\..+/;
+  const history = useNavigate();
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (event, redirect = false) => {
+    event.preventDefault();
+
+    // Initialize all error states to false
+    setBusinessNameError(false);
+    setEmailError(false);
+    setDescriptionError(false);
+
+    // Validate business name
+    if (businessName === '') {
+      setBusinessNameError(true);
+    }
+
+    // Validate email
+    if (!emailValidation.test(email)) {
+      setEmailError(true);
+    }
+
+    // Validate description
+    if (description.length > 500) {
+      setDescriptionError(true);
+    }
+
+    // If there are no errors, you can proceed with the form submission
+    if (!businessNameError && !emailError && !descriptionError) {
+      if (redirect) {
+        // Redirect to the profile view page
+        navigate('/profileview');
+      } else {
+        // Add your form submit logic here.
+        setIsSaved(true);
+      }
+    }
+  };
 
   // const {loading, data} = useQuery(GET_TAGS);
   // // either an empty array or data queried with useQuery
   // const categoryData = data?.tags || [];
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setCategory(event.target.value);
   };
 
@@ -52,7 +97,9 @@ export default function VendorProfile() {
     setServices(values);
   };
 
-  // console.log(categoryData);
+  const handleDescriptionChange = event => {
+    setDescription(event.target.value);
+  };
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
@@ -99,26 +146,17 @@ export default function VendorProfile() {
               </Box>
             </Stack>
 
-            <form>
-              <Stack direction='row' spacing={2} alignItems='center'>
-                <TextField
-                  label='First Name'
-                  variant='outlined'
-                  fullWidth
-                  margin='normal'
-                />
-                <TextField
-                  label='Last Name'
-                  variant='outlined'
-                  fullWidth
-                  margin='normal'
-                />
-              </Stack>
+            <form onSubmit={handleFormSubmit}>
               <TextField
                 label='Business Name'
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                required
+                value={businessName}
+                onChange={event => setBusinessName(event.target.value)}
+                error={businessNameError}
+                helperText={businessNameError && 'Business name is required'}
               />
               <TextField
                 label='Description'
@@ -127,9 +165,15 @@ export default function VendorProfile() {
                 rows={4}
                 fullWidth
                 margin='normal'
-                placeholder='Describe your business in a few words'
+                value={description}
+                onChange={handleDescriptionChange}
+                helperText={
+                  descriptionError
+                    ? 'Description cannot exceed 500 characters'
+                    : `${description.length}/500`
+                }
+                error={descriptionError}
               />
-
               <FormControl fullWidth variant='outlined' margin='normal'>
                 <InputLabel id='category-label'>Category *</InputLabel>
                 <Select
@@ -140,7 +184,7 @@ export default function VendorProfile() {
                 >
                   {/* dynamically create the different industries/categories */}
                   {/* key returns null */}
-                  {categoryData.map((category) => {
+                  {categoryData.map(category => {
                     return (
                       <div>
                         <MenuItem key={category.id} value={category.name}>
@@ -151,14 +195,31 @@ export default function VendorProfile() {
                   })}
                 </Select>
               </FormControl>
-
               <TextField
-                label='Location'
+                label='Email'
                 variant='outlined'
                 fullWidth
                 margin='normal'
-                placeholder='Your city'
+                required
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                error={emailError}
+                helperText={emailError && 'Must use a valid email address'}
               />
+              <TextField
+                label='Phone Number'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+              />
+              <TextField
+                label='Address'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+                placeholder='Your address'
+              />
+
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
@@ -174,7 +235,7 @@ export default function VendorProfile() {
                     style={{ marginBottom: '0px', flex: 3 }}
                     name='name'
                     value={service.name}
-                    onChange={(event) => handleServiceChange(index, event)}
+                    onChange={event => handleServiceChange(index, event)}
                   />
 
                   <Box
@@ -191,9 +252,9 @@ export default function VendorProfile() {
                       style={{ marginBottom: '0px' }}
                       name='cost'
                       value={service.cost}
-                      onChange={(event) => handleServiceChange(index, event)}
+                      onChange={event => handleServiceChange(index, event)}
                     />
-                    {index === services.length - 1 && ( // Show '+' button only on the last row
+                    {index === services.length - 1 && (
                       <Button
                         variant='contained'
                         style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
@@ -209,18 +270,21 @@ export default function VendorProfile() {
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
               <h2 style={{ textAlign: 'left' }}>Contact Information</h2>
-              <TextField
-                label='Email'
-                variant='outlined'
-                fullWidth
-                margin='normal'
-              />
-              <TextField
-                label='Phone Number'
-                variant='outlined'
-                fullWidth
-                margin='normal'
-              />
+
+              <Stack direction='row' spacing={2} alignItems='center'>
+                <TextField
+                  label='First Name'
+                  variant='outlined'
+                  fullWidth
+                  margin='normal'
+                />
+                <TextField
+                  label='Last Name'
+                  variant='outlined'
+                  fullWidth
+                  margin='normal'
+                />
+              </Stack>
 
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
@@ -246,7 +310,7 @@ export default function VendorProfile() {
                 margin='normal'
               />
               <TextField
-                label='Email'
+                label='Linkedin'
                 variant='outlined'
                 fullWidth
                 margin='normal'
@@ -265,8 +329,8 @@ export default function VendorProfile() {
                 justifyContent='center'
               >
                 <Button
+                  type='submit'
                   variant='contained'
-                  onClick={() => setIsSaved(true)}
                   style={{ marginTop: '30px', marginBottom: '0px' }}
                 >
                   Save Profile
@@ -276,6 +340,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
+                  onClick={(event) => handleFormSubmit(event, true)}
                 >
                   View Profile
                 </Button>

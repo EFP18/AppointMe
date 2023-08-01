@@ -13,6 +13,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ClientDb from './pages/ClientDb/ClientDb';
+import GlobalStyle from './components/GlobalStyle';
 // import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { setContext } from '@apollo/client/link/context'
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -90,6 +91,7 @@ function App() {
           {/* <Header></Header> */}
           {/* conditionally rendered routes */}
           <Routes>
+       
             {/* endpoints */}
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login />} />
