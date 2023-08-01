@@ -9,8 +9,9 @@ import { Box } from '@mui/system';
 import SearchBox from '../../components/SearchBox';
 import { Grid } from '@mui/material';
 import { colors } from '../../components/theme';
-import services from '../../data/services';
+// import services from '../../data/services';
 import Footer from '../../components/Footer';
+import categoryData from '../VendorProfile/categorySeeds.json';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -45,11 +46,7 @@ function LandingPage() {
             {' '}
             Welcome to AppointMe
           </h1>
-          <Typography
-            variant='h6' 
-            align='left'
-            style={{ color: colors.gr }}
-          >
+          <Typography variant='h6' align='left' style={{ color: colors.gr }}>
             AppointMe is the ultimate platform for service providers and
             seekers. Whether you are a vendor who wants to showcase your skills
             and manage your bookings, or a client who wants to find and book the
@@ -72,8 +69,8 @@ function LandingPage() {
             </Grid>
             <Grid item>
               <SearchBox
-                details={services}
-                onSelect={service => {
+                details={categoryData}
+                onSelect={(service) => {
                   setSelectedService(service);
                 }}
               />
