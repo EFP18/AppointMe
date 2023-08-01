@@ -93,8 +93,7 @@ const useStyles = makeStyles({
 function ProfileView() {
   const classes = useStyles();
 
-  // id is for testing
-  // const id = '8hef9efhefe9h';
+  // no need to define variables because id is specified with context on resolvers
   // const {loading, data} = useQuery(GET_VENDOR);
   // const vendorData = data?.vendor || {};
 
