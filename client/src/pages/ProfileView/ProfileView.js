@@ -102,166 +102,166 @@ function ProfileView() {
   return (
     // Needs to take the variable of the id from GET_VENDOR, to only populate the vendor page we are logged in as
     <Page title={'My Profile - AppointMe'} className='landing-page'>
-      {vendorData.map((vendor) => (
         <Box sx={{ display: 'flex' }}>
           <Navbar />
-          <Box className={classes.profile}>
-            <Box className={classes.header}>
-              <img
-                className={classes.bgImage}
-                src={vendor.logo ? vendor.logo : stockBackgroundImg}
-                alt='logo'
-              />
-              <Box className={classes.profileInfo}>
+          {vendorData.map((vendor) => (
+            <Box className={classes.profile}>
+              <Box className={classes.header}>
                 <img
-                  className={classes.profileImage}
-                  src={vendor.image ? vendor.image : stockImg}
-                  alt='Profile'
+                  className={classes.bgImage}
+                  src={vendor.logo ? vendor.logo : stockBackgroundImg}
+                  alt='logo'
                 />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                  }}
-                >
-                  <Box>
-                    <Typography variant='h4' className={classes.name}>
-                      {vendor.name}
-                    </Typography>
-                    <Typography variant='body1' className={classes.location}>
-                      {vendor.firstName}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <ThemeProvider theme={button}>
-                      <Button
-                        href='/vendorprofile'
-                        variant='contained'
-                        style={{ marginRight: '40px' }}
-                      >
-                        ✎ Edit Profile
-                      </Button>
-                    </ThemeProvider>
+                <Box className={classes.profileInfo}>
+                  <img
+                    className={classes.profileImage}
+                    src={vendor.image ? vendor.image : stockImg}
+                    alt='Profile'
+                  />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                    }}
+                  >
+                    <Box>
+                      <Typography variant='h4' className={classes.name}>
+                        {vendor.name}
+                      </Typography>
+                      <Typography variant='body1' className={classes.location}>
+                        {vendor.firstName}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <ThemeProvider theme={button}>
+                        <Button
+                          href='/vendorprofile'
+                          variant='contained'
+                          style={{ marginRight: '40px' }}
+                        >
+                          ✎ Edit Profile
+                        </Button>
+                      </ThemeProvider>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
-            </Box>
 
-            <Typography className={classes.description}>
-              {vendor.description}
-            </Typography>
+              <Typography className={classes.description}>
+                {vendor.description}
+              </Typography>
 
-            <Divider
-              style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
-            />
+              <Divider
+                style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
+              />
 
-            <h2>Services</h2>
-            {vendor.services.length > 0 ? (
-              vendor.services.map((service, index) => (
-                <Box key={index} className={classes.service}>
-                  <Checkbox
-                    value='remember'
-                    sx={{
-                      color: colors.primary,
-                      '&.Mui-checked': { color: colors.primary },
-                    }}
-                    checked={checkedService === index}
-                    onChange={() => setCheckedService(index)}
+              <h2>Services</h2>
+              {vendor.services.length > 0 ? (
+                vendor.services.map((service, index) => (
+                  <Box key={index} className={classes.service}>
+                    <Checkbox
+                      value='remember'
+                      sx={{
+                        color: colors.primary,
+                        '&.Mui-checked': { color: colors.primary },
+                      }}
+                      checked={checkedService === index}
+                      onChange={() => setCheckedService(index)}
+                    />
+                    <Typography className={classes.serviceName}>
+                      {service.name}
+                    </Typography>
+                    <Typography>${service.price}</Typography>
+                  </Box>
+                ))
+              ) : (
+                <p>No services listed.</p>
+              )}
+
+              {/* <h2>Availability</h2> */}
+              {/* Render availability based on its structure */}
+              {vendor.facebook && (
+                <Link
+                  to={vendor.facebook}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={facebookLogo}
+                    alt='Facebook'
                   />
-                  <Typography className={classes.serviceName}>
-                    {service.name}
-                  </Typography>
-                  <Typography>${service.price}</Typography>
-                </Box>
-              ))
-            ) : (
-              <p>No services listed.</p>
-            )}
-
-            {/* <h2>Availability</h2> */}
-            {/* Render availability based on its structure */}
-            {vendor.facebook && (
-              <Link
-                to={vendor.facebook}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={facebookLogo}
-                  alt='Facebook'
-                />
-              </Link>
-            )}
-            {vendor.youTube && (
-              <Link
-                to={vendor.youTube}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={youtubeLogo}
-                  alt='YouTube'
-                />
-              </Link>
-            )}
-            {vendor.instagram && (
-              <Link
-                to={vendor.instagram}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={instagramLogo}
-                  alt='Instagram'
-                />
-              </Link>
-            )}
-            {vendor.linkedIn && (
-              <Link
-                to={vendor.linkedIn}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={linkedInLogo}
-                  alt='LinkedIn'
-                />
-              </Link>
-            )}
-            {vendor.tikTok && (
-              <Link
-                to={vendor.tikTok}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={tiktokLogo}
-                  alt='TikTok'
-                />
-              </Link>
-            )}
-            {vendor.email && (
-              <Link
-                to={`mailto:${vendor.email}`}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  className={classes.socialIcon}
-                  src={emailLogo}
-                  alt='Email'
-                />
-              </Link>
-            )}
-          </Box>
+                </Link>
+              )}
+              {vendor.youTube && (
+                <Link
+                  to={vendor.youTube}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={youtubeLogo}
+                    alt='YouTube'
+                  />
+                </Link>
+              )}
+              {vendor.instagram && (
+                <Link
+                  to={vendor.instagram}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={instagramLogo}
+                    alt='Instagram'
+                  />
+                </Link>
+              )}
+              {vendor.linkedIn && (
+                <Link
+                  to={vendor.linkedIn}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={linkedInLogo}
+                    alt='LinkedIn'
+                  />
+                </Link>
+              )}
+              {vendor.tikTok && (
+                <Link
+                  to={vendor.tikTok}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={tiktokLogo}
+                    alt='TikTok'
+                  />
+                </Link>
+              )}
+              {vendor.email && (
+                <Link
+                  to={`mailto:${vendor.email}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <img
+                    className={classes.socialIcon}
+                    src={emailLogo}
+                    alt='Email'
+                  />
+                </Link>
+              )}
+            </Box>
+          ))}
         </Box>
-      ))}
     </Page>
   );
 }

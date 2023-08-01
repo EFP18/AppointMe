@@ -34,7 +34,7 @@ export default function ServicePage() {
   ];
 
   // const {loading, data} = useQuery(GET_BUSINESSES, variables: {_id:});
-  // const serviceData = data?.vendor || {};
+  // const businessData = data?.vendor || {};
 
   return (
     <Page sx={{ backgroundColor: colors.grey }}>
@@ -72,10 +72,18 @@ export default function ServicePage() {
               sx={{ margin: '10px' }}
             >
               <ServiceCard
-                name={service.name}
-                description={service.description}
-                image={service.image}
-              />
+                  name={service.name}
+                  description={service.description}
+                  image={service.image}
+                />
+              {/* {businessData.map((business) =>{
+
+                <ServiceCard
+                  name={business.name}
+                  description={business.description}
+                  image={business.image}
+                />
+              })} */}
             </Grid>
           ))}
         </Box>
