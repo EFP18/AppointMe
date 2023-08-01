@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Paper,
   Table,
@@ -9,45 +9,18 @@ import {
   TableRow,
   Button,
   TablePagination,
-} from "@mui/material";
+} from '@mui/material';
+// import { GET_CLIENTS } from '../../utils/queries';
+// import { useQuery } from '@apollo/client';
+import clientData from './client.json';
 
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "email", label: "Email", minWidth: 170 },
-  { id: "number", label: "Phone Number", minWidth: 170 },
-  { id: "address", label: "Address", minWidth: 170 },
-  { id: "action", label: "Notes", minWidth: 170 },
-];
-
-function createData(name, email, number, address, notes = "") {
-  return { name, email, number, address, notes };
-}
-
-const rows = [
-  createData(
-    "Client 1",
-    "test@aol.com",
-    "(555) 555-5555",
-    "1234 Mary Ln. Pleasantville, KD"
-  ),
-  createData(
-    "Client 2",
-    "test@yahoo.com",
-    "(123) 555-5555",
-    "954 Mary Ln. Pleasantville, KD"
-  ),
-  createData(
-    "Client 3",
-    "test@hotmail.com",
-    "(915) 555-5555",
-    "2156 Mary Ln. Pleasantville, KD"
-  ),
-  createData(
-    "Client 4",
-    "test@gmail.com",
-    "(654) 555-5555",
-    "5965 Mary Ln. Pleasantville, KD"
-  ),
+  { id: 'firstName', label: 'First Name', minWidth: 170 },
+  { id: 'lastName', label: 'Last Name', minWidth: 170 },
+  { id: 'email', label: 'Email', minWidth: 170 },
+  { id: 'phone', label: 'Phone Number', minWidth: 170 },
+  { id: 'address', label: 'Address', minWidth: 170 },
+  { id: 'note', label: 'Notes', minWidth: 170 },
 ];
 
 export default function ClientTable({
@@ -57,13 +30,16 @@ export default function ClientTable({
   handleChangeRowsPerPage,
   handleOpen,
 }) {
+  // const { loading, data } = useQuery(GET_CLIENTS);
+  // const clientData = data?.clients || [];
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
-              {columns.map(column => (
+              {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -75,20 +51,25 @@ export default function ClientTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {clientData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map(row => {
+              .map((clientData) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                    {columns.map(column => {
-                      const value = row[column.id];
+                  <TableRow
+                    hover
+                    role='checkbox'
+                    tabIndex={-1}
+                    key={clientData._id}
+                  >
+                    {columns.map((column) => {
+                      const value = clientData[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.id === "action" ? (
+                          {column.id === 'action' ? (
                             <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={() => handleOpen(row)}
+                              variant='contained'
+                              color='primary'
+                              onClick={() => handleOpen(clientData)}
                             >
                               +
                             </Button>
@@ -106,8 +87,8 @@ export default function ClientTable({
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
+        component='div'
+        count={clientData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -117,5 +98,4 @@ export default function ClientTable({
   );
 }
 
-export { rows };
-
+export { ClientTable };
