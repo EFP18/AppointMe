@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import { useParams } from 'react-router-dom';
 import ServiceCard from '../../components/ServiceCard';
 import { colors } from '../../components/theme';
+// import { GET_BUSINESSES } from '../../utils/queries';
+// import { useQuery } from '@apollo/client';
 
 export default function ServicePage() {
   const { service } = useParams();
@@ -13,23 +15,26 @@ export default function ServicePage() {
   // Mock service data
   const serviceData = [
     {
-      vendorName: 'Vendor 1',
+      name: 'Vendor 1',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
     {
-      vendorName: 'Vendor 2',
+      name: 'Vendor 2',
       description:
         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       // image: 'image2.jpg', If empty stock img will appear
     },
     {
-      vendorName: 'Vendor 3',
+      name: 'Vendor 3',
       description:
         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       // image: 'image2.jpg', If empty stock img will appear
     },
   ];
+
+  // const {loading, data} = useQuery(GET_BUSINESSES, variables: {_id:});
+  // const serviceData = data?.vendor || {};
 
   return (
     <Page sx={{ backgroundColor: colors.grey }}>
@@ -42,7 +47,7 @@ export default function ServicePage() {
             textAlign: 'left',
             fontSize: '50px',
             fontFamily: 'League Spartan',
-            marginLeft: '100px'
+            marginLeft: '100px',
           }}
         >
           {service}
@@ -67,8 +72,7 @@ export default function ServicePage() {
               sx={{ margin: '10px' }}
             >
               <ServiceCard
-                vendorName={service.vendorName}
-                subHeader={service.subHeader}
+                name={service.name}
                 description={service.description}
                 image={service.image}
               />
