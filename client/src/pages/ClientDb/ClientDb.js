@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ClientModal from '../../components/ClientModal/ClientModal';
-import ClientTable, { rows } from '../../components/ClientTable/ClientTable';
+import ClientTable from '../../components/ClientTable/ClientTable';
 import Navbar from '../../components/Navbar/Navbar';
 import { Box } from '@mui/material';
 import './ClientDb.css';
@@ -19,7 +19,7 @@ export default function ClientDb() {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
 
@@ -49,31 +49,33 @@ export default function ClientDb() {
     setNote(event.target.value);
   };
 
+
+
   return (
     <Page title={'My Clients - AppointMe'} className='landing-page'>
-      <div sx={{ display: 'flex' }}>
-        <Navbar />
-        <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
-          <ClientTable
-            rows={rows}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            handleOpen={handleOpen}
-          />
-          <ClientModal
-            open={open}
-            handleClose={handleClose}
-            selectedClient={selectedClient}
-            handleEdit={handleEdit}
-            handleSave={handleSave}
-            editMode={editMode}
-            handleNoteChange={handleNoteChange}
-            notes={note}
-          />
-        </Box>
-      </div>
+        <div sx={{ display: 'flex' }}>
+          <Navbar />
+          <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
+            <ClientTable
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              handleOpen={handleOpen}
+            />
+            <ClientModal
+              open={open}
+              handleClose={handleClose}
+              selectedClient={selectedClient}
+              handleEdit={handleEdit}
+              handleSave={handleSave}
+              editMode={editMode}
+              handleNoteChange={handleNoteChange}
+              notes={note}
+            />
+          </Box>
+        </div>
+
     </Page>
   );
 }
