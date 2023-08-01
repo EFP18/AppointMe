@@ -1,0 +1,17 @@
+.react-datepicker__input-container > input {
+  height: 40px;
+  font-size: 18px;
+  border-radius: 10px;
+  
+}
+
+.rc-time-picker-panel-select {
+  font-size: 18px;
+}
+
+.rc-time-picker-input {
+  height: 40px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-right: 10px;
+}

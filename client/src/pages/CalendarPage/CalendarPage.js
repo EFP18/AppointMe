@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Calendar from '../../components/Calendar/Calendar';
 import Navbar from '../../components/Navbar/Navbar';
 import { Box } from '@mui/material';
-// import EventForm from "../../components/EventForm/EventForm";
+import EventForm from "../../components/EventForm/EventForm";
 import './CalendarPage.css';
 import Page from '../../components/Page';
 
@@ -32,8 +32,8 @@ const CalendarPage = () => {
         <Navbar />
         <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
           <h1>Calendar</h1>
-          {/* <h2>Add New Event</h2>
-      <EventForm onAddEvent={handleAddEvent} /> */}
+          <h2>Add Availability</h2>
+      <EventForm onAddEvent={handleAddEvent} />
           <Calendar events={allEvents} />
         </Box>
       </div>
