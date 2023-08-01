@@ -2,15 +2,6 @@ import { gql } from '@apollo/client';
 
 // add new user via email and password
 export const ADD_VENDOR = gql`
-<<<<<<< HEAD
-        mutation ADD_VENDOR($email: String!, $password: String!) {
-        addVendor(email: $email, password: $password) {
-            token
-            vendor {
-                email
-            }
-        }
-=======
   mutation addVendor($email: String!, $password: String!) {
     addVendor(email: $email, password: $password) {
       token
@@ -19,7 +10,6 @@ export const ADD_VENDOR = gql`
         email
       }
     }
->>>>>>> c01801a19a0a2e896bdbf7c77729c280652ac28c
 }`
 
 export const LOGIN_VENDOR = gql`
