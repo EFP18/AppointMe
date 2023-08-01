@@ -18,7 +18,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Signup.css';
 import Page from '../../components/Page';
+import Auth from '../../utils/auth'
 // import { GoogleLogin } from '@react-oauth/google';
+
+import { useMutation } from '@apollo/client';
+
+import { ADD_VENDOR } from '../../utils/mutation';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -41,6 +46,45 @@ const StyledCard = styled(Card)({
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [ addVendor, { error }] = useMutation(ADD_VENDOR);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    // check if form has everything (as per react-bootstrap docs)
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await addVendor({
+        variables: {...userFormData}
+      });
+
+        if (!data) {
+        throw new Error('something went wrong!');
+      }
+
+      const { token, vendor } = data.addVendor;
+      Auth.login(token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setUserFormData({
+      email: '',
+      password: '',
+    });
+  };
+
   return (
     <Page title={'Signup - AppointMe'}>
       <Container>
@@ -48,17 +92,23 @@ const Signup = () => {
           <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
           <TextField
             label='Email'
+            name='email'
             variant='outlined'
             margin='normal'
             required
             fullWidth
+            value={userFormData.email}
+            onChange={handleInputChange}
           />
           <TextField
             label='Password'
+            name='password'
             variant='outlined'
             margin='normal'
             required
             fullWidth
+            onChange={handleInputChange}
+            value={userFormData.password}
             type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
@@ -74,7 +124,12 @@ const Signup = () => {
             }}
           />
           <ThemeProvider theme={button}>
-            <Button type='submit' variant='contained' fullWidth>
+            <Button 
+              onClick={handleFormSubmit}
+              variant='contained' 
+              fullWidth
+              disabled={!(userFormData.email && userFormData.password)}
+              >
               <Box fontWeight='fontWeightBold'>SIGN UP</Box>
             </Button>
           </ThemeProvider>

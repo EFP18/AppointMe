@@ -2,15 +2,13 @@ import { gql } from '@apollo/client';
 
 // add new user via email and password
 export const ADD_VENDOR = gql`
-    mutation ADD_USER($username: String!, $email: String!, $password: String!) {
         mutation ADD_VENDOR($email: String!, $password: String!) {
         addVendor(email: $email, password: $password) {
-        token
-        user {
-            email
+            token
+            vendor {
+                email
+            }
         }
-        }
-    }
 }`
 
 // update vendor info
@@ -21,7 +19,7 @@ export const UPD_VENDOR = gql`
             firstName
             lastName
             business {
-            name
+                name
             }
         }
 }`
