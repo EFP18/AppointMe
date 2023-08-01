@@ -21,7 +21,7 @@ import {
 } from 'react-share';
 import { colors } from './theme';
 
-export default function ServiceCard({ vendorName, description, image }) {
+export default function ServiceCard({ name, description, image }) {
   // If no image is provided, use the default StockPhoto
   const displayImage = image || StockPhoto;
 
@@ -59,7 +59,7 @@ export default function ServiceCard({ vendorName, description, image }) {
             component='div'
             sx={{ fontSize: '24px', marginBottom: '16px', textAlign: 'left' }}
           >
-            {vendorName}
+            {name}
           </Typography>
           <Typography
             variant='body2'
@@ -86,6 +86,8 @@ export default function ServiceCard({ vendorName, description, image }) {
             SHARE
           </Typography>
           <div>
+
+            {/* dynamic creation of urls  */}
             <WhatsappShareButton
               url={'https://www.example.com'}
               quote={'Dummy text!'}

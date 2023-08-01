@@ -25,7 +25,11 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
+<<<<<<< HEAD
     window.location.assign('/calendarpage');
+=======
+    window.location.assign('/profileview');
+>>>>>>> c01801a19a0a2e896bdbf7c77729c280652ac28c
   }
 
   logout() {

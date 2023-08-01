@@ -15,6 +15,10 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import phoneIcon from './img/phone.png';
 import Fab from '@mui/material/Fab';
+// import { GET_VENDOR } from '../../utils/queries';
+// import { useQuery } from '@apollo/client';
+// testing
+import vendorData from './vendorSeeds.json';
 
 const useStyles = makeStyles({
   profile: {
@@ -88,34 +92,9 @@ const useStyles = makeStyles({
 
 function ClientView(props) {
   const classes = useStyles();
-  const {
-    name = 'Test Name',
-    location = 'Peru',
-    description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-    image,
-    backgroundImg,
-    // external links require // in front of them to redirect successfully
-    // dynamically create parameter for social urls
-    youtubeUrl = '//www.youtube.com',
-    facebookUrl = '//www.facebook.com',
-    instagramUrl = '//www.instagram.com',
-    linkedInUrl = '//www.linkedIn.com',
-    tiktokUrl = '//www.tiktok.com',
-    email = 'test@yahoo.com',
-    phone = '555-555-5555',
-    services = [
-      {
-        name: 'Guitar Lesson',
-        price: 30,
-      },
-      {
-        name: 'Piano Lesson',
-        price: 25,
-      },
-    ],
-    availability,
-    tags = 'Music',
-  } = props;
+
+  // const {loading, data} = useQuery(GET_VENDOR);
+  // const vendorData = data?.vendor || {};
 
   const [checkedService, setCheckedService] = useState(null);
 
@@ -123,19 +102,19 @@ function ClientView(props) {
     // dynamically create vendor or business name
     <Page title={'Vendor Profile - AppointMe'}>
       <Header />
-
+      {vendorData.map((vendor) => (
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>
             <img
               className={classes.bgImage}
-              src={backgroundImg ? backgroundImg : stockBackgroundImg}
+              src={vendor.logo ? vendor.logo : stockBackgroundImg}
               alt='Background'
             />
             <Box className={classes.profileInfo}>
               <img
                 className={classes.profileImage}
-                src={image ? image : stockImg}
+                src={vendor.image ? vendor.image : stockImg}
                 alt='Profile'
               />
 
@@ -148,24 +127,24 @@ function ClientView(props) {
               >
                 <Box>
                   <Typography variant='h4' className={classes.name}>
-                    {name}
+                  {vendor.name}
                   </Typography>
                   <Typography variant='body1' className={classes.location}>
-                    {location}
+                  {vendor.firstName}
                   </Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
 
-          <Typography className={classes.description}>{description}</Typography>
+          <Typography className={classes.description}>{vendor.description}</Typography>
 
           <Divider
             style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
           />
 
           {/* need to make it fixed while scrolling */}
-          {phone && (
+          {vendor.business.phone && (
             <Box
               sx={{
                 display: 'flex',
@@ -176,7 +155,7 @@ function ClientView(props) {
             >
               <Fab color='#1ABC9C'>
                 <Link
-                  to={`tel:${phone}`}
+                  to={`tel:${vendor.business.phone}`}
                   target='_blank'
                   rel='noopener noreferrer'
                 >
@@ -187,8 +166,8 @@ function ClientView(props) {
           )}
 
           <h2>Services</h2>
-          {services.length > 0 ? (
-            services.map((service, index) => (
+          {vendor.services.length > 0 ? (
+            vendor.services.map((service, index) => (
               <Box key={index} className={classes.service}>
                 <Checkbox
                   value='remember'
@@ -211,8 +190,8 @@ function ClientView(props) {
 
           {/* <h2>Availability</h2> */}
           {/* Render availability based on its structure */}
-          {facebookUrl && (
-            <Link to={facebookUrl} target='_blank' rel='noopener noreferrer'>
+          {vendor.facebook && (
+            <Link to={vendor.facebook} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={facebookLogo}
@@ -220,8 +199,8 @@ function ClientView(props) {
               />
             </Link>
           )}
-          {youtubeUrl && (
-            <Link to={youtubeUrl} target='_blank' rel='noopener noreferrer'>
+          {vendor.youTube && (
+            <Link to={vendor.youTube} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={youtubeLogo}
@@ -229,8 +208,8 @@ function ClientView(props) {
               />
             </Link>
           )}
-          {instagramUrl && (
-            <Link to={instagramUrl} target='_blank' rel='noopener noreferrer'>
+          {vendor.instagram && (
+            <Link to={vendor.instagram} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={instagramLogo}
@@ -238,8 +217,8 @@ function ClientView(props) {
               />
             </Link>
           )}
-          {linkedInUrl && (
-            <Link to={linkedInUrl} target='_blank' rel='noopener noreferrer'>
+          {vendor.linkedIn && (
+            <Link to={vendor.linkedIn} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={linkedInLogo}
@@ -247,8 +226,8 @@ function ClientView(props) {
               />
             </Link>
           )}
-          {tiktokUrl && (
-            <Link to={tiktokUrl} target='_blank' rel='noopener noreferrer'>
+          {vendor.tikTok && (
+            <Link to={vendor.tikTok} target='_blank' rel='noopener noreferrer'>
               <img
                 className={classes.socialIcon}
                 src={tiktokLogo}
@@ -256,9 +235,9 @@ function ClientView(props) {
               />
             </Link>
           )}
-          {email && (
+          {vendor.email && (
             <Link
-              to={`mailto:${email}`}
+              to={`mailto:${vendor.email}`}
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -267,6 +246,7 @@ function ClientView(props) {
           )}
         </Box>
       </Box>
+      ))}
     </Page>
   );
 }

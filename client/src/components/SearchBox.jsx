@@ -60,7 +60,7 @@ export default function SearchBox({ details, onSelect }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label='Vendor'
+          label='Business'
           onKeyPress={(event) => {
             if (event.key === 'Enter') {
               handleSearch(event);
