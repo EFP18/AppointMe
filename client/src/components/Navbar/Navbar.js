@@ -52,6 +52,7 @@ function Navbar() {
             fontFamily: 'League Spartan',
             fontWeight: 'bolder',
             fontSize: 45,
+            letterSpacing: '-2.5px'
           }}
         >
           {isHovered ? 'appointme.' : 'am.'}
