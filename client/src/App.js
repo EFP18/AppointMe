@@ -63,6 +63,7 @@ function App() {
               <Route path='/profileview' element={<ProfileView />} />
               <Route path='/services/:service' element={<ServicePage />} />
               <Route path='/clientDb' element={<ClientDb />} />
+              :id for the clientview
               <Route path='/clientview' element={<ClientView />} />
             </Routes>
             {/* <Footer /> */}
