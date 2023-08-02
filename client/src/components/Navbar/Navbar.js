@@ -10,8 +10,9 @@ import authServiceInstance from '../../utils/auth';
 import { CustomIconButton } from './NavbarFunction';
 
 function Navbar() {
-  const logout = (event) => {
+  const logoutClick = (event) => {
     event.preventDefault();
+    console.log('hit')
     authServiceInstance.logout();
   };
 
@@ -90,12 +91,12 @@ function Navbar() {
             icon={logoutIcon}
             altText='logout'
             // once logged out, redirect to landing page
-            linkPath='/'
+            onClick={logoutClick}
             linkText='Sign Out'
-            onClick={logout}
             isHovered={isHovered}
           />
         </Box>
+        <a onClick={logoutClick}>hey</a>
       </Box>
       {/* </>
       ) : (

@@ -30,6 +30,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    window.location.assign('/')
     // once logged out, redirect to landing page
   }
 }
