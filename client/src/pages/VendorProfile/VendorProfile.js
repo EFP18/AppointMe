@@ -105,6 +105,7 @@ export default function VendorProfile() {
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <div style={{ minHeight: '100vh', margin: '100px 10px' }}>
         <Navbar />
+        
         <Box
           sx={{
             margin: '10px 250px',

@@ -1,0 +1,26 @@
+/* BookAppointment.css */
+
+.react-datepicker {
+  font-size: 1.2em; 
+}
+
+.react-datepicker__header {
+  padding: 1em; 
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  width: 2.5em;
+  height: 2.5em; 
+  line-height: 2.5em; 
+}
+
+.react-datepicker__day--available {
+  background-color: rgba(125, 206, 160, .8) !important; 
+  color: rgba(255, 255, 255, 0.8) !important; 
+}
+
+.react-datepicker__day--selected {
+  background-color: #1ABC9C !important; 
+  color: rgba(255, 255, 255, 0.8) !important; 
+}
