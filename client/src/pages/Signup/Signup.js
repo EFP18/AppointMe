@@ -94,7 +94,6 @@ const Signup = () => {
             value={userFormData.email}
             placeholder='Your email'
             label='Email'
-            name='email'
             variant='outlined'
             margin='normal'
             required
@@ -110,8 +109,6 @@ const Signup = () => {
             margin='normal'
             required
             fullWidth
-            onChange={handleInputChange}
-            value={userFormData.password}
             type={showPassword ? 'text' : 'password'}
             onChange={handleInputChange}
             InputProps={{
