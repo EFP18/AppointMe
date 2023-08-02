@@ -6,6 +6,8 @@ import CalendarPage from './pages/CalendarPage/CalendarPage';
 import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
 import ClientView from './pages/VendorPage-ClientView/ClientView';
+import BookAppointment from './pages/BookAppointment/BookAppointment';
+import ClientInfo from './pages/ClientInfo/ClientInfo';
 import {
   ApolloClient,
   InMemoryCache,
@@ -65,6 +67,8 @@ function App() {
               <Route path='/clientDb' element={<ClientDb />} />
               :id for the clientview
               <Route path='/clientview' element={<ClientView />} />
+              <Route path='/book-appointment' element={<BookAppointment />} />
+              <Route path='/client-info' element={<ClientInfo />} />
             </Routes>
             {/* <Footer /> */}
           </BrowserRouter>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Box, Checkbox, Typography, Divider } from '@mui/material';
+import { Button, Box, Checkbox, Typography, Divider, Card } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import button from '../../components/button'
 import { colors } from '../../components/theme';
 import youtubeLogo from './img/youtube2.png';
 import facebookLogo from './img/facebook2.png';
@@ -83,7 +85,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
   socialIcon: {
-    margin: '20px 0',
+    margin: '20px 0 10px 0',
     width: '30px',
     height: '30px',
     marginRight: '10px',
@@ -102,8 +104,11 @@ function ClientView(props) {
     // dynamically create vendor or business name
     <Page title={'Vendor Profile - AppointMe'}>
       <Header />
+      <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
       {vendorData.map((vendor) => (
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{   display: 'flex',
+      alignItems: 'center',
+      marginLeft: '10px', }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>
             <img
@@ -244,9 +249,21 @@ function ClientView(props) {
               <img className={classes.socialIcon} src={emailLogo} alt='Email' />
             </Link>
           )}
+      <ThemeProvider theme={button}>
+  <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: '20px',
+    }}
+  >
+    <Button href='/book-appointment'>Continue</Button>
+  </Box>
+</ThemeProvider>
         </Box>
       </Box>
       ))}
+      </Card>
     </Page>
   );
 }
