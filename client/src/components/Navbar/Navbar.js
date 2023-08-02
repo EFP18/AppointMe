@@ -96,7 +96,6 @@ function Navbar() {
             isHovered={isHovered}
           />
         </Box>
-        <a onClick={logoutClick}>hey</a>
       </Box>
       {/* </>
       ) : (
