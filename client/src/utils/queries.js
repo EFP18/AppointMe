@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 // retrieves all current user data--including saved books
 export const GET_BUSINESS = gql`
-    query GET_BUSINESS($id: ID!) {
-    business(_id: $id) {
+    query GET_BUSINESS {
+    business {
         name
         email
         description

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -22,17 +22,52 @@ import Page from '../../components/Page';
 // temporary seed file for testing
 import categoryData from './categorySeeds.json';
 // import { GET_TAGS } from '../../utils/queries';
-// import { useQuery } from '@apollo/client';
+import { GET_BUSINESS, GET_VENDOR } from '../../utils/queries';
+import {
+  ADD_BUSINESS,
+  UPD_BUSINESS,
+  UPD_VENDOR,
+  ADD_TAG,
+  RMV_TAG,
+  ADD_SERVICE,
+  DEL_SERVICE,
+  UPD_SERVICE,
+  UPD_SOCIALMEDIA,
+} from '../../utils/mutation';
+import { useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 export default function VendorProfile() {
-  const [category, setCategory] = React.useState('');
+  const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
-  const [services, setServices] = useState([{ name: '', cost: '' }]);
-  const [businessName, setBusinessName] = useState('');
+  const [business, setBusiness] = useState({
+    name: '',
+    description: '',
+    logo: '',
+    image: '',
+    address: '',
+    phone: '',
+    email: '',
+  });
+  const [vendor, setVendor] = useState({
+    firstName: '',
+    lastName: '',
+  });
+  const [service, setService] = useState({
+    name: '',
+    price: 0.0,
+    description: '',
+  });
+  const [social, setSocial] = useState({
+    facebook: '',
+    instagram: '',
+    youTube: '',
+    tikTok: '',
+    linkedIn: '',
+  });
+  const [isLoading, setLoading] = useState(true);
   const [businessNameError, setBusinessNameError] = useState(false);
-  const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
-  const [description, setDescription] = useState('');
   const [descriptionError, setDescriptionError] = useState(false);
   const emailValidation = /.+@.+\..+/;
   const history = useNavigate();
@@ -47,17 +82,17 @@ export default function VendorProfile() {
     setDescriptionError(false);
 
     // Validate business name
-    if (businessName === '') {
+    if (business.name === '') {
       setBusinessNameError(true);
     }
 
     // Validate email
-    if (!emailValidation.test(email)) {
+    if (!emailValidation.test(business.email)) {
       setEmailError(true);
     }
 
     // Validate description
-    if (description.length > 500) {
+    if (businessDescription.length > 500) {
       setDescriptionError(true);
     }
 
@@ -77,35 +112,54 @@ export default function VendorProfile() {
   // // either an empty array or data queried with useQuery
   // const categoryData = data?.tags || [];
 
-  const handleChange = event => {
+  const { loading, data } = useQuery(GET_BUSINESS);
+  const businessData = data?.business || {};
+  const servicesArr = businessData?.services || [];
+  const socialObj = businessData?.socialMedia || {};
+  const businessDescription = businessData?.description || '';
+  // setBusiness(businessData);
+
+  useEffect(() => {
+    setBusiness(businessData);
+    setSocial(socialObj);
+    setLoading(false);
+  }, [data]);
+
+  // const [addBusiness]
+
+  const handleChange = (event) => {
     setCategory(event.target.value);
   };
 
-  const handleServiceChange = (index, event) => {
-    const values = [...services];
-    if (event.target.name === 'name') {
-      values[index].name = event.target.value;
-    } else {
-      values[index].cost = event.target.value;
-    }
-    setServices(values);
+  const handleServiceChange = (event) => {
+    const name = event.target.name;
+    setService({ [name]: event.target.value });
   };
 
   const handleAddService = () => {
-    const values = [...services];
+    const values = [...business.services];
     values.push({ name: '', cost: '' });
-    setServices(values);
+    setService(values);
   };
 
-  const handleDescriptionChange = event => {
-    setDescription(event.target.value);
+  const handleBusinessChange = (event) => {
+    // name of field being updated
+    const name = event.target.name;
+    // value: input from keyboard
+    //[] for a variable
+    setBusiness({ [name]: event.target.value });
+  };
+
+  const handleSocial = (event) => {
+    const name = event.target.name;
+    setSocial({ [name]: event.target.value });
   };
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <div style={{ minHeight: '100vh', margin: '100px 10px' }}>
         <Navbar />
-        
+
         <Box
           sx={{
             margin: '10px 250px',
@@ -154,8 +208,9 @@ export default function VendorProfile() {
                 fullWidth
                 margin='normal'
                 required
-                value={businessName}
-                onChange={event => setBusinessName(event.target.value)}
+                value={business.name}
+                name='name'
+                onChange={handleBusinessChange}
                 error={businessNameError}
                 helperText={businessNameError && 'Business name is required'}
               />
@@ -166,12 +221,13 @@ export default function VendorProfile() {
                 rows={4}
                 fullWidth
                 margin='normal'
-                value={description}
-                onChange={handleDescriptionChange}
+                value={business.description}
+                name='description'
+                onChange={handleBusinessChange}
                 helperText={
                   descriptionError
                     ? 'Description cannot exceed 500 characters'
-                    : `${description.length}/500`
+                    : `${businessDescription.length}/500`
                 }
                 error={descriptionError}
               />
@@ -185,7 +241,7 @@ export default function VendorProfile() {
                 >
                   {/* dynamically create the different industries/categories */}
                   {/* key returns null */}
-                  {categoryData.map(category => {
+                  {categoryData.map((category) => {
                     return (
                       <div>
                         <MenuItem key={category.id} value={category.name}>
@@ -202,8 +258,9 @@ export default function VendorProfile() {
                 fullWidth
                 margin='normal'
                 required
-                value={email}
-                onChange={event => setEmail(event.target.value)}
+                value={business.email}
+                name='email'
+                onChange={handleBusinessChange}
                 error={emailError}
                 helperText={emailError && 'Must use a valid email address'}
               />
@@ -212,6 +269,9 @@ export default function VendorProfile() {
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                value={business.phone}
+                name='phone'
+                onChange={handleBusinessChange}
               />
               <TextField
                 label='Address'
@@ -219,6 +279,9 @@ export default function VendorProfile() {
                 fullWidth
                 margin='normal'
                 placeholder='Your address'
+                value={business.address}
+                name='address'
+                onChange={handleBusinessChange}
               />
 
               <Divider
@@ -226,7 +289,7 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {services.map((service, index) => (
+              {servicesArr.map((service, index) => (
                 <Stack key={index} direction='row' spacing={2}>
                   <TextField
                     label='Service Name'
@@ -236,7 +299,7 @@ export default function VendorProfile() {
                     style={{ marginBottom: '0px', flex: 3 }}
                     name='name'
                     value={service.name}
-                    onChange={event => handleServiceChange(index, event)}
+                    onChange={(event) => handleServiceChange(index, event)}
                   />
 
                   <Box
@@ -251,11 +314,11 @@ export default function VendorProfile() {
                       fullWidth
                       margin='normal'
                       style={{ marginBottom: '0px' }}
-                      name='cost'
-                      value={service.cost}
-                      onChange={event => handleServiceChange(index, event)}
+                      name='price'
+                      value={service.price}
+                      onChange={(event) => handleServiceChange(index, event)}
                     />
-                    {index === services.length - 1 && (
+                    {index === servicesArr.length - 1 && (
                       <Button
                         variant='contained'
                         style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
@@ -278,12 +341,16 @@ export default function VendorProfile() {
                   variant='outlined'
                   fullWidth
                   margin='normal'
+                  name='firstName'
+                  value={vendor.firstName}
                 />
                 <TextField
                   label='Last Name'
                   variant='outlined'
                   fullWidth
                   margin='normal'
+                  name='lastName'
+                  value={vendor.lastName}
                 />
               </Stack>
 
@@ -297,30 +364,45 @@ export default function VendorProfile() {
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                onChange={handleSocial}
+                name='youTube'
+                value={social.youTube}
               />
               <TextField
                 label='Facebook'
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                onChange={handleSocial}
+                name='facebook'
+                value={social.facebook}
               />
               <TextField
                 label='Instagram'
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                onChange={handleSocial}
+                name='instagram'
+                value={social.instagram}
               />
               <TextField
                 label='Linkedin'
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                onChange={handleSocial}
+                name='linkedIn'
+                value={social.linkedIn}
               />
               <TextField
                 label='TikTok'
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                onChange={handleSocial}
+                name='tikTok'
+                value={social.tikTok}
               />
 
               <Stack

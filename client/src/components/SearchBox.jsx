@@ -28,7 +28,6 @@ export default function SearchBox({ details, onSelect }) {
 
   const handleSearch = (e) => {
     setInputText(e.target.value);
-    // console.log
   };
 
   return (
