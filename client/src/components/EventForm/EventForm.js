@@ -4,10 +4,18 @@ import TimePicker from 'rc-time-picker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'rc-time-picker/assets/index.css';
 import moment from 'moment';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@mui/material';
 import buttonTheme from '../button';
 import { ThemeProvider } from '@mui/material/styles';
-import './EventForm.css'
+import './EventForm.css';
+import CalendarComponent from '../Calendar/Calendar';
+import { colors } from '../theme';
 
 const EventForm = ({ onAddEvent, events }) => {
   const [newEvent, setNewEvent] = useState({
@@ -18,6 +26,7 @@ const EventForm = ({ onAddEvent, events }) => {
   });
 
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [editingEvent, setEditingEvent] = useState(null);
 
   function handleAddEvent() {
     const start = new Date(newEvent.startDate);
@@ -37,66 +46,77 @@ const EventForm = ({ onAddEvent, events }) => {
     });
   }
 
-  const handleClose = () => {
-    setSelectedEvent(null);
+  function handleEditEvent(event) {
+    setEditingEvent(event);
   }
 
-  return (
-    <div className='EventForm'>
-      <DatePicker
-        placeholderText='Date'
-        selected={newEvent.startDate}
-        onChange={date => setNewEvent({ ...newEvent, startDate: date })}
-        dateFormat='MMMM d, yyyy'
-      />
-      <TimePicker
-        placeholder='Start Time'
-        value={newEvent.startTime}
-        onChange={time => setNewEvent({ ...newEvent, startTime: time })}
-        use12Hours
-        minuteStep={15}
-        showSecond={false}
-        format='h:mm a'
-        inputReadOnly
-      />
-      <TimePicker
-        placeholder='End Time'
-        value={newEvent.endTime}
-        onChange={time => setNewEvent({ ...newEvent, endTime: time })}
-        use12Hours
-        minuteStep={15}
-        showSecond={false}
-        format='h:mm a'
-        inputReadOnly
-      />
-      <ThemeProvider theme={buttonTheme}>
-        <Button style={{ marginTop: '10px' }} onClick={handleAddEvent}>
-          Add Event
-        </Button>
-      </ThemeProvider>
+  const handleClose = () => {
+    setSelectedEvent(null);
+  };
 
-      {/* Event details dialog */}
-      <Dialog
-        open={selectedEvent !== null}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+  return (
+    <>
+      {/* <CalendarComponent events={events} onEditEvent={handleEditEvent} /> */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <DialogTitle id="alert-dialog-title">
-          {selectedEvent ? selectedEvent.title : ''}
-        </DialogTitle>
-        <DialogContent>
-          Start: {selectedEvent ? selectedEvent.start.toString() : ''}
-          End: {selectedEvent ? selectedEvent.end.toString() : ''}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-          <Button color="primary" autoFocus>
-            Edit
+        <DatePicker
+          style={{ width: '150px', margin: '0 10px' }}
+          placeholderText='Date'
+          selected={newEvent.startDate}
+          onChange={date => setNewEvent({ ...newEvent, startDate: date })}
+          dateFormat='MMMM d, yyyy'
+        />
+        <TimePicker
+          style={{ width: '150px', margin: '0 5px' }}
+          placeholder='Start Time'
+          value={newEvent.startTime}
+          onChange={time => setNewEvent({ ...newEvent, startTime: time })}
+          use12Hours
+          minuteStep={15}
+          showSecond={false}
+          format='h:mm a'
+          inputReadOnly
+        />
+        <TimePicker
+          style={{ width: '150px', margin: '0 5px' }}
+          placeholder='End Time'
+          value={newEvent.endTime}
+          onChange={time => setNewEvent({ ...newEvent, endTime: time })}
+          use12Hours
+          minuteStep={15}
+          showSecond={false}
+          format='h:mm a'
+          inputReadOnly
+        />
+        <ThemeProvider theme={buttonTheme}>
+          <Button style={{ marginTop: 0 }} onClick={handleAddEvent}>
+            Add Event
           </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+        </ThemeProvider>
+
+        <Dialog
+          open={editingEvent !== null}
+          onClose={() => setEditingEvent(null)}
+        >
+          <DialogTitle>{editingEvent ? editingEvent.title : ''}</DialogTitle>
+          <DialogContent>
+            Start: {editingEvent ? editingEvent.start.toString() : ''}
+            End: {editingEvent ? editingEvent.end.toString() : ''}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setEditingEvent(null)}>Close</Button>
+            <Button color='primary' autoFocus>
+              Edit
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </>
   );
 };
 
