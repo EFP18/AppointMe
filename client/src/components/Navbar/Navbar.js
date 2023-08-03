@@ -12,7 +12,7 @@ import { CustomIconButton } from './NavbarFunction';
 function Navbar() {
   const logoutClick = (event) => {
     event.preventDefault();
-    console.log('hit')
+    console.log('hit');
     authServiceInstance.logout();
   };
 
@@ -24,8 +24,6 @@ function Navbar() {
 
   return (
     <div>
-      {/* {authServiceInstance.loggedIn() ? (
-        <> */}
       <Box
         sx={{
           position: 'fixed',
@@ -53,7 +51,7 @@ function Navbar() {
             fontFamily: 'League Spartan',
             fontWeight: 'bolder',
             fontSize: 45,
-            letterSpacing: '-2.5px'
+            letterSpacing: '-2.5px',
           }}
         >
           {isHovered ? 'appointme.' : 'am.'}
@@ -97,10 +95,6 @@ function Navbar() {
           />
         </Box>
       </Box>
-      {/* </>
-      ) : (
-        <></>
-      )} */}
     </div>
   );
 }
