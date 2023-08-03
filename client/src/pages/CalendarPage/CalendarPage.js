@@ -29,7 +29,7 @@ const CalendarPage = () => {
   const onEditEvent = (e) => {
     console.log(e)
     console.log('calendar click!!')
-  }
+  };
 
   return (
     <Page title={'My Calendar - AppointMe'} className='landing-page'>
