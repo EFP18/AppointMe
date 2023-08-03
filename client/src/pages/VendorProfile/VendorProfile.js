@@ -72,8 +72,10 @@ export default function VendorProfile() {
   const emailValidation = /.+@.+\..+/;
   const history = useNavigate();
   const navigate = useNavigate();
+  const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
+    useMutation(UPD_BUSINESS);
 
-  const handleFormSubmit = (event, redirect = false) => {
+  const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
 
     // Initialize all error states to false
@@ -98,12 +100,24 @@ export default function VendorProfile() {
 
     // If there are no errors, you can proceed with the form submission
     if (!businessNameError && !emailError && !descriptionError) {
-      if (redirect) {
-        // Redirect to the profile view page
-        navigate('/profileview');
-      } else {
-        // Add your form submit logic here.
+      const variables = {
+        businessId: business.id,
+        name: business.name,
+        description: business.description,
+        // add other business properties here...
+      };
+      try {
+        // Call the updateBusiness mutation and pass the variables
+        await updateBusiness({ variables });
+
+        // If the mutation is successful, you can proceed with the form submission
         setIsSaved(true);
+        if (redirect) {
+          // Redirect to the profile view page
+          navigate('/profileview');
+        }
+      } catch (err) {
+        console.error('Error updating business:', err);
       }
     }
   };
@@ -128,7 +142,9 @@ export default function VendorProfile() {
   // const [addBusiness]
 
   const handleChange = (event) => {
-    setCategory(event.target.value);
+    const selectedCategory = event.target.value;
+    setCategory(selectedCategory);
+    setBusiness({ ...business, category: selectedCategory });
   };
 
   const handleServiceChange = (event) => {
@@ -153,6 +169,11 @@ export default function VendorProfile() {
   const handleSocial = (event) => {
     const name = event.target.name;
     setSocial({ [name]: event.target.value });
+  };
+
+  const handleVendor = (event) => {
+    const name = event.target.name;
+    setVendor({ [name]: event.target.value });
   };
 
   return (
@@ -343,6 +364,7 @@ export default function VendorProfile() {
                   margin='normal'
                   name='firstName'
                   value={vendor.firstName}
+                  onChange={handleVendor}
                 />
                 <TextField
                   label='Last Name'
@@ -351,6 +373,7 @@ export default function VendorProfile() {
                   margin='normal'
                   name='lastName'
                   value={vendor.lastName}
+                  onChange={handleVendor}
                 />
               </Stack>
 
@@ -411,13 +434,13 @@ export default function VendorProfile() {
                 alignItems='baseline'
                 justifyContent='center'
               >
-                <Button
+                {/* <Button
                   type='submit'
                   variant='contained'
                   style={{ marginTop: '30px', marginBottom: '0px' }}
                 >
                   Save Profile
-                </Button>
+                </Button> */}
 
                 <Button
                   href='/profileview'
@@ -425,7 +448,7 @@ export default function VendorProfile() {
                   style={{ marginBottom: '0px' }}
                   onClick={(event) => handleFormSubmit(event, true)}
                 >
-                  View Profile
+                  Save Profile
                 </Button>
               </Stack>
             </form>
