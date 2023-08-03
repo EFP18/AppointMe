@@ -17,6 +17,14 @@ const button = createTheme({
             backgroundColor: colors.white,
             color: colors.primary,
           },
+          '@media (max-width:984px)': {
+            fontSize: '12px', 
+            padding: '6px 12px', 
+          },
+          '@media (max-width:770px)': {
+            fontSize: '11px', 
+            padding: '4px 10px', 
+          },
         },
       },
     },
