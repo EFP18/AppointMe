@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import TimePicker from 'rc-time-picker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,6 +10,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
+  Grid,
+  Container,
 } from '@mui/material';
 import buttonTheme from '../button';
 import { ThemeProvider } from '@mui/material/styles';
@@ -17,7 +20,13 @@ import './EventForm.css';
 import CalendarComponent from '../Calendar/Calendar';
 import { colors } from '../theme';
 
-const EventForm = ({ onAddEvent, events }) => {
+const EventForm = ({
+  onAddEvent,
+  allEvents,
+  setAllEvents,
+  selectedEvent,
+  setSelectedEvent,
+}) => {
   const [newEvent, setNewEvent] = useState({
     title: '',
     startDate: '',
@@ -25,7 +34,7 @@ const EventForm = ({ onAddEvent, events }) => {
     endTime: moment(),
   });
 
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  // const [editingMode, setEditingMode] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
 
   function handleAddEvent() {
@@ -46,17 +55,40 @@ const EventForm = ({ onAddEvent, events }) => {
     });
   }
 
-  function handleEditEvent(event) {
-    setEditingEvent(event);
+  function handleSaveEdit() {
+    const updatedEvents = allEvents.map(event =>
+      event === selectedEvent ? editingEvent : event
+    );
+    setAllEvents(updatedEvents);
+    setEditingEvent(null);
   }
 
+  // function handleEditEvent(event) {
+  //   setSelectedEvent(event);
+  //   setEditingEvent(event);
+  //   if (onEditEvent) onEditEvent(event);
+  // }
+
+  useEffect(() => {
+    if (selectedEvent) {
+      setEditingEvent(selectedEvent);
+    }
+  }, [selectedEvent]);
+
   const handleClose = () => {
-    setSelectedEvent(null);
+    setSelectedEvent(null); // Update this function to use the prop
   };
+
+  function handleDeleteEvent() {
+    const updatedEvents = allEvents.filter(event => event !== editingEvent);
+    setAllEvents(updatedEvents);
+    setEditingEvent(null);
+  }
 
   return (
     <>
-      {/* <CalendarComponent events={events} onEditEvent={handleEditEvent} /> */}
+      {/* <CalendarComponent events={allEvents} onEditEvent={onEditEvent} /> */}
+
       <div
         style={{
           display: 'flex',
@@ -102,16 +134,45 @@ const EventForm = ({ onAddEvent, events }) => {
         <Dialog
           open={editingEvent !== null}
           onClose={() => setEditingEvent(null)}
+          PaperProps={{
+            style: { backgroundColor: colors.black },
+          }}
         >
-          <DialogTitle>{editingEvent ? editingEvent.title : ''}</DialogTitle>
-          <DialogContent>
-            Start: {editingEvent ? editingEvent.start.toString() : ''}
-            End: {editingEvent ? editingEvent.end.toString() : ''}
+          <DialogTitle style={{ fontSize: '18px' }}>
+            {editingEvent ? editingEvent.title : ''}
+          </DialogTitle>
+          <DialogContent
+            style={{ fontSize: '18px', lineHeight: '2', color: colors.primary }}
+          >
+            Start:{' '}
+            {editingEvent
+              ? moment(editingEvent.start).format('ddd MMM D YYYY h:mma')
+              : ''}
+            <br />
+            End:{' '}
+            {editingEvent
+              ? moment(editingEvent.end).format('ddd MMM D YYYY h:mma')
+              : ''}
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setEditingEvent(null)}>Close</Button>
-            <Button color='primary' autoFocus>
-              Edit
+            <Button
+              onClick={() => setEditingEvent(null)}
+              className='dialog-button'
+            >
+              Close
+            </Button>
+            {/* <Button className="dialog-button">
+    Edit
+  </Button> */}
+            <Button onClick={handleDeleteEvent} className='dialog-button'>
+              Delete
+            </Button>
+            <Button
+              onClick={handleSaveEdit}
+              className='dialog-button'
+              autoFocus
+            >
+              Save
             </Button>
           </DialogActions>
         </Dialog>

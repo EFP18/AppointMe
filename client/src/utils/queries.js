@@ -2,41 +2,42 @@ import { gql } from '@apollo/client';
 
 // retrieves all current user data--including saved books
 export const GET_BUSINESS = gql`
-  query GET_BUSINESS($id: ID!) {
-    business(_id: $id) {
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
+    query GET_BUSINESS {
+    business {
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
-  }
-`;
+}`
+    }
+}`
 
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {

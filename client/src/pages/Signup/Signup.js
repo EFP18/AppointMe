@@ -8,6 +8,7 @@ import {
   Divider,
   InputAdornment,
   IconButton,
+  Grid,
 } from '@mui/material';
 import { Stack, styled } from '@mui/system';
 import { colors } from '../../components/theme';
@@ -28,13 +29,14 @@ const Container = styled(Box)({
   alignItems: 'center',
   justifyContent: 'center',
   minHeight: '100vh',
-  backgroundColor: colors.grey,
+  // backgroundColor: colors.grey,
   boxShadow: colors.shadow,
 });
 
 const StyledCard = styled(Card)({
   padding: '20px',
-  width: '400px',
+  width: '100%',
+  maxWidth: '400px',
   boxSizing: 'border-box',
   borderRadius: '15px',
   backgroundColor: colors.white,
@@ -50,13 +52,13 @@ const Signup = () => {
 
   const [addVendor_mutator] = useMutation(ADD_VENDOR);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     console.log({ userFormData });
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -87,70 +89,85 @@ const Signup = () => {
   return (
     <Page title={'Signup - AppointMe'}>
       <Container>
-        <StyledCard>
-          <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
-          <TextField
-            name='email'
-            value={userFormData.email}
-            placeholder='Your email'
-            label='Email'
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            onChange={handleInputChange}
-          />
-          <TextField
-            placeholder='Your password'
-            label='Password'
-            name='password'
-            value={userFormData.password}
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            type={showPassword ? 'text' : 'password'}
-            onChange={handleInputChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    onMouseDown={(event) => event.preventDefault()}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <ThemeProvider theme={button}>
-            <Button
-              variant='contained'
-              fullWidth
-              onClick={handleFormSubmit}
-              disabled={!(userFormData.email && userFormData.password)}
-            >
-              <Box fontWeight='fontWeightBold'>SIGN UP</Box>
-            </Button>
-          </ThemeProvider>
-          <Box my={3}>
-            <Divider>OR</Divider>
-          </Box>
-          <Box my={2} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-            <img src={linkedInLogo} alt='LinkedIn' />
-          </Box>
-          <Box style={{ color: colors.black }}>
-            Already a user?{' '}
-            <Link
-              href='/login'
-              variant='body2'
-              style={{ color: colors.primary }}
-            >
-              Login
-            </Link>
-          </Box>
-        </StyledCard>
+        <Grid
+          container
+          justifyContent='center'
+          alignItems='center'
+          style={{ minHeight: '100vh' }}
+        >
+          <Grid item xs={12} sm={8} md={6} lg={4}>
+            <StyledCard>
+              <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
+              <TextField
+                name='email'
+                value={userFormData.email}
+                placeholder='Your email'
+                label='Email'
+                // name='email'
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                onChange={handleInputChange}
+              />
+              <TextField
+                placeholder='Your password'
+                label='Password'
+                name='password'
+                value={userFormData.password}
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                // onChange={handleInputChange}
+                // value={userFormData.password}
+                type={showPassword ? 'text' : 'password'}
+                onChange={handleInputChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        onMouseDown={event => event.preventDefault()}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <ThemeProvider theme={button}>
+                <Button
+                  variant='contained'
+                  fullWidth
+                  onClick={handleFormSubmit}
+                  disabled={!(userFormData.email && userFormData.password)}
+                >
+                  <Box fontWeight='fontWeightBold'>SIGN UP</Box>
+                </Button>
+              </ThemeProvider>
+              <Box my={3}>
+                <Divider>OR</Divider>
+              </Box>
+              <Box
+                my={2}
+                sx={{ display: 'flex', justifyContent: 'space-evenly' }}
+              >
+                <img src={linkedInLogo} alt='LinkedIn' />
+              </Box>
+              <Box style={{ color: colors.black }}>
+                Already a user?{' '}
+                <Link
+                  href='/login'
+                  variant='body2'
+                  style={{ color: colors.primary }}
+                >
+                  Login
+                </Link>
+              </Box>
+            </StyledCard>
+          </Grid>
+        </Grid>
       </Container>
     </Page>
   );

@@ -2,7 +2,7 @@ export const colors = {
   primary: "#1ABC9C",
   grey: "rgba(125, 140, 150, 0.75)",
   secondary: "rgba(125, 206, 160, .8)",
-  black: "rgba(0, 0, 0, 0.85)",
+  black: "rgba(0, 0, 0, 0.8)",
   white: "rgba(255, 255, 255, 0.8)",
   contrast: "#F39C12",
   shadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",

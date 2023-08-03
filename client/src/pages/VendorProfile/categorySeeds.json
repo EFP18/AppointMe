@@ -1,8 +1,53 @@
 [
   {
-    "name": "music"
+    "name": "Music"
   },
   {
-    "name": "beauty"
+    "name": "Beauty"
+  },
+  {
+    "name": "Landscaping"
+  },
+  {
+    "name": "Dentist"
+  },
+  {
+    "name": "Medical"
+  },
+  {
+    "name": "Electrician"
+  },
+  {
+    "name": "Construction"
+  },
+  {
+    "name": "Web Development"
+  },
+  {
+    "name": "Finance"
+  },
+  {
+    "name": "Home Decoration"
+  },
+  {
+    "name": "Lawyer"
+  },
+  {
+    "name": "Outdoors"
+  },
+  {
+    "name": "Shopping"
+  },
+  {
+    "name": "Cooking"
+  },
+  {
+    "name": "Clothing"
+  },
+  {
+    "name": "Therapy"
+  },
+  {
+    "name": "Other"
   }
 ]

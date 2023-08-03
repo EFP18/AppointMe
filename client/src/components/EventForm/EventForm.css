@@ -19,3 +19,13 @@
 .custom-dialog  {
   background-color: black;
 }
+
+/* EventDialog.css */
+.dialog-button {
+  color: #1ABC9C;
+  transition: color 0.3s ease-in-out;
+}
+
+.dialog-button:hover {
+  color: #F39C12;
+}

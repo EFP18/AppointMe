@@ -33,6 +33,7 @@
     "lastName": "Smith",
     "email": "drew.smith@gmail.com",
     "password": "password02",
+    
     "business": "",
     "services": [
       {

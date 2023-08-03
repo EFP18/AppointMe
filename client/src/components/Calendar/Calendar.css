@@ -1,0 +1,7 @@
+.rbc-event {
+  background-color: #1ABC9C !important;
+}
+
+.rbc-month-view .rbc-event {
+  height: 15px !important; 
+}
