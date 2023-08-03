@@ -75,7 +75,7 @@ const typeDefs = gql`
         updVendor (firstName: String, lastName: String, email: String!, password: String!): Vendor
         addBusiness (name: String, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
         delBusiness: Business
-        updBusiness (name: String!, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
+        updBusiness (name: String, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
         createTag (name: String): Tag
         addTag (_id: ID!): Business
         rmvTag (_id: ID!): Business

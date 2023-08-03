@@ -12,7 +12,7 @@ import {
   Stack,
   IconButton,
   Container,
-  Grid
+  Grid,
 } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { ThemeProvider } from '@mui/material/styles';
@@ -79,6 +79,7 @@ export default function VendorProfile() {
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
+    console.log(business);
 
     // Initialize all error states to false
     setBusinessNameError(false);
@@ -103,21 +104,21 @@ export default function VendorProfile() {
     // If there are no errors, you can proceed with the form submission
     if (!businessNameError && !emailError && !descriptionError) {
       const variables = {
-        businessId: business.id,
         name: business.name,
         description: business.description,
         // add other business properties here...
       };
       try {
+        console.log(variables);
         // Call the updateBusiness mutation and pass the variables
-        await updateBusiness({ variables });
+        // await updateBusiness({ variables });
 
-        // If the mutation is successful, you can proceed with the form submission
-        setIsSaved(true);
-        if (redirect) {
-          // Redirect to the profile view page
-          navigate('/profileview');
-        }
+        // // If the mutation is successful, you can proceed with the form submission
+        // setIsSaved(true);
+        // if (redirect) {
+        //   // Redirect to the profile view page
+        //   navigate('/profileview');
+        // }
       } catch (err) {
         console.error('Error updating business:', err);
       }
@@ -136,6 +137,7 @@ export default function VendorProfile() {
   // setBusiness(businessData);
 
   useEffect(() => {
+    if (!data) return;
     setBusiness(businessData);
     setSocial(socialObj);
     setLoading(false);
@@ -165,7 +167,7 @@ export default function VendorProfile() {
     const name = event.target.name;
     // value: input from keyboard
     //[] for a variable
-    setBusiness({ [name]: event.target.value });
+    setBusiness({ ...business, [name]: event.target.value });
   };
 
   const handleSocial = (event) => {
@@ -180,7 +182,7 @@ export default function VendorProfile() {
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
-       <Container>
+      <Container>
         <Navbar />
 
         <Box
@@ -194,7 +196,6 @@ export default function VendorProfile() {
         >
           <h1 style={{ textAlign: 'left' }}>Edit Profile</h1>
           <ThemeProvider theme={button}>
-      
             <Stack
               direction='row'
               alignItems='center'
@@ -269,11 +270,9 @@ export default function VendorProfile() {
                   {/* key returns null */}
                   {categoryData.map((category) => {
                     return (
-                      <div>
-                        <MenuItem key={category.id} value={category.name}>
-                          {category.name}
-                        </MenuItem>
-                      </div>
+                      <MenuItem key={category.id} value={category.name}>
+                        {category.name}
+                      </MenuItem>
                     );
                   })}
                 </Select>
