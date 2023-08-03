@@ -10,6 +10,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
 } from '@mui/material';
 import buttonTheme from '../button';
 import { ThemeProvider } from '@mui/material/styles';
@@ -17,7 +18,7 @@ import './EventForm.css';
 import CalendarComponent from '../Calendar/Calendar';
 import { colors } from '../theme';
 
-const EventForm = ({ onAddEvent, events }) => {
+const EventForm = ({ onAddEvent, allEvents, setAllEvents, onEditEvent }) => {
   const [newEvent, setNewEvent] = useState({
     title: '',
     startDate: '',
@@ -46,17 +47,34 @@ const EventForm = ({ onAddEvent, events }) => {
     });
   }
 
+  function handleSaveEdit() {
+    const updatedEvents = allEvents.map(event =>
+      event === selectedEvent ? editingEvent : event
+    );
+    setAllEvents(updatedEvents);
+    setEditingEvent(null);
+  }
+  
   function handleEditEvent(event) {
+    setSelectedEvent(event);
     setEditingEvent(event);
+    if (onEditEvent) onEditEvent(event);
   }
 
   const handleClose = () => {
     setSelectedEvent(null);
   };
 
+  function handleDeleteEvent() {
+    const updatedEvents = allEvents.filter(event => event !== editingEvent);
+    setAllEvents(updatedEvents);
+    setEditingEvent(null);
+  }
+
   return (
     <>
-      {/* <CalendarComponent events={events} onEditEvent={handleEditEvent} /> */}
+      {/* <CalendarComponent events={allEvents} onEditEvent={onEditEvent} /> */}
+
       <div
         style={{
           display: 'flex',
@@ -105,13 +123,23 @@ const EventForm = ({ onAddEvent, events }) => {
         >
           <DialogTitle>{editingEvent ? editingEvent.title : ''}</DialogTitle>
           <DialogContent>
+            <TextField
+              label='Title'
+              value={editingEvent ? editingEvent.title : ''}
+              onChange={e =>
+                setEditingEvent({ ...editingEvent, title: e.target.value })
+              }
+            />
             Start: {editingEvent ? editingEvent.start.toString() : ''}
             End: {editingEvent ? editingEvent.end.toString() : ''}
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setEditingEvent(null)}>Close</Button>
-            <Button color='primary' autoFocus>
-              Edit
+            <Button onClick={handleDeleteEvent} color='secondary'>
+              Delete
+            </Button>
+            <Button onClick={handleSaveEdit} color='primary' autoFocus>
+              Save
             </Button>
           </DialogActions>
         </Dialog>
