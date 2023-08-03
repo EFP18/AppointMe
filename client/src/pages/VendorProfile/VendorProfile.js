@@ -104,7 +104,7 @@ export default function VendorProfile() {
         businessId: business.id,
         name: business.name,
         description: business.description,
-        // Add other business properties here...
+        // add other business properties here...
       };
       try {
         // Call the updateBusiness mutation and pass the variables
