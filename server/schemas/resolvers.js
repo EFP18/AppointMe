@@ -12,11 +12,15 @@ const resolvers = {
             // need to define id parameter to indicate which vendor this queries
             return Vendor.findById(context.vendor._id);
         },
-        business: async () => {
-            return Business.findOne({ _id })
+        business: async (parent, argsObj, context) => {
+            if (context.vendor) {
+                const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+                return Business.findOne({ _id: currVendor.business._id })
                 .populate('tags')
+                .populate('socialMedia')
                 .populate('services')
-                .populate('clients');
+                .populate('clients')
+            }
         },
         businesses: async () => {
             return Business.find()
@@ -110,6 +114,7 @@ const resolvers = {
         rmvTag: async (parent, { _id }, context) => {
             if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+                // convert string id to objectid
                 const tagId = new mongoose.Types.ObjectId(_id)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },

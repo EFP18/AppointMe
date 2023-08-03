@@ -62,7 +62,7 @@ const typeDefs = gql`
 
     type Query {
         vendor (_id: ID!): Vendor
-        business (_id: ID!): Business
+        business: Business
         businesses: [Business]
         client (_id: ID!): Client
         clients: [Client]

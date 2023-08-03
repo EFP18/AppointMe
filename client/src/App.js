@@ -65,6 +65,7 @@ function App() {
               <Route path='/profileview' element={<ProfileView />} />
               <Route path='/services/:service' element={<ServicePage />} />
               <Route path='/clientDb' element={<ClientDb />} />
+              :id for the clientview
               <Route path='/clientview' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
