@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
 import Header from '../../components/Header';
 import stockImg from '../VendorPage-ClientView/img/stock-photo.png';
 import { colors } from '../../components/theme';
@@ -56,12 +57,26 @@ export default function BookAppointment() {
   return (
     <>
       <Header />
-      <Grid container>
-        <Grid item xs={12}  lg={10} style={{ margin: '20px auto' }}>
-          <Card sx={{ backgroundColor: colors.white, padding: '20px' }}>
+      <Grid container spacing={2}>
+        <Grid
+          item
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          style={{ margin: '20px auto' }}
+        >
+          <Card
+            sx={{
+              backgroundColor: colors.white,
+              padding: '20px',
+              borderRadius: '15px',
+            }}
+          >
             <Box
               sx={{
                 display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
                 alignItems: 'center',
                 marginLeft: '10px',
               }}
@@ -87,7 +102,7 @@ export default function BookAppointment() {
                 textAlign: 'center',
               }}
             >
-              <div style={{ width: '300px' }}>
+              <div style={{ width: '80%' }}>
                 <DatePicker
                   selected={selectedDate}
                   onChange={handleDateChange}
@@ -112,7 +127,7 @@ export default function BookAppointment() {
                     <Button
                       key={timeSlot}
                       style={{ margin: '5px' }}
-                      href='/client-info' 
+                      href='/client-info'
                     >
                       {timeSlot}
                     </Button>

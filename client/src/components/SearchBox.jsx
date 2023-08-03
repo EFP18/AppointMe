@@ -15,7 +15,7 @@ const GroupItems = styled('ul')({
 
 export default function SearchBox({ details, onSelect }) {
   const theme = useTheme();
-  const options = categoryData.map((option) => {
+  const options = categoryData.map(option => {
     const firstLetter = option.name[0].toUpperCase();
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
@@ -26,7 +26,7 @@ export default function SearchBox({ details, onSelect }) {
   // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     setInputText(e.target.value);
   };
 
@@ -36,8 +36,8 @@ export default function SearchBox({ details, onSelect }) {
       options={options.sort(
         (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
       )}
-      groupBy={(option) => option.firstLetter}
-      getOptionLabel={(option) => option.name}
+      groupBy={option => option.firstLetter}
+      getOptionLabel={option => option.name}
       sx={{
         width: 300,
         '& .MuiOutlinedInput-root': {
@@ -56,11 +56,11 @@ export default function SearchBox({ details, onSelect }) {
         fontFamily: 'League Spartan',
         fontSize: '24px',
       }}
-      renderInput={(params) => (
+      renderInput={params => (
         <TextField
           {...params}
           label='Business'
-          onKeyPress={(event) => {
+          onKeyPress={event => {
             if (event.key === 'Enter') {
               handleSearch(event);
             }
@@ -72,6 +72,7 @@ export default function SearchBox({ details, onSelect }) {
               paddingRight: '50px',
               fontFamily: 'League Spartan',
               fontSize: '16px',
+              
             },
           }}
           InputLabelProps={{
@@ -111,7 +112,7 @@ export default function SearchBox({ details, onSelect }) {
           </Typography>
         </Link>
       )}
-      renderGroup={(params) => (
+      renderGroup={params => (
         <li key={params.key}>
           <Box
             sx={{

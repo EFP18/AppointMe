@@ -39,53 +39,76 @@ export default function ServicePage() {
   return (
     <Page sx={{ backgroundColor: colors.grey }}>
       <Header />
-      <Box sx={{ marginLeft: '100px', flexGrow: 1, margin: '40px 0' }}>
-        {/* Use the selectedIndustry state to display the dynamically updated title */}
-        <Typography
-          variant='h2'
-          sx={{
-            textAlign: 'left',
-            fontSize: '50px',
-            fontFamily: 'League Spartan',
-            marginLeft: '100px',
-          }}
-        >
-          {service}
-        </Typography>
-
-        {/* Generate a ServiceCard for every service in database */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          margin: '20px 10px',
+        }}
+      >
         <Box
           sx={{
+            backgroundColor: colors.white,
             display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginTop: '30px',
+            width: '90%',
+            margin: 'auto',
+            boxShadow: colors.shadow,
+            borderRadius: '15px',
+            padding: '16px',
           }}
         >
-          {serviceData.map((service, index) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={index}
-              sx={{ margin: '10px' }}
-            >
-              <ServiceCard
+          {/* Use the selectedIndustry state to display the dynamically updated title */}
+          <Typography
+            variant='h2'
+            sx={{
+              display: 'flex',
+              textAlign: 'left',
+              fontSize: '50px',
+              fontFamily: 'League Spartan',
+              // marginLeft: '100px',
+            }}
+          >
+            {service}
+          </Typography>
+
+          {/* Generate a ServiceCard for every service in database */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginTop: '30px',
+              
+            }}
+          >
+            {serviceData.map((service, index) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={4}
+                key={index}
+                sx={{ margin: '8px' }}
+              >
+                <ServiceCard
                   name={service.name}
                   description={service.description}
                   image={service.image}
                 />
-              {/* {businessData.map((business) =>{
+                {/* {businessData.map((business) =>{
 
-                <ServiceCard
-                  name={business.name}
-                  description={business.description}
-                  image={business.image}
-                />
-              })} */}
-            </Grid>
-          ))}
+                  <ServiceCard
+                    name={business.name}
+                    description={business.description}
+                    image={business.image]
+                  />
+                })} */}
+              </Grid>
+            ))}
+          </Box>
         </Box>
       </Box>
     </Page>

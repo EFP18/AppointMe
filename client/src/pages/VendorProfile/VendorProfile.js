@@ -11,6 +11,8 @@ import {
   Divider,
   Stack,
   IconButton,
+  Container,
+  Grid
 } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { ThemeProvider } from '@mui/material/styles';
@@ -178,18 +180,21 @@ export default function VendorProfile() {
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
-      <div style={{ minHeight: '100vh', margin: '100px 10px' }}>
+       <Container>
         <Navbar />
 
         <Box
           sx={{
-            margin: '10px 250px',
+            margin: '10px 150px',
+            padding: '20px',
+            borderRadius: '15px',
             flexGrow: 1,
             backgroundColor: colors.white,
           }}
         >
           <h1 style={{ textAlign: 'left' }}>Edit Profile</h1>
           <ThemeProvider theme={button}>
+      
             <Stack
               direction='row'
               alignItems='center'
@@ -454,7 +459,7 @@ export default function VendorProfile() {
             </form>
           </ThemeProvider>
         </Box>
-      </div>
+      </Container>
     </Page>
   );
 }
