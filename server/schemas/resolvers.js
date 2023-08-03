@@ -70,12 +70,12 @@ const resolvers = {
                 return newBusiness;
             }
         },
-        updBusiness: async (parent, { name, description, logo, image, address, phone, email }, context) => {
+        updBusiness: async (parent, argsObj, context) => {
             if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $set: { name, description, logo, image, address, phone, email } },
+                    { $set: argsObj },
                     { new: true },
                 );
                 return updatedBusiness;

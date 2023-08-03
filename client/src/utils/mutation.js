@@ -61,7 +61,7 @@ export const ADD_BUSINESS = gql`
 
 // update current user's business
 export const UPD_BUSINESS = gql`
-    mutation UPD_BUSINESS($name: String!, $description: String, $logo: String, $image: String, $address: String, $phone: String, $email: String) {
+    mutation UPD_BUSINESS($name: String, $description: String, $logo: String, $image: String, $address: String, $phone: String, $email: String) {
         updBusiness(name: $name, description: $description, logo: $logo, image: $image, address: $address, phone: $phone, email: $email) {
             address
             email
