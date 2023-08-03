@@ -36,8 +36,6 @@ export const GET_BUSINESS = gql`
         }
     }
 }`
-    }
-}`
 
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {
