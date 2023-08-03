@@ -26,6 +26,11 @@ const CalendarPage = () => {
     setAllEvents([...allEvents, newEvent]);
   };
 
+  const onEditEvent = (e) => {
+    console.log(e)
+    console.log('calendar click!!')
+  };
+
   return (
     <Page title={'My Calendar - AppointMe'} className='landing-page'>
       <div sx={{ display: 'flex' }}>
@@ -33,8 +38,8 @@ const CalendarPage = () => {
         <Box sx={{ marginLeft: '100px', flexGrow: 1 }}>
           <h1>Calendar</h1>
           <h2>Add Availability</h2>
-      <EventForm onAddEvent={handleAddEvent} />
-          <Calendar events={allEvents} />
+          <EventForm onAddEvent={handleAddEvent} />
+          <Calendar events={allEvents} onEditEvent={onEditEvent}/>
         </Box>
       </div>
     </Page>
