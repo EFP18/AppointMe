@@ -11,6 +11,8 @@ import {
   Divider,
   Stack,
   IconButton,
+  Container,
+  Grid,
 } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { ThemeProvider } from '@mui/material/styles';
@@ -101,7 +103,6 @@ export default function VendorProfile() {
     // If there are no errors, you can proceed with the form submission
     if (!businessNameError && !emailError && !descriptionError) {
       const variables = {
-        businessId: business.id,
         name: business.name,
         description: business.description,
         // add other business properties here...
@@ -134,6 +135,7 @@ export default function VendorProfile() {
   // setBusiness(businessData);
 
   useEffect(() => {
+    if (!data) return;
     setBusiness(businessData);
     setSocial(socialObj);
     setLoading(false);
@@ -163,7 +165,7 @@ export default function VendorProfile() {
     const name = event.target.name;
     // value: input from keyboard
     //[] for a variable
-    setBusiness({ [name]: event.target.value });
+    setBusiness({ ...business, [name]: event.target.value });
   };
 
   const handleSocial = (event) => {
@@ -178,12 +180,14 @@ export default function VendorProfile() {
 
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
-      <div style={{ minHeight: '100vh', margin: '100px 10px' }}>
+      <Container>
         <Navbar />
 
         <Box
           sx={{
-            margin: '10px 250px',
+            margin: '10px 150px',
+            padding: '20px',
+            borderRadius: '15px',
             flexGrow: 1,
             backgroundColor: colors.white,
           }}
@@ -264,11 +268,9 @@ export default function VendorProfile() {
                   {/* key returns null */}
                   {categoryData.map((category) => {
                     return (
-                      <div>
-                        <MenuItem key={category.id} value={category.name}>
-                          {category.name}
-                        </MenuItem>
-                      </div>
+                      <MenuItem key={category.id} value={category.name}>
+                        {category.name}
+                      </MenuItem>
                     );
                   })}
                 </Select>
@@ -454,7 +456,7 @@ export default function VendorProfile() {
             </form>
           </ThemeProvider>
         </Box>
-      </div>
+      </Container>
     </Page>
   );
 }
