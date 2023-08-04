@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Box, Checkbox, Typography, Divider } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import button from '../../components/button';
+import { Link } from 'react-router-dom';
+import {
+  Button,
+  Box,
+  Checkbox,
+  Typography,
+  Divider,
+  Card,
+  Fab,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { colors } from '../../components/theme';
+import { useStyles } from './profileViewStyles'
+import button from '../../components/button';
 import Navbar from '../../components/Navbar/Navbar';
 import youtubeLogo from './img/youtube2.png';
 import facebookLogo from './img/facebook2.png';
@@ -14,81 +24,11 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
-import { Link } from 'react-router-dom';
 import { GET_VENDOR, GET_BUSINESS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 // for testing
 // import businessData from './vendorSeeds.json';
 
-const useStyles = makeStyles({
-  profile: {
-    marginLeft: '90px',
-    flexGrow: 1,
-    color: colors.black,
-    backgroundColor: colors.white,
-  },
-  header: {
-    position: 'relative',
-    height: '200px',
-    marginBottom: '60px',
-  },
-  bgImage: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  },
-  profileInfo: {
-    // position: 'absolute',
-    bottom: '-50px',
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-  },
-  profileImage: {
-    borderRadius: '50%',
-    width: '100px',
-    height: '100px',
-    objectFit: 'cover',
-    marginRight: '10px',
-    marginLeft: '25px',
-  },
-  nameAndButton: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '50px',
-    width: '100%',
-  },
-  name: {
-    fontSize: '24px',
-    color: colors.black,
-    fontWeight: 'bold',
-  },
-  location: {
-    fontSize: '16px',
-    color: colors.gray,
-  },
-  description: {
-    padding: '7% 15%',
-    textAlign: 'left',
-  },
-  service: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '10px 0',
-    padding: '0 25%',
-  },
-  serviceName: {
-    flexGrow: 1,
-  },
-  socialIcon: {
-    margin: '20px 0',
-    width: '30px',
-    height: '30px',
-    marginRight: '10px',
-  },
-});
 
 function ProfileView() {
   const classes = useStyles();
@@ -102,9 +42,11 @@ function ProfileView() {
   return (
     // Needs to take the variable of the id from GET_VENDOR, to only populate the vendor page we are logged in as
     <Page title={'My Profile - AppointMe'} className='landing-page'>
-      <Box sx={{ display: 'flex' }}>
+      
         <Navbar />
+        <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
         {/* {businessData.map((business) => ( */}
+        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
         <Box className={classes.profile}>
           <Box className={classes.header}>
             <img
@@ -258,8 +200,9 @@ function ProfileView() {
             </Link>
           )}
         </Box>
+        </Box>
         {/* ))} */}
-      </Box>
+        </Card>
     </Page>
   );
 }

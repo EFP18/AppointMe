@@ -14,7 +14,7 @@ import { makeStyles } from '@mui/styles';
 import Page from '../../components/Page';
 import Header from '../../components/Header';
 import { colors } from '../../components/theme';
-import { useStyles } from '../../components/clientViewStyles'
+import { useStyles } from './clientViewStyles';
 import button from '../../components/button';
 import youtubeLogo from './img/youtube2.png';
 import facebookLogo from './img/facebook2.png';
@@ -31,7 +31,6 @@ import { useQuery } from '@apollo/client';
 // testing
 // import vendorData from './vendorSeeds.json';
 
-
 function ClientView(props) {
   const classes = useStyles();
 
@@ -45,165 +44,193 @@ function ClientView(props) {
     <Page title={'Vendor Profile - AppointMe'}>
       <Header />
       <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
-      {/* {vendorData.map((vendor) => ( */}
-         {/* {businessData.map((business) => ( */}
-      <Box sx={{   display: 'flex',
-      alignItems: 'center',
-      marginLeft: '10px', }}>
-        <Box className={classes.profile}>
-          <Box className={classes.header}>
-            <img
-              className={classes.bgImage}
-              src={businessData.logo ? businessData.logo : stockBackgroundImg}
-              alt='Background'
-            />
-            <Box className={classes.profileInfo}>
+        {/* {vendorData.map((vendor) => ( */}
+        {/* {businessData.map((business) => ( */}
+        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+          <Box className={classes.profile}>
+            <Box className={classes.header}>
               <img
-                className={classes.profileImage}
-                src={businessData.image ? businessData.image : stockImg}
-                alt='Profile'
+                className={classes.bgImage}
+                src={businessData.logo ? businessData.logo : stockBackgroundImg}
+                alt='Background'
               />
+              <Box className={classes.profileInfo}>
+                <img
+                  className={classes.profileImage}
+                  src={businessData.image ? businessData.image : stockImg}
+                  alt='Profile'
+                />
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                }}
-              >
-                <Box>
-                <Typography variant='h4' sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}>
-                {businessData.name}
-                  </Typography>
-                  <Typography variant='body1' className={classes.location}>
-                  {businessData.firstName}
-                  </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      variant='h4'
+                      sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
+                    >
+                      {businessData.name}
+                    </Typography>
+                    <Typography variant='body1' className={classes.location}>
+                      {businessData.firstName}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
 
-          <Typography className={classes.description}>{businessData.description}</Typography>
+            <Typography className={classes.description}>
+              {businessData.description}
+            </Typography>
 
-          <Divider
-            style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
-          />
+            <Divider
+              style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
+            />
 
-          {/* need to make it fixed while scrolling */}
-          {businessData.phone && (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                paddingRight: '20px',
-                position: 'fixed',
-              }}
-            >
-              <Fab color='#1ABC9C'>
-                <Link
-                  to={`tel:${businessData.phone}`}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <img src={phoneIcon} alt='Background' />
-                </Link>
-              </Fab>
-            </Box>
-          )}
-
-          <h2>Services</h2>
-          {Array.isArray(businessData.services) && businessData.services.length > 0 ? (
-              businessData.services.map((service, index) => (
-              <Box key={index} className={classes.service}>
-                <Checkbox
-                  value='remember'
-                  sx={{
-                    color: colors.primary,
-                    '&.Mui-checked': { color: colors.primary },
-                  }}
-                  checked={checkedService === index}
-                  onChange={() => setCheckedService(index)}
-                />
-                <Typography className={classes.serviceName}>
-                  {service.name}
-                </Typography>
-                <Typography>${service.price}</Typography>
+            {/* need to make it fixed while scrolling */}
+            {businessData.phone && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  paddingRight: '20px',
+                  position: 'fixed',
+                }}
+              >
+                <Fab color='#1ABC9C'>
+                  <Link
+                    to={`tel:${businessData.phone}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <img src={phoneIcon} alt='Background' />
+                  </Link>
+                </Fab>
               </Box>
-            ))
-          ) : (
-            <p>No services listed.</p>
-          )}
+            )}
 
-          {/* <h2>Availability</h2> */}
-          {/* Render availability based on its structure */}
-          {businessData.facebook && (
-            <Link to={businessData.facebook} target='_blank' rel='noopener noreferrer'>
-              <img
-                className={classes.socialIcon}
-                src={facebookLogo}
-                alt='Facebook'
-              />
-            </Link>
-          )}
-          {businessData.youTube && (
-            <Link to={businessData.youTube} target='_blank' rel='noopener noreferrer'>
-              <img
-                className={classes.socialIcon}
-                src={youtubeLogo}
-                alt='YouTube'
-              />
-            </Link>
-          )}
-          {businessData.instagram && (
-            <Link to={businessData.instagram} target='_blank' rel='noopener noreferrer'>
-              <img
-                className={classes.socialIcon}
-                src={instagramLogo}
-                alt='Instagram'
-              />
-            </Link>
-          )}
-          {businessData.linkedIn && (
-            <Link to={businessData.linkedIn} target='_blank' rel='noopener noreferrer'>
-              <img
-                className={classes.socialIcon}
-                src={linkedInLogo}
-                alt='LinkedIn'
-              />
-            </Link>
-          )}
-          {businessData.tikTok && (
-            <Link to={businessData.tikTok} target='_blank' rel='noopener noreferrer'>
-              <img
-                className={classes.socialIcon}
-                src={tiktokLogo}
-                alt='TikTok'
-              />
-            </Link>
-          )}
-          {businessData.email && (
-            <Link
-              to={`mailto:${businessData.email}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img className={classes.socialIcon} src={emailLogo} alt='Email' />
-            </Link>
-          )}
-      <ThemeProvider theme={button}>
-  <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      marginBottom: '20px',
-    }}
-  >
-    <Button href='/book-appointment'>Continue</Button>
-  </Box>
-</ThemeProvider>
+            <h2>Services</h2>
+            {Array.isArray(businessData.services) &&
+            businessData.services.length > 0 ? (
+              businessData.services.map((service, index) => (
+                <Box key={index} className={classes.service}>
+                  <Checkbox
+                    value='remember'
+                    sx={{
+                      color: colors.primary,
+                      '&.Mui-checked': { color: colors.primary },
+                    }}
+                    checked={checkedService === index}
+                    onChange={() => setCheckedService(index)}
+                  />
+                  <Typography className={classes.serviceName}>
+                    {service.name}
+                  </Typography>
+                  <Typography>${service.price}</Typography>
+                </Box>
+              ))
+            ) : (
+              <p>No services listed.</p>
+            )}
+
+            {/* <h2>Availability</h2> */}
+            {/* Render availability based on its structure */}
+            {businessData.facebook && (
+              <Link
+                to={businessData.facebook}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={facebookLogo}
+                  alt='Facebook'
+                />
+              </Link>
+            )}
+            {businessData.youTube && (
+              <Link
+                to={businessData.youTube}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={youtubeLogo}
+                  alt='YouTube'
+                />
+              </Link>
+            )}
+            {businessData.instagram && (
+              <Link
+                to={businessData.instagram}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={instagramLogo}
+                  alt='Instagram'
+                />
+              </Link>
+            )}
+            {businessData.linkedIn && (
+              <Link
+                to={businessData.linkedIn}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={linkedInLogo}
+                  alt='LinkedIn'
+                />
+              </Link>
+            )}
+            {businessData.tikTok && (
+              <Link
+                to={businessData.tikTok}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={tiktokLogo}
+                  alt='TikTok'
+                />
+              </Link>
+            )}
+            {businessData.email && (
+              <Link
+                to={`mailto:${businessData.email}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={emailLogo}
+                  alt='Email'
+                />
+              </Link>
+            )}
+            <ThemeProvider theme={button}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Button href='/book-appointment'>Continue</Button>
+              </Box>
+            </ThemeProvider>
+          </Box>
         </Box>
-      </Box>
-      {/* ))} */}
+        {/* ))} */}
       </Card>
     </Page>
   );

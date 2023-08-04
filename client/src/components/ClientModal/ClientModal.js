@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
-
+import './ClientModal.css'
+import { colors  } from "../theme";
 const style = {
   position: "absolute",
   top: "50%",
@@ -48,7 +49,7 @@ export default function ClientModal({
               value={notes}
               onChange={handleNoteChange}
             />
-            <Button onClick={handleSave} color="primary">
+            <Button onClick={handleSave} sx={{ color: colors.primary}} className='box-button'>
               Save
             </Button>
           </div>
@@ -60,7 +61,7 @@ export default function ClientModal({
             >
               {selectedClient ? selectedClient.notes : ""}
             </pre>
-            <Button onClick={handleEdit} color="primary">
+            <Button onClick={handleEdit} sx={{ color: colors.primary}} className='box-button'>
               Edit
             </Button>
           </div>
