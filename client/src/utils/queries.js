@@ -38,110 +38,115 @@ export const GET_BUSINESS = gql`
 }`
 
 export const GET_BUSINESSES = gql`
-    query GET_BUSINESSES {
+  query GET_BUSINESSES {
     businesses {
+      name
+      email
+      description
+      address
+      phone
+      image
+      logo
+      services {
         name
-        email
         description
+        price
+      }
+      tags {
+        name
+      }
+      socialMedia {
+        facebook
+        instagram
+        linkedIn
+        tikTok
+        youTube
+      }
+      clients {
+        firstName
+        lastName
+        email
+        address
+        phone
+        note
+      }
+    }
+  }
+`;
+
+export const GET_VENDOR = gql`
+  query GET_VENDOR($id: ID!) {
+    vendor(_id: $id) {
+      firstName
+      lastName
+      email
+      business {
+        name
+        description
+        email
         address
         phone
         image
         logo
         services {
-            name
-            description
-            price
-        }
-        tags {
-            name
+          name
+          description
+          price
         }
         socialMedia {
-            facebook
-            instagram
-            linkedIn
-            tikTok
-            youTube
-        }
-        clients {
-            firstName
-            lastName
-            email
-            address
-            phone
-            note
-        }
-    }
-}`
-
-export const GET_VENDOR = gql`
-query GET_VENDOR($id: ID!) {
-    vendor(_id: $id) {
-        firstName
-        lastName
-        email
-        business {
-            name
-            description
-            email
-            address
-            phone
-            image
-            logo
-        services {
-            name
-            description
-            price
-        }
-        socialMedia {
-            youTube
-            tikTok
-            linkedIn
-            instagram
-            facebook
+          youTube
+          tikTok
+          linkedIn
+          instagram
+          facebook
         }
         tags {
-            name
+          name
         }
         clients {
-            firstName
-            lastName
-            email
-            address
-            phone
-            note
-            _id
+          firstName
+          lastName
+          email
+          address
+          phone
+          note
+          _id
         }
+      }
     }
-    }
-}`
+  }
+`;
 
 export const GET_CLIENT = gql`
-query Query($id: ID!) {
+  query Query($id: ID!) {
     client(_id: $id) {
-        firstName
-        lastName
-        email
-        address
-        phone
-        note
+      firstName
+      lastName
+      email
+      address
+      phone
+      note
     }
-}`
+  }
+`;
 
 export const GET_CLIENTS = gql`
-query GET_CLIENTS {
+  query GET_CLIENTS {
     clients {
-        firstName
-        lastName
-        email
-        address
-        phone
-        note
+      firstName
+      lastName
+      email
+      address
+      phone
+      note
     }
-}`
+  }
+`;
 
 export const GET_TAGS = gql`
-query Query {
+  query Query {
     tags {
-        name
+      name
     }
-}`
+  }
+`;

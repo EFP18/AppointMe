@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CalendarComponent from '../../components/Calendar/Calendar';
 import Navbar from '../../components/Navbar/Navbar';
 import { Card, Box, Container, Grid } from '@mui/material';
-import { colors } from '../../components/theme'
+import { colors } from '../../components/theme';
 import EventForm from '../../components/EventForm/EventForm';
 import './CalendarPage.css';
 import Page from '../../components/Page';
@@ -22,13 +22,13 @@ const CalendarPage = () => {
     },
   ]);
 
-  const handleAddEvent = newEvent => {
+  const handleAddEvent = (newEvent) => {
     setAllEvents([...allEvents, newEvent]);
   };
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const onEditEvent = e => {
+  const onEditEvent = (e) => {
     console.log(e);
     console.log('calendar click!!');
     setSelectedEvent(e);
@@ -39,7 +39,13 @@ const CalendarPage = () => {
       <div sx={{ display: 'flex' }}>
         <Navbar />
         <Card>
-          <Box sx={{ marginLeft: '100px', flexGrow: 1, backgroundColor: colors.white }}>
+          <Box
+            sx={{
+              marginLeft: '100px',
+              flexGrow: 1,
+              backgroundColor: colors.white,
+            }}
+          >
             <h1>Calendar</h1>
             <h2>Add Availability</h2>
             <EventForm
