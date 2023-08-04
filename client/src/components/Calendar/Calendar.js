@@ -29,6 +29,11 @@ const CalendarComponent = ({ events, onEditEvent }) => {
       endAccessor='end'
       style={{ height: '75vh', margin: '50px' }}
       onSelectEvent={onEditEvent}
+      views={{
+        month: true,
+        week: true,
+        day: true,
+      }}
     />
   );
 };

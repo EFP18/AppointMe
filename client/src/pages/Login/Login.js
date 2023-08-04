@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Alert,
   TextField,
   Checkbox,
   Button,
@@ -50,16 +51,16 @@ const Login = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   // set state for form validation
   const [validated] = useState(false);
-
+  const [showAlert, setShowAlert] = useState(false);
   const [loginVendor_mutator] = useMutation(LOGIN_VENDOR);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     console.log({ userFormData });
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -79,6 +80,7 @@ const Login = () => {
       Auth.login(token);
     } catch (err) {
       console.error(err);
+      setShowAlert(true);
     }
 
     setUserFormData({
@@ -130,7 +132,7 @@ const Login = () => {
                     <InputAdornment position='end'>
                       <IconButton
                         onClick={() => setShowPassword(!showPassword)}
-                        onMouseDown={event => event.preventDefault()}
+                        onMouseDown={(event) => event.preventDefault()}
                       >
                         {showPassword ? <Visibility /> : <VisibilityOff />}
                       </IconButton>
@@ -160,6 +162,11 @@ const Login = () => {
                   <Box fontWeight='fontWeightBold'>LOGIN</Box>
                 </Button>
               </ThemeProvider>
+              {showAlert && (
+                <Alert severity='error' onClose={() => setShowAlert(false)}>
+                  Something went wrong with your login credentials!
+                </Alert>
+              )}
               <Box my={3}>
                 <Divider>OR</Divider>
               </Box>
