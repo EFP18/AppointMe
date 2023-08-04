@@ -37,6 +37,7 @@ const EventForm = ({
 
   // const [editingMode, setEditingMode] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [addEventError, setAddEventError] = useState(null)
 
   function handleAddEvent() {
     const start = new Date(newEvent.startDate);
@@ -49,6 +50,13 @@ const EventForm = ({
 
     // id needed to easily identify the used event
     const newEventWithId = { ...newEvent, id: uuidv4(), start, end };
+
+    // adds an error if the created event ends and starts at the same time
+    if (newEventWithId.start.getTime() === newEventWithId.end.getTime()) {
+      setAddEventError('Events cannot start and end at the same time!')
+      return
+    }
+
     onAddEvent(newEventWithId);
     setNewEvent({
       title: '',
@@ -130,6 +138,7 @@ const EventForm = ({
           format='h:mm a'
           inputReadOnly
         />
+        <div>{addEventError}</div>
         <ThemeProvider theme={buttonTheme}>
           <Button style={{ marginTop: 0 }} onClick={handleAddEvent}>
             Add Event
