@@ -77,46 +77,41 @@ export const GET_BUSINESSES = gql`
 `;
 
 export const GET_VENDOR = gql`
-  query GET_VENDOR($id: ID!) {
-    vendor(_id: $id) {
-      firstName
-      lastName
+query Vendor {
+  vendor {
+    _id
+    business {
+      _id
+      name
+      description
+      logo
+      image
+      address
+      phone
       email
-      business {
+      socialMedia {
+        facebook
+        instagram
+        youTube
+        tikTok
+        linkedIn
+      }
+      services {
+        _id
         name
         description
-        email
-        address
-        phone
-        image
-        logo
-        services {
-          name
-          description
-          price
-        }
-        socialMedia {
-          youTube
-          tikTok
-          linkedIn
-          instagram
-          facebook
-        }
-        tags {
-          name
-        }
-        clients {
-          firstName
-          lastName
-          email
-          address
-          phone
-          note
-          _id
-        }
+        price
+      }
+      tags {
+        _id
+        name
       }
     }
+    email
+    firstName
+    lastName
   }
+}
 `;
 
 export const GET_CLIENT = gql`

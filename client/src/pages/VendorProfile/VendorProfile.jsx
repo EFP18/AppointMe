@@ -136,7 +136,6 @@ export default function VendorProfile() {
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
-    setVendor({ firstName: vendor.firstName, lastName: vendor.lastName });
 
     // Initialize all error states to false
     setBusinessNameError(false);
@@ -183,18 +182,18 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      console.log(vendor.firstName, vendor.lastName)
+      console.log(vendor.firstName, vendor.lastName);
 
       try {
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
-          await updSocialMedia({ socialVariables });
-          await updVendor({ vendorVariables });
+          await updSocialMedia({ variables: socialVariables });
+          await updVendor({ variables: vendorVariables });
         } else {
           await updateBusiness({ variables });
-          await updSocialMedia({ socialVariables });
-          await updVendor({ vendorVariables });
+          await updSocialMedia({ variables: socialVariables });
+          await updVendor({ variables: vendorVariables });
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -213,9 +212,9 @@ export default function VendorProfile() {
   // // either an empty array or data queried with useQuery
   // const categoryData = data?.tags || [];
 
-  const { loading, data } = useQuery(GET_BUSINESS);
+  const { loading, data } = useQuery(GET_VENDOR);
   // console.log(data);
-  const businessData = data?.business || {};
+  const businessData = data?.vendor?.business || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
     { name: '', price: 0.0, description: '' },
@@ -223,9 +222,13 @@ export default function VendorProfile() {
   ];
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
+  const vendorData = data?.vendor || {};
 
   useEffect(() => {
     if (!data) return;
+
+    console.log(data);
+
     const servicesObj = {};
     businessData?.services.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
@@ -251,7 +254,7 @@ export default function VendorProfile() {
     });
     setSocial(socialObj);
     setLoading(false);
-    setVendor({ firstName: vendor.firstName, lastName: vendor.lastName });
+    setVendor({ firstName: vendorData.firstName, lastName: vendorData.lastName });
   }, [data]);
 
   // const [addBusiness]
@@ -283,16 +286,17 @@ export default function VendorProfile() {
 
   const handleSocial = (event) => {
     const name = event.target.name;
-    setSocial({ [name]: event.target.value });
+    setSocial({ ...social, [name]: event.target.value });
   };
 
   const handleVendor = (event) => {
     const name = event.target.name;
-    setVendor({ [name]: event.target.value });
+    setVendor({ ...vendor, [name]: event.target.value });
   };
 
   // TODO: category not being saved
   // TODO: contact info from vendor not being saved
+  // TODO: social
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>

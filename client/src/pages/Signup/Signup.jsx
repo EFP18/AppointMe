@@ -138,6 +138,8 @@ const Signup = () => {
                 fullWidth
                 onClick={handleFormSubmit}
                 disabled={!(userFormData.email && userFormData.password)}
+                //  TODO: check error
+                // href='/welcomepage'
               >
                 <Box fontWeight='fontWeightBold'>SIGN UP</Box>
               </Button>

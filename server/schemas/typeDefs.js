@@ -61,7 +61,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        vendor (_id: ID!): Vendor
+        vendor: Vendor
         business: Business
         businesses: [Business]
         client (_id: ID!): Client
@@ -72,7 +72,7 @@ const typeDefs = gql`
     type Mutation {
         addVendor (email: String!, password: String!): Auth
         delVendor (_id: ID!): Vendor
-        updVendor (firstName: String, lastName: String, email: String!, password: String!): Vendor
+        updVendor (firstName: String, lastName: String, email: String, password: String): Vendor
         addBusiness (name: String, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
         delBusiness: Business
         updBusiness (name: String, description: String, logo: String, image: String, address: String, phone: String, email: String): Business
