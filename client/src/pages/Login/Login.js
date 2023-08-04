@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { colors } from '../../components/theme';
-import linkedInLogo from '../../assets/img/linkedin.png';
 import { ThemeProvider } from '@mui/material/styles';
 import button from '../../components/button';
 import Visibility from '@mui/icons-material/Visibility';
@@ -154,6 +153,7 @@ const Login = () => {
               />
               <ThemeProvider theme={button}>
                 <Button
+                sx={{ marginBottom: '12px'}}
                   variant='contained'
                   fullWidth
                   onClick={handleFormSubmit}
@@ -167,21 +167,13 @@ const Login = () => {
                   Something went wrong with your login credentials!
                 </Alert>
               )}
-              <Box my={3}>
-                <Divider>OR</Divider>
-              </Box>
-              <Box
-                my={2}
-                sx={{ display: 'flex', justifyContent: 'space-evenly' }}
-              >
-                <img src={linkedInLogo} alt='LinkedIn' />
-              </Box>
+            
               <Box style={{ color: colors.black }}>
                 Need an account?{' '}
                 <Link
                   href='/signup'
                   variant='body2'
-                  style={{ color: colors.primary }}
+                  style={{ color: colors.primary, paddingTop: '5px' }}
                 >
                   Sign Up
                 </Link>
