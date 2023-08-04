@@ -13,32 +13,14 @@ import { useQuery } from '@apollo/client';
 export default function ServicePage() {
   const { service } = useParams();
 
-  // Mock service data
-  // const businessData = [
-  //   {
-  //     name: 'Vendor 1',
-  //     description:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //   },
-  //   {
-  //     name: 'Vendor 2',
-  //     description:
-  //       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-  //     // image: 'image2.jpg', If empty stock img will appear
-  //   },
-  //   {
-  //     name: 'Vendor 3',
-  //     description:
-  //       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-  //     // image: 'image2.jpg', If empty stock img will appear
-  //   },
-  // ];
-
-  const {loading, data} = useQuery(GET_BUSINESSES);
+  const { loading, data } = useQuery(GET_BUSINESSES);
   const businessData = data?.business || [];
 
   return (
-    <Page sx={{ backgroundColor: colors.grey }}>
+    <Page
+      title={`${service} - AppointMe`}
+      sx={{ backgroundColor: colors.grey }}
+    >
       <Header />
       <Box
         sx={{
@@ -74,37 +56,33 @@ export default function ServicePage() {
             {service}
           </Typography>
 
-        {/* Generate a ServiceCard for every service in database */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginTop: '30px',
-          }}
-        >
-          {businessData.map((service, index) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={index}
-              sx={{ margin: '10px' }}
-            >
-              <ServiceCard
-                  name={service.name}
-                  description={service.description}
-                  image={service.image}
-                />
-               {/* {businessData.map((business) => {
-
+          {/* Generate a ServiceCard for every service in database */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginTop: '30px',
+            }}
+          >
+            {businessData.map((service, index) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={index}
+                sx={{ margin: '10px' }}
+              >
+                //TODO: for each business in this category
+                {businessData.forEach((business) => {
                   <ServiceCard
                     name={business.name}
                     description={business.description}
-                    image={business.image]
-                  />
-                })} */}
+                    image={business.image}
+                  />;
+                })}
+                <ServiceCard />
               </Grid>
             ))}
           </Box>

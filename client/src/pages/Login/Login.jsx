@@ -153,7 +153,7 @@ const Login = () => {
               />
               <ThemeProvider theme={button}>
                 <Button
-                sx={{ marginBottom: '12px'}}
+                  sx={{ marginBottom: '12px' }}
                   variant='contained'
                   fullWidth
                   onClick={handleFormSubmit}
@@ -167,7 +167,7 @@ const Login = () => {
                   Something went wrong with your login credentials!
                 </Alert>
               )}
-            
+
               <Box style={{ color: colors.black }}>
                 Need an account?{' '}
                 <Link
