@@ -51,10 +51,15 @@ const EventForm = ({
     // id needed to easily identify the used event
     const newEventWithId = { ...newEvent, id: uuidv4(), start, end };
 
-    // adds an error if the created event ends and starts at the same time
+    // adds an error if the created event ends and starts at the same
     if (newEventWithId.start.getTime() === newEventWithId.end.getTime()) {
       setAddEventError('Events cannot start and end at the same time!')
-      return
+      return;
+    } else if (newEventWithId.start.getTime() > newEventWithId.end.getTime()) { //adds an error if the created event ends before it starts
+      setAddEventError('Events cannot end before they start!')
+      return;
+    } else {
+      setAddEventError(null)
     }
 
     onAddEvent(newEventWithId);
@@ -138,7 +143,6 @@ const EventForm = ({
           format='h:mm a'
           inputReadOnly
         />
-        <div>{addEventError}</div>
         <ThemeProvider theme={buttonTheme}>
           <Button style={{ marginTop: 0 }} onClick={handleAddEvent}>
             Add Event
@@ -191,6 +195,7 @@ const EventForm = ({
           </DialogActions>
         </Dialog>
       </div>
+      <h3 className='error'>{addEventError}</h3>
     </>
   );
 };
