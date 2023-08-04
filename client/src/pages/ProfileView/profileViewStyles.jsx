@@ -1,13 +1,12 @@
 import { makeStyles } from '@mui/styles';
-import { colors } from './theme';
+import { colors } from '../../components/theme';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(theme => ({
   profile: {
     backgroundColor: colors.white,
     color: colors.black,
     flexGrow: 1,
-    width: '90%',
-    margin: '20px',
+    marginLeft: '90px',
     boxShadow: colors.shadow,
     borderRadius: '15px',
     padding: '16px',
@@ -69,7 +68,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   socialIcon: {
-    margin: '20px 0 10px 0',
+    margin: '20px 0',
     width: '30px',
     height: '30px',
     marginRight: '10px',

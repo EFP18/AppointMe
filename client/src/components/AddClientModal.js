@@ -53,6 +53,10 @@ export default function AddClientModal({ addClient }) {
         }}
         noValidate
         autoComplete='off'
+        onSubmit={(e) => { 
+          e.preventDefault(); 
+          handleSubmit(); 
+        }}
       >
         <TextField
           name='firstName'
@@ -138,7 +142,7 @@ export default function AddClientModal({ addClient }) {
           }}
         >
           <ThemeProvider theme={button}>
-            <Button type='submit' variant='contained' onClick={handleOpen}>
+            <Button type='submit' variant='contained' >
               <Box fontWeight='fontWeightBold'>ADD NEW CLIENT</Box>
             </Button>
           </ThemeProvider>
@@ -150,7 +154,12 @@ export default function AddClientModal({ addClient }) {
   return (
     <>
       <ThemeProvider theme={button}>
-        <Button type='submit' variant='contained' onClick={handleOpen} sx={{ marginBottom: 4 }}>
+        <Button
+          type='submit'
+          variant='contained'
+          onClick={handleOpen}
+          sx={{ marginBottom: 4 }}
+        >
           <Box fontWeight='fontWeightBold'>ADD NEW CLIENT</Box>
         </Button>
       </ThemeProvider>

@@ -1,0 +1,8 @@
+.box-button {
+  color: #1ABC9C;
+  transition: color 0.3s ease-in-out;
+}
+
+.box-button:hover {
+  color: #F39C12;
+}
