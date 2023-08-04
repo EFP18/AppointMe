@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   Box,
   TextField,
   Button,
@@ -47,7 +48,7 @@ const Signup = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   // set state for form validation
-  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const [addVendor_mutator] = useMutation(ADD_VENDOR);
 
@@ -79,6 +80,7 @@ const Signup = () => {
       window.location.assign('/welcomepage');
     } catch (err) {
       console.error(err);
+      setShowAlert(true);
     }
 
     setUserFormData({
@@ -138,10 +140,17 @@ const Signup = () => {
                 fullWidth
                 onClick={handleFormSubmit}
                 disabled={!(userFormData.email && userFormData.password)}
+                // href='/welcomepage'
               >
                 <Box fontWeight='fontWeightBold'>SIGN UP</Box>
               </Button>
             </ThemeProvider>
+            {showAlert && (
+              <Alert severity='error' onClose={() => setShowAlert(false)}>
+                Something went wrong with your signup credentials! Please try
+                again.
+              </Alert>
+            )}
 
             <Box style={{ color: colors.black }}>
               Already a user?{' '}

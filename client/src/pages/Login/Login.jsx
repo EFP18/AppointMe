@@ -46,10 +46,7 @@ const StyledCard = styled(Card)({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  // set initial form state
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  // set state for form validation
-  const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [loginVendor_mutator] = useMutation(LOGIN_VENDOR);
 
@@ -158,7 +155,8 @@ const Login = () => {
             </ThemeProvider>
             {showAlert && (
               <Alert severity='error' onClose={() => setShowAlert(false)}>
-                Something went wrong with your login credentials!
+                Something went wrong with your login credentials! Please try
+                again.
               </Alert>
             )}
 
