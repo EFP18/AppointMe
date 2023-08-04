@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Alert,
   TextField,
   Checkbox,
   Button,
@@ -50,7 +51,7 @@ const Login = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   // set state for form validation
   const [validated] = useState(false);
-
+  const [showAlert, setShowAlert] = useState(false);
   const [loginVendor_mutator] = useMutation(LOGIN_VENDOR);
 
   const handleInputChange = event => {
