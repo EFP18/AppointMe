@@ -79,7 +79,6 @@ export default function VendorProfile() {
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
-    console.log(business);
 
     // Initialize all error states to false
     setBusinessNameError(false);
@@ -109,16 +108,15 @@ export default function VendorProfile() {
         // add other business properties here...
       };
       try {
-        console.log(variables);
         // Call the updateBusiness mutation and pass the variables
-        // await updateBusiness({ variables });
+        await updateBusiness({ variables });
 
-        // // If the mutation is successful, you can proceed with the form submission
-        // setIsSaved(true);
-        // if (redirect) {
-        //   // Redirect to the profile view page
-        //   navigate('/profileview');
-        // }
+        // If the mutation is successful, you can proceed with the form submission
+        setIsSaved(true);
+        if (redirect) {
+          // Redirect to the profile view page
+          navigate('/profileview');
+        }
       } catch (err) {
         console.error('Error updating business:', err);
       }

@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import Calendar from '../../components/Calendar/Calendar';
+import CalendarComponent from '../../components/Calendar/Calendar';
 import Navbar from '../../components/Navbar/Navbar';
 import { Card, Box, Container, Grid } from '@mui/material';
 import { colors } from '../../components/theme';
 import EventForm from '../../components/EventForm/EventForm';
 import './CalendarPage.css';
 import Page from '../../components/Page';
+import moment from 'moment';
 
 const CalendarPage = () => {
   const [allEvents, setAllEvents] = useState([
     {
-      title: 'Meeting',
-      allDay: true,
-      start: new Date(2023, 6, 1),
-      end: new Date(2023, 6, 1),
+      start: moment("2023-03-18T10:00:00").toDate(),
+      end: moment("2023-03-18T11:00:00").toDate(),
+      title: "MRI Registration",
     },
     {
-      title: 'Vacation',
-      allDay: true,
-      start: new Date(2023, 6, 13),
-      end: new Date(2023, 6, 17),
+      start: moment("2023-03-18T14:00:00").toDate(),
+      end: moment("2023-03-18T15:30:00").toDate(),
+      title: "ENT Appointment",
     },
   ]);
 
@@ -57,11 +56,7 @@ const CalendarPage = () => {
               setSelectedEvent={setSelectedEvent}
             />
 
-            <Calendar
-              views={['week', 'day', 'agenda']}
-              events={allEvents}
-              onEditEvent={onEditEvent}
-            />
+            <CalendarComponent events={allEvents} onEditEvent={onEditEvent} />
           </Box>
         </Card>
       </div>
