@@ -12,6 +12,7 @@ export const GET_BUSINESS = gql`
         image
         logo
         services {
+            _id
             name
             description
             price
@@ -48,6 +49,7 @@ export const GET_BUSINESSES = gql`
         image
         logo
         services {
+            _id
             name
             description
             price
