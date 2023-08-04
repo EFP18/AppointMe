@@ -14,6 +14,7 @@ class AuthService {
     const decoded = decode(token);
     if (decoded.exp < Date.now() / 1000) {
       localStorage.removeItem('id_token');
+      window.location.assign('/');
       return true;
     }
     return false;
@@ -30,7 +31,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.assign('/')
+    window.location.assign('/');
     // once logged out, redirect to landing page
   }
 }

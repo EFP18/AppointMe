@@ -17,11 +17,13 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { isSameDay } from 'date-fns';
 import './BookAppointment.css';
+import Page from '../../components/Page';
+import { GET_BUSINESS } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
 
 export default function BookAppointment() {
   // Temporary values for the vendor's image and name
   const vendorImage = stockImg;
-  const vendorName = 'Vendor Name';
 
   const availableDates = [
     {
@@ -46,98 +48,103 @@ export default function BookAppointment() {
   const [selectedDate, setSelectedDate] = React.useState(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = React.useState([]);
 
-  const handleDateChange = date => {
+  const handleDateChange = (date) => {
     setSelectedDate(date);
-    const availableDate = availableDates.find(item =>
+    const availableDate = availableDates.find((item) =>
       isSameDay(item.date, date)
     );
     setSelectedTimeSlots(availableDate ? availableDate.slots : []);
   };
 
+  const { loading, data } = useQuery(GET_BUSINESS);
+  const businessData = data?.business || {};
+
   return (
-    <>
-      <Header />
-      <Grid container spacing={2}>
-        <Grid
-          item
-          xs={12}
-          sm={10}
-          md={8}
-          lg={6}
-          style={{ margin: '20px auto' }}
-        >
-          <Card
-            sx={{
-              backgroundColor: colors.white,
-              padding: '20px',
-              borderRadius: '15px',
-            }}
+    <Page title={`Book with ${businessData.name} - AppointMe`}>
+      <>
+        <Header />
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={8}
+            lg={6}
+            style={{ margin: '20px auto' }}
           >
-            <Box
+            <Card
               sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
-                alignItems: 'center',
-                marginLeft: '10px',
+                backgroundColor: colors.white,
+                padding: '20px',
+                borderRadius: '15px',
               }}
             >
-              <img
-                src={stockImg}
-                alt='Vendor'
-                style={{ width: '50px', marginRight: '10px' }}
-              />
-              <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-                {vendorName}
-              </Typography>
-            </Box>
-            <Divider
-              sx={{ backgroundColor: colors.primary, margin: '10px 0' }}
-            />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                margin: '20px auto',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ width: '80%' }}>
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={handleDateChange}
-                  inline
-                  highlightDates={availableDates.map(item => item.date)}
-                  dayClassName={date => {
-                    const availableDate = availableDates.some(item =>
-                      isSameDay(item.date, date)
-                    );
-                    return availableDate
-                      ? 'react-datepicker__day--available'
-                      : '';
-                  }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: 'center',
+                  marginLeft: '10px',
+                }}
+              >
+                <img
+                  src={stockImg}
+                  alt='Vendor'
+                  style={{ width: '50px', marginRight: '10px' }}
                 />
+                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                  {businessData.name}
+                </Typography>
+              </Box>
+              <Divider
+                sx={{ backgroundColor: colors.primary, margin: '10px 0' }}
+              />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  margin: '20px auto',
+                  textAlign: 'center',
+                }}
+              >
+                <div style={{ width: '80%' }}>
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    inline
+                    highlightDates={availableDates.map((item) => item.date)}
+                    dayClassName={(date) => {
+                      const availableDate = availableDates.some((item) =>
+                        isSameDay(item.date, date)
+                      );
+                      return availableDate
+                        ? 'react-datepicker__day--available'
+                        : '';
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            {selectedTimeSlots.length > 0 && (
-              <div style={{ textAlign: 'center' }}>
-                <Typography variant='h6'>Available Time Slots:</Typography>
-                <ThemeProvider theme={button}>
-                  {selectedTimeSlots.map(timeSlot => (
-                    <Button
-                      key={timeSlot}
-                      style={{ margin: '5px' }}
-                      href='/client-info'
-                    >
-                      {timeSlot}
-                    </Button>
-                  ))}
-                </ThemeProvider>
-              </div>
-            )}
-          </Card>
+              {selectedTimeSlots.length > 0 && (
+                <div style={{ textAlign: 'center' }}>
+                  <Typography variant='h6'>Available Time Slots:</Typography>
+                  <ThemeProvider theme={button}>
+                    {selectedTimeSlots.map((timeSlot) => (
+                      <Button
+                        key={timeSlot}
+                        style={{ margin: '5px' }}
+                        href='/client-info'
+                      >
+                        {timeSlot}
+                      </Button>
+                    ))}
+                  </ThemeProvider>
+                </div>
+              )}
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </>
+      </>
+    </Page>
   );
 }
