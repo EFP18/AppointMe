@@ -30,6 +30,11 @@
   color: #F39C12;
 }
 
+.error {
+  color: rgb(255, 60, 60);
+  margin: 1rem;
+  font-weight: bold;
+}
 .date-picker {
   background-color: #F39C12;
 }
