@@ -14,7 +14,6 @@ import { Stack, styled } from '@mui/system';
 import { colors } from '../../components/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import button from '../../components/button';
-import linkedInLogo from '../../assets/img/linkedin.png';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Signup.css';
@@ -138,6 +137,7 @@ const Signup = () => {
               />
               <ThemeProvider theme={button}>
                 <Button
+                sx={{ marginBottom: '12px'}}
                   variant='contained'
                   fullWidth
                   onClick={handleFormSubmit}
@@ -146,15 +146,7 @@ const Signup = () => {
                   <Box fontWeight='fontWeightBold'>SIGN UP</Box>
                 </Button>
               </ThemeProvider>
-              <Box my={3}>
-                <Divider>OR</Divider>
-              </Box>
-              <Box
-                my={2}
-                sx={{ display: 'flex', justifyContent: 'space-evenly' }}
-              >
-                <img src={linkedInLogo} alt='LinkedIn' />
-              </Box>
+             
               <Box style={{ color: colors.black }}>
                 Already a user?{' '}
                 <Link
