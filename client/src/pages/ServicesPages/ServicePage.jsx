@@ -74,19 +74,15 @@ export default function ServicePage() {
                 key={index}
                 sx={{ margin: '10px' }}
               >
-                <ServiceCard
-                  name={service.name}
-                  description={service.description}
-                  image={service.image}
-                />
-                {/* {businessData.map((business) => {
-
+                //TODO: for each business in this category
+                {businessData.forEach((business) => {
                   <ServiceCard
                     name={business.name}
                     description={business.description}
-                    image={business.image]
-                  />
-                })} */}
+                    image={business.image}
+                  />;
+                })}
+                <ServiceCard />
               </Grid>
             ))}
           </Box>

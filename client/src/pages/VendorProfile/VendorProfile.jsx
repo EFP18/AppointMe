@@ -182,7 +182,6 @@ export default function VendorProfile() {
           await addBusiness({ variables });
           await updSocialMedia({ socialVariables });
         } else {
-          console.log(socialVariables);
           await updateBusiness({ variables });
           await updSocialMedia({ socialVariables });
         }
@@ -213,7 +212,6 @@ export default function VendorProfile() {
   ];
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
-  // setBusiness(businessData);
 
   useEffect(() => {
     if (!data) return;
