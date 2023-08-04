@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Calendar from '../../components/Calendar/Calendar';
+import CalendarComponent from '../../components/Calendar/Calendar';
 import Navbar from '../../components/Navbar/Navbar';
 import { Card, Box, Container, Grid } from '@mui/material';
 import { colors } from '../../components/theme'
@@ -51,7 +51,7 @@ const CalendarPage = () => {
               setSelectedEvent={setSelectedEvent}
             />
 
-            <Calendar events={allEvents} onEditEvent={onEditEvent} />
+            <CalendarComponent events={allEvents} onEditEvent={onEditEvent} />
           </Box>
         </Card>
       </div>
