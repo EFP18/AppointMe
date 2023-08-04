@@ -132,9 +132,11 @@ export default function VendorProfile() {
     useMutation(UPD_BUSINESS);
   const [addBusiness] = useMutation(ADD_BUSINESS);
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
+  const [updVendor] = useMutation(UPD_VENDOR);
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
+    setVendor({ firstName: vendor.firstName, lastName: vendor.lastName });
 
     // Initialize all error states to false
     setBusinessNameError(false);
@@ -176,21 +178,30 @@ export default function VendorProfile() {
         youTube: social.youTube || '',
       };
 
+      const vendorVariables = {
+        firstName: vendor.firstName,
+        lastName: vendor.lastName,
+      };
+
+      console.log(vendor.firstName, vendor.lastName)
+
       try {
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
           await updSocialMedia({ socialVariables });
+          await updVendor({ vendorVariables });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ socialVariables });
+          await updVendor({ vendorVariables });
         }
 
         // If the mutation is successful, you can proceed with the form submission
         setIsSaved(true);
         if (redirect) {
-          // Redirect to the profile view page
-          navigate('/profileview');
+          // Redirect to the profile view page and reload page to update data
+          window.location.replace('/profileview');
         }
       } catch (err) {
         console.error('Error updating business:', err);
@@ -216,7 +227,7 @@ export default function VendorProfile() {
   useEffect(() => {
     if (!data) return;
     const servicesObj = {};
-    businessData?.services.forEach(({ _id, name, price, description }) => {      
+    businessData?.services.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
         type: 'unaltered',
         data: {
@@ -240,6 +251,7 @@ export default function VendorProfile() {
     });
     setSocial(socialObj);
     setLoading(false);
+    setVendor({ firstName: vendor.firstName, lastName: vendor.lastName });
   }, [data]);
 
   // const [addBusiness]
@@ -368,11 +380,12 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {/* key returns null */}
                   {categoryData.map((category) => {
                     return (
                       <MenuItem key={category.id} value={category.name}>
                         {category.name}
+                        {/* attribute for menuitem  */}
+                        {/* selected={category.name ? selected= "true": selected="false"} */}
                       </MenuItem>
                     );
                   })}
