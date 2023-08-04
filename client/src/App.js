@@ -15,6 +15,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import LandingPage from './pages/LandingPage/LandingPage';
+import WelcomePage from './pages/WelcomePage/WelcomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ClientDb from './pages/ClientDb/ClientDb';
 import GlobalStyle from './components/GlobalStyle';
@@ -64,12 +65,13 @@ function App() {
               <Route path='/signup' element={<Signup />} />
               {/* {authServiceInstance.loggedIn() ? (
                 <> */}
-              <Route path='/calendarpage' element={<CalendarPage />} />
-              <Route path='/vendorprofile' element={<VendorProfile />} />
-              <Route path='/profileview' element={<ProfileView />} />
-              <Route path='/services/:service' element={<ServicePage />} />
-              <Route path='/clientDb' element={<ClientDb />} />
-              {/* </>
+                  <Route path='/welcomepage' element={<WelcomePage />} />
+                  <Route path='/calendarpage' element={<CalendarPage />} />
+                  <Route path='/vendorprofile' element={<VendorProfile />} />
+                  <Route path='/profileview' element={<ProfileView />} />
+                  <Route path='/services/:service' element={<ServicePage />} />
+                  <Route path='/clientDb' element={<ClientDb />} />
+                {/* </>
               ) : (
                 <></>
               )} */}

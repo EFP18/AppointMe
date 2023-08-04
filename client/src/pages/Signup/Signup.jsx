@@ -88,12 +88,7 @@ const Signup = () => {
   return (
     <Page title={'Signup - AppointMe'}>
       <Container>
-        <Grid
-          container
-          justifyContent='center'
-          alignItems='center'
-          style={{ minHeight: '100vh' }}
-        >
+        
           <Grid item xs={12} sm={8} md={6} lg={4}>
             <StyledCard>
               <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
@@ -142,6 +137,7 @@ const Signup = () => {
                   fullWidth
                   onClick={handleFormSubmit}
                   disabled={!(userFormData.email && userFormData.password)}
+                  // href='/welcomepage'
                 >
                   <Box fontWeight='fontWeightBold'>SIGN UP</Box>
                 </Button>
@@ -159,7 +155,7 @@ const Signup = () => {
               </Box>
             </StyledCard>
           </Grid>
-        </Grid>
+   
       </Container>
     </Page>
   );

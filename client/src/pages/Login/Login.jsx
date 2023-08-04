@@ -91,12 +91,7 @@ const Login = () => {
   return (
     <Page title={'Login - AppointMe'}>
       <Container>
-        <Grid
-          container
-          justifyContent='center'
-          alignItems='center'
-          style={{ minHeight: '100vh' }}
-        >
+    
           <Grid item xs={12} sm={8} md={6} lg={4}>
             <StyledCard>
               <h1 style={{ textAlign: 'left' }}>Login</h1>
@@ -180,7 +175,7 @@ const Login = () => {
               </Box>
             </StyledCard>
           </Grid>
-        </Grid>
+       
       </Container>
     </Page>
   );
