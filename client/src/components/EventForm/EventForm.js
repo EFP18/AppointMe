@@ -19,6 +19,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import './EventForm.css';
 import CalendarComponent from '../Calendar/Calendar';
 import { colors } from '../theme';
+import { v4 as uuidv4 } from 'uuid'
 
 const EventForm = ({
   onAddEvent,
@@ -46,7 +47,9 @@ const EventForm = ({
     end.setHours(newEvent.endTime.hour());
     end.setMinutes(newEvent.endTime.minute());
 
-    onAddEvent({ ...newEvent, start, end });
+    // id needed to easily identify the used event
+    const newEventWithId = { ...newEvent, id: uuidv4(), start, end };
+    onAddEvent(newEventWithId);
     setNewEvent({
       title: '',
       startDate: '',
@@ -80,7 +83,9 @@ const EventForm = ({
   };
 
   function handleDeleteEvent() {
-    const updatedEvents = allEvents.filter(event => event !== editingEvent);
+    if (!editingEvent) return;
+
+    const updatedEvents = allEvents.filter((event) => event.id !== editingEvent.id);
     setAllEvents(updatedEvents);
     setEditingEvent(null);
   }
@@ -164,7 +169,7 @@ const EventForm = ({
             {/* <Button className="dialog-button">
     Edit
   </Button> */}
-            <Button onClick={handleDeleteEvent} className='dialog-button'>
+            <Button onClick={event => handleDeleteEvent(event)} className='dialog-button'>
               Delete
             </Button>
             <Button
