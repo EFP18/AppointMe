@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Button,
   TextField,
@@ -55,11 +56,64 @@ export default function VendorProfile() {
     firstName: '',
     lastName: '',
   });
-  const [service, setService] = useState({
-    name: '',
-    price: 0.0,
-    description: '',
-  });
+
+  // 'someId': {
+  // 'unaltered', 'edited', 'deleted', 'new'
+  //   type: '',
+  //   data: {
+  //     _id: '',
+  //     name: '',
+  //     price: 0.0,
+  //     description: '',
+  //   }
+  // }
+  const [serviceObj, setServiceObj] = useState({});
+
+  const displayServices = () => {
+    const arr = [];
+
+    for (const serviceId in serviceObj) {
+      const service = serviceObj[serviceId].data;
+
+      const elm = (
+        <Stack key={service._id} direction='row' spacing={2}>
+          <TextField
+            label='Service Name'
+            variant='outlined'
+            fullWidth
+            margin='normal'
+            style={{ marginBottom: '0px', flex: 3 }}
+            name='name'
+            value={service.name}
+            // onChange={(event) => handleServiceChange(index, event)}
+          />
+
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='flex-end'
+            flex={1}
+          >
+            <TextField
+              label='Service Cost ($)'
+              variant='outlined'
+              fullWidth
+              margin='normal'
+              style={{ marginBottom: '0px' }}
+              name='price'
+              value={service.price}
+              // onChange={(event) => handleServiceChange(index, event)}
+            />
+          </Box>
+        </Stack>
+      );
+
+      arr.push(elm);
+    }
+
+    return arr;
+  };
+
   const [social, setSocial] = useState({
     facebook: '',
     instagram: '',
@@ -76,6 +130,8 @@ export default function VendorProfile() {
   const navigate = useNavigate();
   const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
     useMutation(UPD_BUSINESS);
+  const [addBusiness] = useMutation(ADD_BUSINESS);
+  const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
@@ -105,11 +161,31 @@ export default function VendorProfile() {
       const variables = {
         name: business.name,
         description: business.description,
-        // add other business properties here...
+        logo: business.logo,
+        image: business.image,
+        address: business.address,
+        phone: business.phone,
+        email: business.email,
       };
+
+      const socialVariables = {
+        facebook: social.facebook || '',
+        instagram: social.instagram || '',
+        linkedIn: social.linkedIn || '',
+        tikTok: social.tikTok || '',
+        youTube: social.youTube || '',
+      };
+
       try {
         // Call the updateBusiness mutation and pass the variables
-        await updateBusiness({ variables });
+        if (!data) {
+          await addBusiness({ variables });
+          await updSocialMedia({ socialVariables });
+        } else {
+          console.log(socialVariables);
+          await updateBusiness({ variables });
+          await updSocialMedia({ socialVariables });
+        }
 
         // If the mutation is successful, you can proceed with the form submission
         setIsSaved(true);
@@ -128,15 +204,42 @@ export default function VendorProfile() {
   // const categoryData = data?.tags || [];
 
   const { loading, data } = useQuery(GET_BUSINESS);
+  // console.log(data);
   const businessData = data?.business || {};
-  const servicesArr = businessData?.services || [];
+  const servicesArr = businessData?.services || [
+    { name: '', price: 0.0, description: '' },
+    { name: '', price: 0.0, description: '' },
+    { name: '', price: 0.0, description: '' },
+  ];
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   // setBusiness(businessData);
 
   useEffect(() => {
     if (!data) return;
-    setBusiness(businessData);
+    const servicesObj = {};
+    businessData?.services.forEach(({ _id, name, price, description }) => {      
+      servicesObj[_id] = {
+        type: 'unaltered',
+        data: {
+          _id,
+          name,
+          price,
+          description,
+        },
+      };
+    });
+    setServiceObj(servicesObj);
+
+    setBusiness({
+      name: businessData.name,
+      description: businessData.description,
+      logo: businessData.logo,
+      image: businessData.image,
+      address: businessData.address,
+      phone: businessData.phone,
+      email: businessData.email,
+    });
     setSocial(socialObj);
     setLoading(false);
   }, [data]);
@@ -149,15 +252,15 @@ export default function VendorProfile() {
     setBusiness({ ...business, category: selectedCategory });
   };
 
-  const handleServiceChange = (event) => {
-    const name = event.target.name;
-    setService({ [name]: event.target.value });
-  };
+  // const handleServiceChange = (event) => {
+  //   const name = event.target.name;
+  //   setServiceArr({ [name]: event.target.value });
+  // };
 
   const handleAddService = () => {
-    const values = [...business.services];
-    values.push({ name: '', cost: '' });
-    setService(values);
+    // const values = [...business.services];
+    // values.push({ name: '', cost: '' });
+    // setServiceArr(values);
   };
 
   const handleBusinessChange = (event) => {
@@ -312,47 +415,14 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {servicesArr.map((service, index) => (
-                <Stack key={index} direction='row' spacing={2}>
-                  <TextField
-                    label='Service Name'
-                    variant='outlined'
-                    fullWidth
-                    margin='normal'
-                    style={{ marginBottom: '0px', flex: 3 }}
-                    name='name'
-                    value={service.name}
-                    onChange={(event) => handleServiceChange(index, event)}
-                  />
-
-                  <Box
-                    display='flex'
-                    flexDirection='column'
-                    alignItems='flex-end'
-                    flex={1}
-                  >
-                    <TextField
-                      label='Service Cost ($)'
-                      variant='outlined'
-                      fullWidth
-                      margin='normal'
-                      style={{ marginBottom: '0px' }}
-                      name='price'
-                      value={service.price}
-                      onChange={(event) => handleServiceChange(index, event)}
-                    />
-                    {index === servicesArr.length - 1 && (
-                      <Button
-                        variant='contained'
-                        style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-                        onClick={handleAddService}
-                      >
-                        +
-                      </Button>
-                    )}
-                  </Box>
-                </Stack>
-              ))}
+              {displayServices()}
+              <Button
+                variant='contained'
+                style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                onClick={handleAddService}
+              >
+                +
+              </Button>
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />

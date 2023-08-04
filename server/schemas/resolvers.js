@@ -59,8 +59,8 @@ const resolvers = {
                 return updatedVendor;
             }
         },
-        addBusiness: async (parent, { name, description, logo, image, address, phone, email }, context) => {
-            const newBusiness = await Business.create({ name, description, logo, image, address, phone, email })
+        addBusiness: async (parent, argsObj, context) => {
+            const newBusiness = await Business.create(argsObj)
             if (context.vendor) {
                 const updatedVendor = await Vendor.findOneAndUpdate(
                     { _id: context.vendor._id },
@@ -194,18 +194,19 @@ const resolvers = {
                 return delClient;
             }
         },
-        updSocialMedia: async (parent, { facebook, instagram, youTube, tikTok, linkedIn }, context) => {
+        updSocialMedia: async (parent, argsObj, context) => {
             if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
 
+                console.log(argsObj)
                 const updateObject = {
-                    'socialMedia.facebook': facebook,
-                    'socialMedia.instagram': instagram,
-                    'socialMedia.youTube': youTube,
-                    'socialMedia.tikTok': tikTok,
-                    'socialMedia.linkedIn': linkedIn
+                    'socialMedia.facebook': argsObj.facebook || '',
+                    'socialMedia.instagram': argsObj.instagram || '',
+                    'socialMedia.youTube': argsObj.youTube || '',
+                    'socialMedia.tikTok': argsObj.tikTok || '',
+                    'socialMedia.linkedIn': argsObj.linkedIn || '',
                 }
-
+                console.log(updateObject)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
                     { $set: updateObject },
