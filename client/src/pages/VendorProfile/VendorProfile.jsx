@@ -279,6 +279,8 @@ export default function VendorProfile() {
     setVendor({ [name]: event.target.value });
   };
 
+  // TODO: category not being saved
+  // TODO: contact info from vendor not being saved
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>

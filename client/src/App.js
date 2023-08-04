@@ -74,7 +74,7 @@ function App() {
               ) : (
                 <></>
               )} */}
-              {/* :id for the clientview */}
+              // TODO :id for the clientview ?
               <Route path='/clientview' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
