@@ -26,10 +26,10 @@ export const LOGIN_VENDOR = gql`
 // update vendor info
 export const UPD_VENDOR = gql`
   mutation UPD_VENDOR(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
+    $firstName: String
+    $lastName: String
+    $email: String
+    $password: String
   ) {
     updVendor(
       firstName: $firstName

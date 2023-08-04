@@ -10,7 +10,24 @@ const resolvers = {
                 throw new AuthenticationError('not logged in');
             };
             // need to define id parameter to indicate which vendor this queries
-            return Vendor.findById(context.vendor._id);
+            return Vendor.findById(context.vendor._id)
+                .populate({
+                    path: 'business',
+                    populate: [
+                        {
+                            path: 'tags'
+                        },
+                        {
+                            path: 'socialMedia'
+                        },
+                        {
+                            path: 'services'
+                        },
+                        {
+                            path: 'clients'
+                        }
+                    ]
+                });
         },
         business: async (parent, argsObj, context) => {
             if (context.vendor) {
@@ -49,11 +66,11 @@ const resolvers = {
             const delVendor = await Vendor.findOneAndDelete({ _id });
             return delVendor;
         },
-        updVendor: async (parent, { firstName, lastName, email, password }, context) => {
+        updVendor: async (parent, argsObj, context) => {
             if (context.vendor) {
                 const updatedVendor = await Vendor.findOneAndUpdate(
                     { _id: context.vendor._id },
-                    { $set: { firstName, lastName, email, password } },
+                    { $set: argsObj },
                     { new: true },
                 );
                 return updatedVendor;
