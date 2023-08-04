@@ -25,11 +25,8 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import phoneIcon from './img/phone.png';
-import vendorData from './vendorSeeds.json';
-import { GET_VENDOR, GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
-// testing
-// import vendorData from './vendorSeeds.json';
 
 function ClientView(props) {
   const classes = useStyles();
@@ -40,8 +37,8 @@ function ClientView(props) {
   const [checkedService, setCheckedService] = useState(null);
 
   return (
-    // dynamically create vendor or business name
-    <Page title={'Vendor Profile - AppointMe'}>
+    // dynamically create business name
+    <Page title={`${businessData.name} - AppointMe`}>
       <Header />
       <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
         {/* {vendorData.map((vendor) => ( */}
