@@ -18,7 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Signup.css';
 import Page from '../../components/Page';
-import Auth from '../../utils/auth';
+import authServiceInstance from '../../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_VENDOR } from '../../utils/mutation';
 
@@ -51,13 +51,13 @@ const Signup = () => {
 
   const [addVendor_mutator] = useMutation(ADD_VENDOR);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log({ userFormData });
+    // console.log({ userFormData });
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -74,7 +74,9 @@ const Signup = () => {
       });
 
       const { token } = response.data.addVendor;
-      Auth.login(token);
+      authServiceInstance.login(token);
+
+      window.location.assign('/welcomepage');
     } catch (err) {
       console.error(err);
     }
@@ -88,74 +90,71 @@ const Signup = () => {
   return (
     <Page title={'Signup - AppointMe'}>
       <Container>
-        
-          <Grid item xs={12} sm={8} md={6} lg={4}>
-            <StyledCard>
-              <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
-              <TextField
-                name='email'
-                value={userFormData.email}
-                placeholder='Your email'
-                label='Email'
-                // name='email'
-                variant='outlined'
-                margin='normal'
-                required
+        <Grid item xs={12} sm={8} md={6} lg={4}>
+          <StyledCard>
+            <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
+            <TextField
+              name='email'
+              value={userFormData.email}
+              placeholder='Your email'
+              label='Email'
+              // name='email'
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              onChange={handleInputChange}
+            />
+            <TextField
+              placeholder='Your password'
+              label='Password'
+              name='password'
+              value={userFormData.password}
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              // onChange={handleInputChange}
+              // value={userFormData.password}
+              type={showPassword ? 'text' : 'password'}
+              onChange={handleInputChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      onMouseDown={(event) => event.preventDefault()}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <ThemeProvider theme={button}>
+              <Button
+                sx={{ marginBottom: '12px' }}
+                variant='contained'
                 fullWidth
-                onChange={handleInputChange}
-              />
-              <TextField
-                placeholder='Your password'
-                label='Password'
-                name='password'
-                value={userFormData.password}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                // onChange={handleInputChange}
-                // value={userFormData.password}
-                type={showPassword ? 'text' : 'password'}
-                onChange={handleInputChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        onMouseDown={event => event.preventDefault()}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <ThemeProvider theme={button}>
-                <Button
-                sx={{ marginBottom: '12px'}}
-                  variant='contained'
-                  fullWidth
-                  onClick={handleFormSubmit}
-                  disabled={!(userFormData.email && userFormData.password)}
-                  // href='/welcomepage'
-                >
-                  <Box fontWeight='fontWeightBold'>SIGN UP</Box>
-                </Button>
-              </ThemeProvider>
-             
-              <Box style={{ color: colors.black }}>
-                Already a user?{' '}
-                <Link
-                  href='/login'
-                  variant='body2'
-                  style={{ color: colors.primary }}
-                >
-                  Login
-                </Link>
-              </Box>
-            </StyledCard>
-          </Grid>
-   
+                onClick={handleFormSubmit}
+                disabled={!(userFormData.email && userFormData.password)}
+              >
+                <Box fontWeight='fontWeightBold'>SIGN UP</Box>
+              </Button>
+            </ThemeProvider>
+
+            <Box style={{ color: colors.black }}>
+              Already a user?{' '}
+              <Link
+                href='/login'
+                variant='body2'
+                style={{ color: colors.primary }}
+              >
+                Login
+              </Link>
+            </Box>
+          </StyledCard>
+        </Grid>
       </Container>
     </Page>
   );
