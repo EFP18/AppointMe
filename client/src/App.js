@@ -24,7 +24,7 @@ import { setContext } from '@apollo/client/link/context';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import authServiceInstance from './utils/auth';
-import { colors } from './components/theme'
+import { colors } from './components/theme';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -55,8 +55,7 @@ function App() {
     <ApolloProvider client={client}>
       <HelmetProvider>
         <div className='App'>
-          <BrowserRouter 
-          >
+          <BrowserRouter>
             {/* <Header></Header> */}
             {/* conditionally rendered routes */}
             <Routes>

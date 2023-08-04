@@ -52,7 +52,7 @@ const Login = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log({ userFormData });
+    // console.log({ userFormData });
     setUserFormData({ ...userFormData, [name]: value });
   };
 

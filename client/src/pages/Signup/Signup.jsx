@@ -19,7 +19,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './Signup.css';
 import Page from '../../components/Page';
-import Auth from '../../utils/auth';
+import authServiceInstance from '../../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_VENDOR } from '../../utils/mutation';
 
@@ -54,7 +54,7 @@ const Signup = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log({ userFormData });
+    // console.log({ userFormData });
     setUserFormData({ ...userFormData, [name]: value });
   };
 
@@ -75,7 +75,9 @@ const Signup = () => {
       });
 
       const { token } = response.data.addVendor;
-      Auth.login(token);
+      authServiceInstance.login(token);
+
+      window.location.assign('/welcomepage');
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -149,6 +151,7 @@ const Signup = () => {
                 again.
               </Alert>
             )}
+
             <Box style={{ color: colors.black }}>
               Already a user?{' '}
               <Link
