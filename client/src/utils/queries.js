@@ -12,6 +12,7 @@ export const GET_BUSINESS = gql`
         image
         logo
         services {
+            _id
             name
             description
             price
@@ -40,36 +41,37 @@ export const GET_BUSINESS = gql`
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {
     businesses {
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            _id
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
   }
 `;
