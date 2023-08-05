@@ -60,6 +60,22 @@ const typeDefs = gql`
         vendor: Vendor
     }
 
+    type Ok {
+        message: String
+    }
+
+    input Data {
+            _id: String!
+            name: String!
+            price: Float!
+            description: String!
+        }
+
+    input subService {
+        type: String
+        data: Data
+    }
+
     type Query {
         vendor: Vendor
         business: Business
@@ -68,6 +84,7 @@ const typeDefs = gql`
         clients: [Client]
         tags: [Tag]
     }
+    
 
     type Mutation {
         addVendor (email: String!, password: String!): Auth
@@ -82,6 +99,7 @@ const typeDefs = gql`
         addService (name: String!, description: String, price: Float!): Service
         delService (_id: ID!): Service
         updService (_id: ID!, name: String!, description: String, price: Float!): Service
+        manageServices(servicesArr: [subService]): Ok
         addClient (firstName: String, lastName: String, email: String, address: String, phone: String, note: String): Client
         delClient (_id: ID!): Client
         updClient (_id: ID!, firstName: String, lastName: String, email: String, address: String, phone: String, note: String): Client
