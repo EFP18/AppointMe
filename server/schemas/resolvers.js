@@ -45,7 +45,7 @@ const resolvers = {
                 .populate('services')
                 .populate('clients');
         },
-        client: async () => {
+        client: async (parent, { _id }, context) => {
             return Client.findOne({ _id }).populate('previousShopping');
         },
         clients: async () => {
@@ -176,8 +176,8 @@ const resolvers = {
                 return delService;
             }
         },
-        addClient: async (parent, { firstName, lastName, email, address, phone, note }, context) => {
-            const newClient = await Client.create({ firstName, lastName, email, address, phone, note })
+        addClient: async (parent, argsObj, context) => {
+            const newClient = await Client.create(argsObj)
             if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
@@ -205,10 +205,10 @@ const resolvers = {
                     { $pull: { clients: clientId } },
                     { new: true },
                 );
-                const delClient = await Client.findOneAndDelete(
+                const deletedClient = await Client.findOneAndDelete(
                     { _id: clientId }
                 )
-                return delClient;
+                return deletedClient;
             }
         },
         updSocialMedia: async (parent, argsObj, context) => {

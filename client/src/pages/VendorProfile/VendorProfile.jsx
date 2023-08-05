@@ -293,10 +293,7 @@ export default function VendorProfile() {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
-
-  // TODO: category not being saved
-  // TODO: contact info from vendor not being saved
-  // TODO: social
+  
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>

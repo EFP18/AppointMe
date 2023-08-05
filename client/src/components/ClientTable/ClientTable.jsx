@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client'
 import {
   Table,
   TableBody,
@@ -9,13 +10,13 @@ import {
   Button,
   TablePagination,
 } from '@mui/material';
-// import { GET_CLIENTS } from '../../utils/queries';
-// import { useQuery } from '@apollo/client';
-import clientData from './client.json';
 import AddClientModal from '../AddClientModal';
 import button from '../button';
 import { ThemeProvider } from '@mui/material/styles';
 import { colors } from '../theme';
+
+import { GET_BUSINESS } from '../../utils/queries';
+import { ADD_CLIENT, DEL_CLIENT } from '../../utils/mutation'
 
 const commonStyle = {
   minWidth: 90,
@@ -44,21 +45,49 @@ export default function ClientTable({
   handleChangeRowsPerPage,
   handleOpen,
 }) {
-  const [clients, setClients] = useState(clientData);
-  const addClient = newClient => {
-    // Add an id to the new client
-    newClient._id = clients.length + 1;
 
-    setClients([...clients, newClient]);
+  const [addNewClient, { loadingNewClient, errorNewClient } ] = useMutation(ADD_CLIENT)
+  const [delClient, { loadingDelCl, errorDelCl }] = useMutation(DEL_CLIENT)
+
+  const [clients, setClients] = useState([]);
+
+  const { loading, data, refetch } = useQuery(GET_BUSINESS)
+  const clientsData = data?.business.clients || [];
+
+
+  useEffect(() => {
+    if (!data) return;
+    setClients(clientsData)
+  }, [data])
+
+
+  const addClient = async (newClient) => {
+    // Add an id to the new client
+    try {
+      const { data } = await addNewClient({
+        variables: newClient
+      })
+      if (data){
+        refetch();
+      };
+    }catch (err) {
+      console.error(err)
+    }
   };
 
-  const handleDelete = clientToDelete => {
-    // filter out the client to be deleted
-    const newClientData = clients.filter(
-      client => client._id !== clientToDelete._id
-    );
-    // Update the state with the filtered client data
-    setClients(newClientData);
+  const handleDelete = async (id) => {
+  // Add an id to the new client
+  try {
+    console.log(id)
+    const { data } = await delClient({
+      variables: {id}
+    })
+    if (data){
+      refetch();
+    };
+  }catch (err) {
+    console.error(err)
+  }
   };
   return (
     <TableContainer
@@ -95,12 +124,12 @@ export default function ClientTable({
         <TableBody>
           {clients
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map(clientData => (
+            .map(client => (
               <TableRow
                 hover
                 role='checkbox'
                 tabIndex={-1}
-                key={clientData._id}
+                key={client._id}
                 sx={{
                   margin: '0.5em',
                   borderRadius: '0.5em',
@@ -108,14 +137,14 @@ export default function ClientTable({
                 }}
               >
                 {columns.map(column => {
-                  const value = clientData[column.id];
+                  const value = client[column.id];
                   return (
                     <TableCell key={column.id} align={column.align}>
                       {column.id === 'action' ? (
                         <ThemeProvider theme={button}>
                           <Button
                             variant='contained'
-                            onClick={() => handleOpen(clientData)}
+                            onClick={() => handleOpen(client)}
                             sx={{ mt: '-0.3em' }}
                           >
                             +
@@ -125,7 +154,7 @@ export default function ClientTable({
                         <ThemeProvider theme={button}>
                           <Button
                             variant='contained'
-                            onClick={() => handleDelete(clientData)}
+                            onClick={() => handleDelete(client._id)}
                             sx={{ mt: '-0.3em' }}
                           >
                             Delete
@@ -144,7 +173,7 @@ export default function ClientTable({
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component='div'
-        count={clientData.length}
+        count={clients.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
