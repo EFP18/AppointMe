@@ -11,7 +11,7 @@ const typeDefs = gql`
         phone: String
         email: String
         socialMedia: SocialMedia
-        tags: [Tag]
+        tags: Tag
         services: [Service]
         clients: [Client]
     }

@@ -2,14 +2,15 @@ import { gql } from '@apollo/client';
 
 // add new user via email and password
 export const ADD_VENDOR = gql`
-        mutation ADD_VENDOR($email: String!, $password: String!) {
-        addVendor(email: $email, password: $password) {
-            token
-            vendor {
-                email
-            }
-        }
-}`
+  mutation ADD_VENDOR($email: String!, $password: String!) {
+    addVendor(email: $email, password: $password) {
+      token
+      vendor {
+        email
+      }
+    }
+  }
+`;
 
 export const LOGIN_VENDOR = gql`
   mutation loginVendor($email: String!, $password: String!) {
@@ -90,17 +91,34 @@ export const ADD_BUSINESS = gql`
 
 // update current user's business
 export const UPD_BUSINESS = gql`
-    mutation UPD_BUSINESS($name: String, $description: String, $logo: String, $image: String, $address: String, $phone: String, $email: String) {
-        updBusiness(name: $name, description: $description, logo: $logo, image: $image, address: $address, phone: $phone, email: $email) {
-            address
-            email
-            description
-            image
-            logo
-            name
-            phone
-        }
-}`
+  mutation UPD_BUSINESS(
+    $name: String
+    $description: String
+    $logo: String
+    $image: String
+    $address: String
+    $phone: String
+    $email: String
+  ) {
+    updBusiness(
+      name: $name
+      description: $description
+      logo: $logo
+      image: $image
+      address: $address
+      phone: $phone
+      email: $email
+    ) {
+      address
+      email
+      description
+      image
+      logo
+      name
+      phone
+    }
+  }
+`;
 
 // update current user's business
 export const DEL_BUSINESS = gql`
@@ -125,9 +143,6 @@ export const ADD_TAG = gql`
   mutation ADD_TAG($id: ID!) {
     addTag(_id: $id) {
       name
-      tags {
-        _id
-      }
     }
   }
 `;
@@ -289,4 +304,4 @@ export const MANAGE_SERVICES = gql`
       message
     }
   }
-`
+`;

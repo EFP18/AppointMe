@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { Vendor, Tag } = require('../models');
+const { Tag } = require('../models');
 const categorySeeds = require('./categorySeeds.json');
 
 db.once('open', async () => {

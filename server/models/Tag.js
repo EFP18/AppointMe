@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-// tag information for businesses to be dsicovered during search
+// tag information for businesses to be discovered during search
     const tagSchema = new Schema(
     {
         name: {
