@@ -23,6 +23,8 @@ import Page from '../../components/Page';
 import { useMutation } from '@apollo/client';
 import { LOGIN_VENDOR } from '../../utils/mutation';
 import Auth from '../../utils/auth';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import HeaderNoButton from '../../components/HeaderNoButton';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -87,6 +89,7 @@ const Login = () => {
 
   return (
     <Page title={'Login - AppointMe'}>
+      <HeaderNoButton />
       <Container>
         <Grid item xs={12} sm={8} md={6} lg={4}>
           <StyledCard>
@@ -170,6 +173,11 @@ const Login = () => {
                 Sign Up
               </Link>
             </Box>
+            {/* <ThemeProvider theme={button}>
+              <Button href='/'>
+                <HomeRoundedIcon fontSize='large' />
+              </Button>
+            </ThemeProvider> */}
           </StyledCard>
         </Grid>
       </Container>

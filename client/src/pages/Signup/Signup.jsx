@@ -22,6 +22,7 @@ import Page from '../../components/Page';
 import authServiceInstance from '../../utils/auth';
 import { useMutation } from '@apollo/client';
 import { ADD_VENDOR } from '../../utils/mutation';
+import HeaderNoButton from '../../components/HeaderNoButton';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -91,6 +92,7 @@ const Signup = () => {
 
   return (
     <Page title={'Signup - AppointMe'}>
+      <HeaderNoButton />
       <Container>
         <Grid item xs={12} sm={8} md={6} lg={4}>
           <StyledCard>
