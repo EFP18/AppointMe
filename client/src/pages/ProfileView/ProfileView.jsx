@@ -70,9 +70,9 @@ function ProfileView() {
                     <Typography variant='h4' className={classes.name}>
                       {businessData.name}
                     </Typography>
-                    <Typography variant='body1' className={classes.location}>
+                    {/* <Typography variant='body1' className={classes.location}>
                       {tagsData.name}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                   <Box>
                     <ThemeProvider theme={button}>
