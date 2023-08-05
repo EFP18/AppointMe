@@ -24,7 +24,7 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
-import { GET_VENDOR, GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 function ProfileView() {
@@ -67,9 +67,9 @@ function ProfileView() {
                     <Typography variant='h4' className={classes.name}>
                       {businessData.name}
                     </Typography>
-                    <Typography variant='body1' className={classes.location}>
+                    {/* <Typography variant='body1' className={classes.location}>
                       {businessData.firstName}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                   <Box>
                     <ThemeProvider theme={button}>

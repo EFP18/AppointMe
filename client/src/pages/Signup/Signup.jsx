@@ -100,7 +100,6 @@ const Signup = () => {
               value={userFormData.email}
               placeholder='Your email'
               label='Email'
-              // name='email'
               variant='outlined'
               margin='normal'
               required

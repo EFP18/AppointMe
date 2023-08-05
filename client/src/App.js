@@ -19,7 +19,6 @@ import WelcomePage from './pages/WelcomePage/WelcomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ClientDb from './pages/ClientDb/ClientDb';
 import GlobalStyle from './components/GlobalStyle';
-// import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { setContext } from '@apollo/client/link/context';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
