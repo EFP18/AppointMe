@@ -25,6 +25,7 @@ import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import authServiceInstance from './utils/auth';
 import { colors } from './components/theme';
+import PrivateRoute from './components/PrivateRoute'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -65,7 +66,7 @@ function App() {
               <Route path='/signup' element={<Signup />} />
               {authServiceInstance.loggedIn() ? (
                 <>
-                  <Route path='/welcomepage' element={<WelcomePage />} />
+                  <Route path='/welcomepage' element={<PrivateRoute><WelcomePage /></PrivateRoute>} />
                   <Route path='/calendarpage' element={<CalendarPage />} />
                   <Route path='/vendorprofile' element={<VendorProfile />} />
                   <Route path='/profileview' element={<ProfileView />} />
@@ -73,7 +74,8 @@ function App() {
                   <Route path='/clientDb' element={<ClientDb />} />
                 </>
               ) : (
-                <></>
+                <>
+                </>
               )}
               // TODO :id for the clientview/:id ?
               <Route path='/clientview' element={<ClientView />} />
