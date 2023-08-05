@@ -85,7 +85,7 @@ export default function VendorProfile() {
             style={{ marginBottom: '0px', flex: 3 }}
             name='name'
             value={service.name}
-            // onChange={(event) => handleServiceChange(index, event)}
+          // onChange={(event) => handleServiceChange(index, event)}
           />
 
           <Box
@@ -102,7 +102,7 @@ export default function VendorProfile() {
               style={{ marginBottom: '0px' }}
               name='price'
               value={service.price}
-              // onChange={(event) => handleServiceChange(index, event)}
+            // onChange={(event) => handleServiceChange(index, event)}
             />
           </Box>
         </Stack>
@@ -224,17 +224,17 @@ export default function VendorProfile() {
   useEffect(() => {
     if (!data) return;
     const servicesObj = {};
-    businessData?.services.forEach(({ _id, name, price, description }) => {
-      servicesObj[_id] = {
-        type: 'unaltered',
-        data: {
-          _id,
-          name,
-          price,
-          description,
-        },
-      };
-    });
+    // businessData?.services.forEach(({ _id, name, price, description }) => { // ! PLEASE FIX THIS!!!!!!!!!
+    //   servicesObj[_id] = {
+    //     type: 'unaltered',
+    //     data: {
+    //       _id,
+    //       name,
+    //       price,
+    //       description,
+    //     },
+    //   };
+    // });
     setServiceObj(servicesObj);
 
     setBusiness({
