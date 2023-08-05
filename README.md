@@ -62,3 +62,4 @@ TODO:
 12. turn tags into a single object in the backend, not an array
 13. clientview/:id
 14. description space for services remove?
+15. calendar can't view on month

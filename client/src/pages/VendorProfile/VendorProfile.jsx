@@ -86,6 +86,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
 };
 
 export default function VendorProfile() {
+  // useState
   const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [business, setBusiness] = useState({
@@ -101,7 +102,7 @@ export default function VendorProfile() {
     firstName: '',
     lastName: '',
   });
-
+  const [serviceObj, setServiceObj] = useState({});
   // 'someId': {
   // 'unaltered', 'edited', 'deleted', 'new'
   //   type: '',
@@ -112,8 +113,33 @@ export default function VendorProfile() {
   //     description: '',
   //   }
   // }
-  const [serviceObj, setServiceObj] = useState({});
+  const [social, setSocial] = useState({
+    facebook: '',
+    instagram: '',
+    youTube: '',
+    tikTok: '',
+    linkedIn: '',
+  });
+  const [isLoading, setLoading] = useState(true);
 
+  // Error handling
+  const [businessNameError, setBusinessNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const emailValidation = /.+@.+\..+/;
+  const history = useNavigate();
+  const navigate = useNavigate();
+
+  // Mutations
+  const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
+    useMutation(UPD_BUSINESS);
+  const [addBusiness] = useMutation(ADD_BUSINESS);
+  const [manageServices] = useMutation(MANAGE_SERVICES);
+  const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
+  const [updVendor] = useMutation(UPD_VENDOR);
+  const [addTag] = useMutation(ADD_TAG);
+
+  // Service
   const handleAddServiceObj = () => {
     const _id = uuidv4();
     setServiceObj({
@@ -149,28 +175,7 @@ export default function VendorProfile() {
     });
   };
 
-  const [social, setSocial] = useState({
-    facebook: '',
-    instagram: '',
-    youTube: '',
-    tikTok: '',
-    linkedIn: '',
-  });
-  const [isLoading, setLoading] = useState(true);
-  const [businessNameError, setBusinessNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
-  const emailValidation = /.+@.+\..+/;
-  const history = useNavigate();
-  const navigate = useNavigate();
-  const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
-    useMutation(UPD_BUSINESS);
-  const [addBusiness] = useMutation(ADD_BUSINESS);
-  const [manageServices] = useMutation(MANAGE_SERVICES);
-  const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
-  const [updVendor] = useMutation(UPD_VENDOR);
-  const [addTag] = useMutation(ADD_TAG);
-
+  // Save profile handling
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
 
@@ -223,7 +228,9 @@ export default function VendorProfile() {
       //   name: tags.name,
       //   id: tags._id,
       // };
-      // Services
+      // console.log(tagVariables)
+
+      // Service handling
       const servicesArr = Object.values(serviceObj);
 
       try {
@@ -233,16 +240,20 @@ export default function VendorProfile() {
           },
         });
         // Call the updateBusiness mutation and pass the variables
+        console.log(category);
+
+        console.log(typeof category);
         if (!data) {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          // await addTag({ variables: tagVariables });
+          await addTag({ variables: { category } });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          // await addTag({ variables: tagVariables });
+          // this is the equivalent of updatedBusiness from addTag mutation
+          await addTag({ variables: { _id: category } });
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -257,18 +268,19 @@ export default function VendorProfile() {
     }
   };
 
+  // Queries
   const { loading, data } = useQuery(GET_VENDOR);
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
+  const socialObj = businessData?.socialMedia || {};
+  const businessDescription = businessData?.description || '';
+  const vendorData = data?.vendor || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
     { name: '', price: 0.0, description: '' },
     { name: '', price: 0.0, description: '' },
   ];
-  const socialObj = businessData?.socialMedia || {};
-  const businessDescription = businessData?.description || '';
-  const vendorData = data?.vendor || {};
 
   useEffect(() => {
     if (!data) return;
@@ -303,12 +315,16 @@ export default function VendorProfile() {
     });
   }, [data]);
 
-  // const [addBusiness]
-
   const handleChange = (event) => {
-    const selectedCategory = event.target.value;
-    setCategory(selectedCategory);
-    setBusiness({ ...business, category: selectedCategory });
+    // selected category returns the ID of the service
+    const selectedCategoryId = event.target.value;
+    setCategory(selectedCategoryId);
+    // grab the name of the tag through the id
+    // const selectedTag = tagsData.find((tag) => tag._id === selectedCategoryId);
+    // console.log(typeof selectedCategoryId)
+    // console.log(selectedTag.name);
+
+    setBusiness({ ...business, category: selectedCategoryId });
   };
 
   // const handleServiceChange = (event) => {
@@ -433,6 +449,7 @@ export default function VendorProfile() {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
+
                         {/* attribute for menuitem  */}
                         {/* selected={category.name ? selected= "true": selected="false"} */}
                       </MenuItem>
