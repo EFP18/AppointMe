@@ -41,7 +41,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 
-const DisplayServices = ({ serviceObj, handleEditServiceObj}) => {
+const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
   const arr = [];
 
   for (const serviceId in serviceObj) {
@@ -120,7 +120,7 @@ export default function VendorProfile() {
     const _id = uuidv4()
     setServiceObj({
       ...serviceObj,
-      [_id] : {
+      [_id]: {
         type: 'new',
         data: {
           _id,
@@ -225,9 +225,11 @@ export default function VendorProfile() {
       const servicesArr = Object.values(serviceObj);
 
       try {
-        await manageServices({ variables: {
-          servicesArr: servicesArr
-        }})
+        await manageServices({
+          variables: {
+            servicesArr: servicesArr
+          }
+        })
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
@@ -269,7 +271,7 @@ export default function VendorProfile() {
   useEffect(() => {
     if (!data) return;
     const servicesObj = {};
-    businessData?.services.forEach(({ _id, name, price, description }) => { 
+    businessData?.services.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
         type: 'unaltered',
         data: {
