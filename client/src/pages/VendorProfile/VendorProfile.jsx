@@ -36,7 +36,7 @@ import {
   DEL_SERVICE,
   UPD_SERVICE,
   UPD_SOCIALMEDIA,
-  MANAGE_SERVICES
+  MANAGE_SERVICES,
 } from '../../utils/mutation';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
@@ -57,7 +57,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
         <Box
@@ -74,7 +74,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
           />
         </Box>
       </Stack>
@@ -85,7 +85,6 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
 
   return arr;
 };
-
 
 export default function VendorProfile() {
   const [category, setCategory] = useState('');
@@ -117,7 +116,7 @@ export default function VendorProfile() {
   const [serviceObj, setServiceObj] = useState({});
 
   const handleAddServiceObj = () => {
-    const _id = uuidv4()
+    const _id = uuidv4();
     setServiceObj({
       ...serviceObj,
       [_id]: {
@@ -128,15 +127,15 @@ export default function VendorProfile() {
           price: 0.0,
           description: '',
         },
-      }
-    })
+      },
+    });
   };
 
   const handleEditServiceObj = (e, _id, serviceObj) => {
     const { name, value } = e.target;
 
     const thisService = {
-      ...serviceObj[_id]
+      ...serviceObj[_id],
     };
 
     setServiceObj({
@@ -145,12 +144,11 @@ export default function VendorProfile() {
         type: thisService.type === 'new' ? 'new' : 'edited',
         data: {
           ...thisService.data,
-          [name]: value
-        }
-      }
-    })
-
-  }
+          [name]: value,
+        },
+      },
+    });
+  };
 
   const [social, setSocial] = useState({
     facebook: '',
@@ -227,9 +225,9 @@ export default function VendorProfile() {
       try {
         await manageServices({
           variables: {
-            servicesArr: servicesArr
-          }
-        })
+            servicesArr: servicesArr,
+          },
+        });
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
@@ -303,7 +301,7 @@ export default function VendorProfile() {
 
   // const [addBusiness]
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const selectedCategory = event.target.value;
     setCategory(selectedCategory);
     setBusiness({ ...business, category: selectedCategory });
@@ -320,7 +318,7 @@ export default function VendorProfile() {
     // setServiceArr(values);
   };
 
-  const handleBusinessChange = (event) => {
+  const handleBusinessChange = event => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -328,12 +326,12 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = (event) => {
+  const handleSocial = event => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = (event) => {
+  const handleVendor = event => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
@@ -427,7 +425,7 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {categoryData.map((category) => {
+                  {categoryData.map(category => {
                     return (
                       <MenuItem key={category.id} value={category.name}>
                         {category.name}
@@ -475,7 +473,12 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {<DisplayServices serviceObj={serviceObj} handleEditServiceObj={handleEditServiceObj} />}
+              {
+                <DisplayServices
+                  serviceObj={serviceObj}
+                  handleEditServiceObj={handleEditServiceObj}
+                />
+              }
               <Button
                 variant='contained'
                 style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
@@ -483,6 +486,7 @@ export default function VendorProfile() {
               >
                 +
               </Button>
+
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
@@ -578,7 +582,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={(event) => handleFormSubmit(event, true)}
+                  onClick={event => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>
