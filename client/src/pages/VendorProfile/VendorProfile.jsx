@@ -222,7 +222,7 @@ export default function VendorProfile() {
 
       const tagVariables = {
         name: tags.name,
-        id: tags._id
+        id: tags._id,
       };
       // Services
       const servicesArr = Object.values(serviceObj);
@@ -574,14 +574,6 @@ export default function VendorProfile() {
                 alignItems='baseline'
                 justifyContent='center'
               >
-                {/* <Button
-                  type='submit'
-                  variant='contained'
-                  style={{ marginTop: '30px', marginBottom: '0px' }}
-                >
-                  Save Profile
-                </Button> */}
-
                 <Button
                   href='/profileview'
                   variant='contained'

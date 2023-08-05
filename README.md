@@ -61,4 +61,4 @@ TODO:
 11. responsive --> Daniel
 12. turn tags into a single object in the backend, not an array
 13. clientview/:id
-14. description space for services
+14. description space for services remove?
