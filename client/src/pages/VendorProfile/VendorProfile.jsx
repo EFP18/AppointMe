@@ -182,8 +182,6 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      console.log(vendor.firstName, vendor.lastName);
-
       try {
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
@@ -213,7 +211,6 @@ export default function VendorProfile() {
   // const categoryData = data?.tags || [];
 
   const { loading, data } = useQuery(GET_VENDOR);
-  // console.log(data);
   const businessData = data?.vendor?.business || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
@@ -226,9 +223,6 @@ export default function VendorProfile() {
 
   useEffect(() => {
     if (!data) return;
-
-    console.log(data);
-
     const servicesObj = {};
     businessData?.services.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
@@ -254,7 +248,10 @@ export default function VendorProfile() {
     });
     setSocial(socialObj);
     setLoading(false);
-    setVendor({ firstName: vendorData.firstName, lastName: vendorData.lastName });
+    setVendor({
+      firstName: vendorData.firstName,
+      lastName: vendorData.lastName,
+    });
   }, [data]);
 
   // const [addBusiness]
@@ -279,7 +276,7 @@ export default function VendorProfile() {
   const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
-    // value: input from keyboard
+    // value: input from keyboard on field
     //[] for a variable
     setBusiness({ ...business, [name]: event.target.value });
   };
@@ -295,8 +292,7 @@ export default function VendorProfile() {
   };
 
   // TODO: category not being saved
-  // TODO: contact info from vendor not being saved
-  // TODO: social
+  // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>

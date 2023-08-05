@@ -24,7 +24,7 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
-import { GET_VENDOR, GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 function ProfileView() {
