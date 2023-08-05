@@ -33,7 +33,7 @@ function ClientView(props) {
 
   const { loading, data } = useQuery(GET_BUSINESS);
   const businessData = data?.business || {};
-
+  const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
 
   return (
@@ -66,15 +66,10 @@ function ClientView(props) {
                   }}
                 >
                   <Box>
-                    <Typography
-                      variant='h4'
-                      sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
-                    >
-                      {businessData.name}
-                    </Typography>
-                    <Typography variant='body1' className={classes.location}>
+                    <Typography variant='h4'>{businessData.name}</Typography>
+                    {/* <Typography variant='body1' className={classes.location}>
                       {businessData.firstName}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                 </Box>
               </Box>
@@ -88,7 +83,6 @@ function ClientView(props) {
               style={{ margin: '2% 10% 4%', backgroundColor: colors.primary }}
             />
 
-            {/* need to make it fixed while scrolling */}
             {businessData.phone && (
               <Box
                 sx={{
@@ -136,9 +130,9 @@ function ClientView(props) {
 
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
-            {businessData.facebook && (
+            {socialObj.facebook && (
               <Link
-                to={businessData.facebook}
+                to={`//${socialObj.facebook}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -149,9 +143,9 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {businessData.youTube && (
+            {socialObj.youTube && (
               <Link
-                to={businessData.youTube}
+                to={`//${socialObj.youTube}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -162,9 +156,9 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {businessData.instagram && (
+            {socialObj.instagram && (
               <Link
-                to={businessData.instagram}
+                to={`//${socialObj.instagram}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -175,9 +169,9 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {businessData.linkedIn && (
+            {socialObj.linkedIn && (
               <Link
-                to={businessData.linkedIn}
+                to={`//${socialObj.linkedIn}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -188,9 +182,9 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {businessData.tikTok && (
+            {socialObj.tikTok && (
               <Link
-                to={businessData.tikTok}
+                to={`//${socialObj.tikTok}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >

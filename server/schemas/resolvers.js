@@ -176,6 +176,24 @@ const resolvers = {
                 return delService;
             }
         },
+        manageServices: async (parent, { servicesArr }, context) => {
+
+            const toBeEditedArr = servicesArr
+                .filter(({ type }) => type === 'edited')
+                .map(({ data }) => data);
+            console.log(toBeEditedArr);
+
+            const toBeCreatedArr = servicesArr
+                .filter(({ type }) => type === 'new')
+                .map(({ data }) => {
+                    const newData = { ...data };
+                    delete newData._id;
+                    return newData;
+                });
+            
+            console.log(toBeCreatedArr);
+
+        },
         addClient: async (parent, argsObj, context) => {
             const newClient = await Client.create(argsObj)
             if (context.vendor) {

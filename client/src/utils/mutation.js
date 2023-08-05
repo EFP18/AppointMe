@@ -282,3 +282,11 @@ export const UPD_SOCIALMEDIA = gql`
     }
   }
 `;
+
+export const MANAGE_SERVICES = gql`
+  mutation Mutation($servicesArr: [subService]) {
+    manageServices(servicesArr: $servicesArr) {
+      message
+    }
+  }
+`

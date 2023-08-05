@@ -36,9 +36,56 @@ import {
   DEL_SERVICE,
   UPD_SERVICE,
   UPD_SOCIALMEDIA,
+  MANAGE_SERVICES
 } from '../../utils/mutation';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
+
+const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
+  const arr = [];
+
+  for (const serviceId in serviceObj) {
+    const service = serviceObj[serviceId].data;
+
+    const elm = (
+      <Stack key={service._id} direction='row' spacing={2}>
+        <TextField
+          label='Service Name'
+          variant='outlined'
+          fullWidth
+          margin='normal'
+          style={{ marginBottom: '0px', flex: 3 }}
+          name='name'
+          value={service.name}
+          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+        />
+
+        <Box
+          display='flex'
+          flexDirection='column'
+          alignItems='flex-end'
+          flex={1}
+        >
+          <TextField
+            label='Service Cost ($)'
+            variant='outlined'
+            fullWidth
+            margin='normal'
+            style={{ marginBottom: '0px' }}
+            name='price'
+            value={service.price}
+            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+          />
+        </Box>
+      </Stack>
+    );
+
+    arr.push(elm);
+  }
+
+  return arr;
+};
+
 
 export default function VendorProfile() {
   const [category, setCategory] = useState('');
@@ -69,50 +116,41 @@ export default function VendorProfile() {
   // }
   const [serviceObj, setServiceObj] = useState({});
 
-  const displayServices = () => {
-    const arr = [];
-
-    for (const serviceId in serviceObj) {
-      const service = serviceObj[serviceId].data;
-
-      const elm = (
-        <Stack key={service._id} direction='row' spacing={2}>
-          <TextField
-            label='Service Name'
-            variant='outlined'
-            fullWidth
-            margin='normal'
-            style={{ marginBottom: '0px', flex: 3 }}
-            name='name'
-            value={service.name}
-            // onChange={(event) => handleServiceChange(index, event)}
-          />
-
-          <Box
-            display='flex'
-            flexDirection='column'
-            alignItems='flex-end'
-            flex={1}
-          >
-            <TextField
-              label='Service Cost ($)'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-              style={{ marginBottom: '0px' }}
-              name='price'
-              value={service.price}
-              // onChange={(event) => handleServiceChange(index, event)}
-            />
-          </Box>
-        </Stack>
-      );
-
-      arr.push(elm);
-    }
-
-    return arr;
+  const handleAddServiceObj = () => {
+    const _id = uuidv4()
+    setServiceObj({
+      ...serviceObj,
+      [_id]: {
+        type: 'new',
+        data: {
+          _id,
+          name: '',
+          price: 0.0,
+          description: '',
+        },
+      }
+    })
   };
+
+  const handleEditServiceObj = (e, _id, serviceObj) => {
+    const { name, value } = e.target;
+
+    const thisService = {
+      ...serviceObj[_id]
+    };
+
+    setServiceObj({
+      ...serviceObj,
+      [_id]: {
+        type: thisService.type === 'new' ? 'new' : 'edited',
+        data: {
+          ...thisService.data,
+          [name]: value
+        }
+      }
+    })
+
+  }
 
   const [social, setSocial] = useState({
     facebook: '',
@@ -131,6 +169,7 @@ export default function VendorProfile() {
   const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
     useMutation(UPD_BUSINESS);
   const [addBusiness] = useMutation(ADD_BUSINESS);
+  const [manageServices] = useMutation(MANAGE_SERVICES);
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
   const [updVendor] = useMutation(UPD_VENDOR);
 
@@ -182,9 +221,15 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      console.log(vendor.firstName, vendor.lastName);
+      // Services
+      const servicesArr = Object.values(serviceObj);
 
       try {
+        await manageServices({
+          variables: {
+            servicesArr: servicesArr
+          }
+        })
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
@@ -213,7 +258,6 @@ export default function VendorProfile() {
   // const categoryData = data?.tags || [];
 
   const { loading, data } = useQuery(GET_VENDOR);
-  // console.log(data);
   const businessData = data?.vendor?.business || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
@@ -226,9 +270,6 @@ export default function VendorProfile() {
 
   useEffect(() => {
     if (!data) return;
-
-    console.log(data);
-
     const servicesObj = {};
     businessData?.services.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
@@ -254,7 +295,10 @@ export default function VendorProfile() {
     });
     setSocial(socialObj);
     setLoading(false);
-    setVendor({ firstName: vendorData.firstName, lastName: vendorData.lastName });
+    setVendor({
+      firstName: vendorData.firstName,
+      lastName: vendorData.lastName,
+    });
   }, [data]);
 
   // const [addBusiness]
@@ -279,7 +323,7 @@ export default function VendorProfile() {
   const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
-    // value: input from keyboard
+    // value: input from keyboard on field
     //[] for a variable
     setBusiness({ ...business, [name]: event.target.value });
   };
@@ -293,7 +337,9 @@ export default function VendorProfile() {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
-  
+
+  // TODO: category not being saved
+  // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>
@@ -429,11 +475,11 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {displayServices()}
+              {<DisplayServices serviceObj={serviceObj} handleEditServiceObj={handleEditServiceObj} />}
               <Button
                 variant='contained'
                 style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-                onClick={handleAddService}
+                onClick={handleAddServiceObj}
               >
                 +
               </Button>
