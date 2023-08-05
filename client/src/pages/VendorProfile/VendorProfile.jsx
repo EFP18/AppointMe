@@ -25,7 +25,7 @@ import Page from '../../components/Page';
 // temporary seed file for testing
 import categoryData from './categorySeeds.json';
 // import { GET_TAGS } from '../../utils/queries';
-import { GET_BUSINESS, GET_VENDOR } from '../../utils/queries';
+import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
   UPD_BUSINESS,
@@ -251,11 +251,9 @@ export default function VendorProfile() {
     }
   };
 
-  // const {loading, data} = useQuery(GET_TAGS);
-  // // either an empty array or data queried with useQuery
-  // const categoryData = data?.tags || [];
-
   const { loading, data } = useQuery(GET_VENDOR);
+  const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
+  const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
@@ -269,7 +267,7 @@ export default function VendorProfile() {
   useEffect(() => {
     if (!data) return;
     const servicesObj = {};
-    businessData?.services.forEach(({ _id, name, price, description }) => {
+    businessData?.services?.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
         type: 'unaltered',
         data: {
@@ -425,9 +423,9 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {categoryData.map(category => {
+                  {tagsData.map((category) => {
                     return (
-                      <MenuItem key={category.id} value={category.name}>
+                      <MenuItem key={category._id} value={category._id}>
                         {category.name}
                         {/* attribute for menuitem  */}
                         {/* selected={category.name ? selected= "true": selected="false"} */}

@@ -146,6 +146,7 @@ export const GET_CLIENTS = gql`
 export const GET_TAGS = gql`
   query Query {
     tags {
+      _id
       name
     }
   }

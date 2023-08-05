@@ -179,20 +179,25 @@ const resolvers = {
         manageServices: async (parent, { servicesArr }, context) => {
 
             const toBeEditedArr = servicesArr
+                // servicesArr, filtered by type of edited and then create a new array that only includes the data and not the type
                 .filter(({ type }) => type === 'edited')
                 .map(({ data }) => data);
             console.log(toBeEditedArr);
 
-            const toBeCreatedArr = servicesArr
+            const toBeCreatedArr = servicesArr 
+            // creates a new service, filters by type of new
+            // creates new array with map with only the data
+            // delete removed the _id from the newData created in the new array 
                 .filter(({ type }) => type === 'new')
                 .map(({ data }) => {
                     const newData = { ...data };
                     delete newData._id;
                     return newData;
                 });
-            
-            console.log(toBeCreatedArr);
 
+                console.log(toBeCreatedArr);
+
+            
         },
         addClient: async (parent, argsObj, context) => {
             const newClient = await Client.create(argsObj)
@@ -233,7 +238,6 @@ const resolvers = {
             if (context.vendor) {
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
 
-                console.log(argsObj)
                 const updateObject = {
                     'socialMedia.facebook': argsObj.facebook || '',
                     'socialMedia.instagram': argsObj.instagram || '',
@@ -241,7 +245,6 @@ const resolvers = {
                     'socialMedia.tikTok': argsObj.tikTok || '',
                     'socialMedia.linkedIn': argsObj.linkedIn || '',
                 }
-                console.log(updateObject)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
                     { $set: updateObject },
