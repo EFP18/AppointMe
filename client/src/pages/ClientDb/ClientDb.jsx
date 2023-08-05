@@ -49,8 +49,6 @@ export default function ClientDb() {
     setNote(event.target.value);
   };
 
-
-
   return (
     <Page title={'My Clients - AppointMe'} className='landing-page'>
         <div sx={{ display: 'flex' }}>
