@@ -219,7 +219,6 @@ export const ADD_CLIENT = gql`
 export const DEL_CLIENT = gql`
   mutation DEL_CLIENT($id: ID!) {
     delClient(_id: $id) {
-      _id
       firstName
       lastName
     }

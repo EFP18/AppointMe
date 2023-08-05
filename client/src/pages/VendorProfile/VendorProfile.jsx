@@ -22,10 +22,10 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// temporary seed file for testing
-import categoryData from './categorySeeds.json';
+// // temporary seed file for testing
+// import categoryData from './categorySeeds.json';
 // import { GET_TAGS } from '../../utils/queries';
-import { GET_BUSINESS, GET_VENDOR } from '../../utils/queries';
+import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
   UPD_BUSINESS,
@@ -36,7 +36,7 @@ import {
   DEL_SERVICE,
   UPD_SERVICE,
   UPD_SOCIALMEDIA,
-  MANAGE_SERVICES
+  MANAGE_SERVICES,
 } from '../../utils/mutation';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
@@ -86,7 +86,6 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
   return arr;
 };
 
-
 export default function VendorProfile() {
   const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
@@ -117,7 +116,7 @@ export default function VendorProfile() {
   const [serviceObj, setServiceObj] = useState({});
 
   const handleAddServiceObj = () => {
-    const _id = uuidv4()
+    const _id = uuidv4();
     setServiceObj({
       ...serviceObj,
       [_id]: {
@@ -128,15 +127,15 @@ export default function VendorProfile() {
           price: 0.0,
           description: '',
         },
-      }
-    })
+      },
+    });
   };
 
   const handleEditServiceObj = (e, _id, serviceObj) => {
     const { name, value } = e.target;
 
     const thisService = {
-      ...serviceObj[_id]
+      ...serviceObj[_id],
     };
 
     setServiceObj({
@@ -145,12 +144,11 @@ export default function VendorProfile() {
         type: thisService.type === 'new' ? 'new' : 'edited',
         data: {
           ...thisService.data,
-          [name]: value
-        }
-      }
-    })
-
-  }
+          [name]: value,
+        },
+      },
+    });
+  };
 
   const [social, setSocial] = useState({
     facebook: '',
@@ -172,6 +170,7 @@ export default function VendorProfile() {
   const [manageServices] = useMutation(MANAGE_SERVICES);
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
   const [updVendor] = useMutation(UPD_VENDOR);
+  const [addTag] = useMutation(ADD_TAG);
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
@@ -221,24 +220,30 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
+      const tagVariables = {
+        name: tags.name,
+        id: tags._id
+      };
       // Services
       const servicesArr = Object.values(serviceObj);
 
       try {
         await manageServices({
           variables: {
-            servicesArr: servicesArr
-          }
-        })
+            servicesArr: servicesArr,
+          },
+        });
         // Call the updateBusiness mutation and pass the variables
         if (!data) {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
+          await addTag({ variables: tagVariables });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
+          await addTag({ variables: tagVariables });
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -253,11 +258,9 @@ export default function VendorProfile() {
     }
   };
 
-  // const {loading, data} = useQuery(GET_TAGS);
-  // // either an empty array or data queried with useQuery
-  // const categoryData = data?.tags || [];
-
   const { loading, data } = useQuery(GET_VENDOR);
+  const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
+  const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
   const servicesArr = businessData?.services || [
     { name: '', price: 0.0, description: '' },
@@ -271,7 +274,7 @@ export default function VendorProfile() {
   useEffect(() => {
     if (!data) return;
     const servicesObj = {};
-    businessData?.services.forEach(({ _id, name, price, description }) => {
+    businessData?.services?.forEach(({ _id, name, price, description }) => {
       servicesObj[_id] = {
         type: 'unaltered',
         data: {
@@ -427,9 +430,9 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {categoryData.map((category) => {
+                  {tagsData.map((category) => {
                     return (
-                      <MenuItem key={category.id} value={category.name}>
+                      <MenuItem key={category._id} value={category._id}>
                         {category.name}
                         {/* attribute for menuitem  */}
                         {/* selected={category.name ? selected= "true": selected="false"} */}
@@ -475,7 +478,12 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {<DisplayServices serviceObj={serviceObj} handleEditServiceObj={handleEditServiceObj} />}
+              {
+                <DisplayServices
+                  serviceObj={serviceObj}
+                  handleEditServiceObj={handleEditServiceObj}
+                />
+              }
               <Button
                 variant='contained'
                 style={{ marginBottom: '0px', alignSelf: 'flex-end' }}

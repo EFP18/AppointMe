@@ -28,6 +28,7 @@ export const GET_BUSINESS = gql`
             youTube
         }
         clients {
+            _id
             firstName
             lastName
             email
@@ -117,6 +118,7 @@ query Vendor {
 export const GET_CLIENT = gql`
   query Query($id: ID!) {
     client(_id: $id) {
+      _id
       firstName
       lastName
       email
@@ -130,6 +132,7 @@ export const GET_CLIENT = gql`
 export const GET_CLIENTS = gql`
   query GET_CLIENTS {
     clients {
+      _id
       firstName
       lastName
       email
@@ -143,6 +146,7 @@ export const GET_CLIENTS = gql`
 export const GET_TAGS = gql`
   query Query {
     tags {
+      _id
       name
     }
   }

@@ -35,6 +35,7 @@ function ClientView(props) {
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
+  const [boxChecked, setboxChecked] = useState(false);
 
   return (
     // dynamically create business name
@@ -115,7 +116,8 @@ function ClientView(props) {
                       color: colors.primary,
                       '&.Mui-checked': { color: colors.primary },
                     }}
-                    checked={checkedService === index}
+                    // checked = boolean value
+                    checked={checkedService === index && setboxChecked(true)}
                     onChange={() => setCheckedService(index)}
                   />
                   <Typography className={classes.serviceName}>
@@ -208,6 +210,7 @@ function ClientView(props) {
                 />
               </Link>
             )}
+            {/* disable the button until at least 1 service is selected */}
             <ThemeProvider theme={button}>
               <Box
                 sx={{
@@ -216,7 +219,9 @@ function ClientView(props) {
                   marginBottom: '20px',
                 }}
               >
-                <Button href='/book-appointment'>Continue</Button>
+                <Button disabled={!boxChecked} href='/book-appointment'>
+                  Continue
+                </Button>
               </Box>
             </ThemeProvider>
           </Box>
