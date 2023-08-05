@@ -5,11 +5,12 @@ const categorySeeds = require('./categorySeeds.json');
 
 db.once('open', async () => {
   try {
-    await Vendor.deleteMany({});
-    await Vendor.create(vendorSeeds);
+    // await Vendor.deleteMany({});
+    // await Vendor.create(vendorSeeds);
+    await Tag.deleteMany({});
     await Tag.create(categorySeeds);
 
-    console.log('all done!');
+    console.log('deleted and created tags');
     process.exit(0);
   } catch (err) {
     throw err;
