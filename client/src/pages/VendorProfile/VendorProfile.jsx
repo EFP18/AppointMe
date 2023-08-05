@@ -222,6 +222,7 @@ export default function VendorProfile() {
 
       const tagVariables = {
         name: tags.name,
+        id: tags._id
       };
       // Services
       const servicesArr = Object.values(serviceObj);
