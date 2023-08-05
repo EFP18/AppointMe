@@ -112,7 +112,7 @@ function ClientView(props) {
 
             <h2>Services</h2>
             {Array.isArray(businessData.services) &&
-            businessData.services.length > 0 ? (
+              businessData.services.length > 0 ? (
               businessData.services.map((service, index) => (
                 <Box key={index} className={classes.service}>
                   <Checkbox
