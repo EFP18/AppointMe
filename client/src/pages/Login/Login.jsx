@@ -173,11 +173,6 @@ const Login = () => {
                 Sign Up
               </Link>
             </Box>
-            {/* <ThemeProvider theme={button}>
-              <Button href='/'>
-                <HomeRoundedIcon fontSize='large' />
-              </Button>
-            </ThemeProvider> */}
           </StyledCard>
         </Grid>
       </Container>
