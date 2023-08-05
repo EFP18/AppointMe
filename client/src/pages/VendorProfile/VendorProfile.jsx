@@ -24,7 +24,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
 // // temporary seed file for testing
 // import categoryData from './categorySeeds.json';
-// import { GET_TAGS } from '../../utils/queries';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
@@ -220,10 +219,10 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      const tagVariables = {
-        name: tags.name,
-        id: tags._id
-      };
+      // const tagVariables = {
+      //   name: tags.name,
+      //   id: tags._id,
+      // };
       // Services
       const servicesArr = Object.values(serviceObj);
 
@@ -238,12 +237,12 @@ export default function VendorProfile() {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: tagVariables });
+          // await addTag({ variables: tagVariables });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: tagVariables });
+          // await addTag({ variables: tagVariables });
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -574,14 +573,6 @@ export default function VendorProfile() {
                 alignItems='baseline'
                 justifyContent='center'
               >
-                {/* <Button
-                  type='submit'
-                  variant='contained'
-                  style={{ marginTop: '30px', marginBottom: '0px' }}
-                >
-                  Save Profile
-                </Button> */}
-
                 <Button
                   href='/profileview'
                   variant='contained'

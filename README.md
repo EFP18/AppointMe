@@ -53,7 +53,7 @@ TODO:
 3. month view calendar can't open the event 2nd time --> Ted
 4. pass category into business --> Ester
 5. populate category pages (Service) --> Ester
-6. add services!!!!!!!
+6. add services!!!!!!! team work!!
 7. disable continue without selection of service --> Ted
 8. upload images --> Hunter
 9. readme --> team work
@@ -61,4 +61,4 @@ TODO:
 11. responsive --> Daniel
 12. turn tags into a single object in the backend, not an array
 13. clientview/:id
-14. description space for services
+14. description space for services remove?
