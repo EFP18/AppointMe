@@ -22,8 +22,8 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// temporary seed file for testing
-import categoryData from './categorySeeds.json';
+// // temporary seed file for testing
+// import categoryData from './categorySeeds.json';
 // import { GET_TAGS } from '../../utils/queries';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
@@ -170,6 +170,7 @@ export default function VendorProfile() {
   const [manageServices] = useMutation(MANAGE_SERVICES);
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
   const [updVendor] = useMutation(UPD_VENDOR);
+  const [addTag] = useMutation(ADD_TAG);
 
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
@@ -219,6 +220,9 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
+      const tagVariables = {
+        name: tags.name,
+      };
       // Services
       const servicesArr = Object.values(serviceObj);
 
@@ -233,10 +237,12 @@ export default function VendorProfile() {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
+          await addTag({ variables: tagVariables });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
+          await addTag({ variables: tagVariables });
         }
 
         // If the mutation is successful, you can proceed with the form submission
