@@ -2,8 +2,6 @@
 
 CRM for freelancers
 
-# AppointMe
-
 ![License](https://img.shields.io/badge/License-MIT.svg)
 
 https://opensource.org/licenses/MIT
