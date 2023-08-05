@@ -25,7 +25,7 @@ import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import authServiceInstance from './utils/auth';
 import { colors } from './components/theme';
-import PrivateRoute from './components/PrivateRoute'
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -64,19 +64,13 @@ function App() {
               <Route path='/' element={<LandingPage />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
-              {authServiceInstance.loggedIn() ? (
-                <>
-                  <Route path='/welcomepage' element={<PrivateRoute><WelcomePage /></PrivateRoute>} />
-                  <Route path='/calendarpage' element={<CalendarPage />} />
-                  <Route path='/vendorprofile' element={<VendorProfile />} />
-                  <Route path='/profileview' element={<ProfileView />} />
-                  <Route path='/services/:service' element={<ServicePage />} />
-                  <Route path='/clientDb' element={<ClientDb />} />
-                </>
-              ) : (
-                <>
-                </>
-              )}
+              {/* these route elements are wrapped in PrivateRoutes so that they cannot be accessed without a login token */}
+              <Route path='/welcomepage' element={<PrivateRoute><WelcomePage /></PrivateRoute>} />
+              <Route path='/calendarpage' element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
+              <Route path='/vendorprofile' element={<PrivateRoute><VendorProfile /></PrivateRoute>} />
+              <Route path='/profileview' element={<PrivateRoute><ProfileView /></PrivateRoute>} />
+              <Route path='/services/:service' element={<PrivateRoute><ServicePage /></PrivateRoute>} />
+              <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
               // TODO :id for the clientview/:id ?
               <Route path='/clientview' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
