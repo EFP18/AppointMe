@@ -33,17 +33,17 @@ function ClientView(props) {
   const classes = useStyles();
 
   const { _id } = useParams();
-
+  // console.log(_id);
   const { loading, data } = useQuery(GET_BUSINESSCV, {
     variables: { id: _id },
   });
-  // console.log(data)
-  const businessData = data?.business || {};
+  console.log(data);
+  const businessData = data?.businessCV || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
 
-  // console.log(businessData)
+  console.log(businessData);
 
   return (
     // dynamically create business name
@@ -150,85 +150,90 @@ function ClientView(props) {
             </Box>
           </ThemeProvider>
 
-          {/* <h2>Availability</h2> */}
-          {/* Render availability based on its structure */}
-          {socialObj.facebook && (
-            <Link
-              href={`//${socialObj.facebook}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img
-                className={classes.socialIcon}
-                src={facebookLogo}
-                alt='Facebook'
-              />
-            </Link>
-          )}
-          {socialObj.youTube && (
-            <Link
-              href={`//${socialObj.youTube}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img
-                className={classes.socialIcon}
-                src={youtubeLogo}
-                alt='YouTube'
-              />
-            </Link>
-          )}
-          {socialObj.instagram && (
-            <Link
-              href={`//${socialObj.instagram}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img
-                className={classes.socialIcon}
-                src={instagramLogo}
-                alt='Instagram'
-              />
-            </Link>
-          )}
-          {socialObj.linkedIn && (
-            <Link
-              href={`//${socialObj.linkedIn}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img
-                className={classes.socialIcon}
-                src={linkedInLogo}
-                alt='LinkedIn'
-              />
-            </Link>
-          )}
-          {socialObj.tikTok && (
-            <Link
-              href={`//${socialObj.tikTok}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img
-                className={classes.socialIcon}
-                src={tiktokLogo}
-                alt='TikTok'
-              />
-            </Link>
-          )}
-          {businessData.email && (
-            <Link
-              href={`mailto:${businessData.email}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img className={classes.socialIcon} src={emailLogo} alt='Email' />
-            </Link>
-          )}
+            {/* <h2>Availability</h2> */}
+            {/* Render availability based on its structure */}
+            {socialObj.facebook && (
+              <Link
+                href={`//${socialObj.facebook}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={facebookLogo}
+                  alt='Facebook'
+                />
+              </Link>
+            )}
+            {socialObj.youTube && (
+              <Link
+                href={`//${socialObj.youTube}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={youtubeLogo}
+                  alt='YouTube'
+                />
+              </Link>
+            )}
+            {socialObj.instagram && (
+              <Link
+                href={`//${socialObj.instagram}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={instagramLogo}
+                  alt='Instagram'
+                />
+              </Link>
+            )}
+            {socialObj.linkedIn && (
+              <Link
+                href={`//${socialObj.linkedIn}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={linkedInLogo}
+                  alt='LinkedIn'
+                />
+              </Link>
+            )}
+            {socialObj.tikTok && (
+              <Link
+                href={`//${socialObj.tikTok}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={tiktokLogo}
+                  alt='TikTok'
+                />
+              </Link>
+            )}
+            {businessData.email && (
+              <Link
+                href={`mailto:${businessData.email}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  className={classes.socialIcon}
+                  src={emailLogo}
+                  alt='Email'
+                />
+              </Link>
+            )}
+          </Box>
         </Box>
-      </Box>
-      {/* ))} */}
+        {/* ))} */}
+      </Card>
     </Page>
   );
 }
