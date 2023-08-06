@@ -37,6 +37,7 @@ export default function ServiceCard({ id, name, description, image }) {
         onMouseLeave={() => setHover(false)}
         sx={{
           maxWidth: 345,
+          height: 450,
           margin: '20px',
           marginBottom: 3,
           transition: '0.3s',

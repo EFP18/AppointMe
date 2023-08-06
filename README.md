@@ -19,9 +19,21 @@ https://opensource.org/licenses/MIT
 
 AppointMe is a platform for service providers and seekers. It targets freelancers who have their own business but don't have a website, and it gives them the chance to create a business profile, track their clients and their schedule, as well as get directly booked through the platform by people looking for their services.
 
+- Landing page. Browse through the different industries to find the Vendor you'd like to book your appointment with.
+
 ![LandingPage](./client/src/images/landingpage.png)
+
+- Edit Profile for vendors.
+
 ![EditProfile](./client/src/images/editProfileScreenshot.png)
-![ViewProfile](./client/src/images/viewProfileScreenshot.png)
+
+- Vendor Profile view.
+
+![ClientView](./client/src/images/viewProfileScreenshot.png)
+
+- Book Appointment view.
+
+![BookAppointment](./client/src/images/bookAppointment.png)
 
 - Follow the link to access the live version of AppointMe: `add link`
 
@@ -37,9 +49,9 @@ Follow the steps below to install the application:
 - Run `npm run seed` to populate the seeded categories.
 - Run `npm run develop` to start the application.
 
-  Once your repository is compiled successfully, the website will load automatically on your browser.
+Once your repository is compiled successfully, the website will load automatically on your browser.
 
-  This application is deployed using `Heroku`.
+This application is deployed using `Heroku`.
 
 ### Usage
 
@@ -57,7 +69,11 @@ MIT
 
 ### Contributing
 
-contribution?
+- Drew Smith: `https://github.com/ds055`
+- Thanh Doan: `https://github.com/teddysm`
+- Ester Pelosof: `https://github.com/EFP18`
+- Hunter Tran: `https://github.com/ShimmyShong`
+- Daniel Mascali: `https://github.com/TurboTeam335`
 
 ### Questions
 
@@ -105,3 +121,4 @@ TODO:
 9. calendar can't view on month
 10. load error in landing page
 11. booking redirect to thank you page
+12. 
