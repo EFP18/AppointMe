@@ -19,18 +19,29 @@ https://opensource.org/licenses/MIT
 
 AppointMe is a platform for service providers and seekers. It targets freelancers who have their own business but don't have a website, and it gives them the chance to create a business profile, track their clients and their schedule, as well as get directly booked through the platform by people looking for their services.
 
-![LandingPage](./client/src/images/landingpage.png)
-![EditProfile](./client/src/images/editProfileScreenshot.png)
-![ViewProfile](./client/src/images/viewProfileScreenshot.png)
+- Landing page. Browse through the different industries to find the Vendor you'd like to book your appointment with.
 
+![LandingPage](./client/src/images/landingpage.png)
+
+- Edit Profile for vendors.
+
+![EditProfile](./client/src/images/editProfileScreenshot.png)
+
+- Vendor Profile view.
+
+![ClientView](./client/src/images/viewProfileScreenshot.png)
+
+- Book Appointment view.
+
+![BookAppointment](./client/src/images/bookAppointment.png)
 
 - Follow the link to access the live version of AppointMe: `add link`
 
 - GitHub repository: `https://github.com/EFP18/AppointMe`
 
-  ### Installation
+### Installation
 
-  Follow the steps below to install the application:
+Follow the steps below to install the application:
 
 - Clone the repository in your local machine.
 - Navigate to the cloned repository locally.
@@ -38,43 +49,48 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 - Run `npm run seed` to populate the seeded categories.
 - Run `npm run develop` to start the application.
 
-  Once your repository is compiled successfully, the website will load automatically on your browser. 
+Once your repository is compiled successfully, the website will load automatically on your browser.
 
-  This application is deployed using `Heroku`.
+This application is deployed using `Heroku`.
 
-  ### Usage
+### Usage
 
-  This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
+This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
 
-  * `GraphQL API`, `Node.js`, and `Express.js` server.
-  * The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data. 
-  * `MongoDB` and `Mongoose ODM` for the database.
-  * `JWT` authentication.
-  * Component library: `Material UI`.
+- `GraphQL API`, `Node.js`, and `Express.js` server.
+- The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data.
+- `MongoDB` and `Mongoose ODM` for the database.
+- `JWT` authentication.
+- Component library: `Material UI`.
 
-  ### License
+### License
 
-  MIT
+MIT
 
-  ### Contributing
+### Contributing
 
-  contibution?
+- Drew Smith: `https://github.com/ds055`
+- Thanh Doan: `https://github.com/teddysm`
+- Ester Pelosof: `https://github.com/EFP18`
+- Hunter Tran: `https://github.com/ShimmyShong`
+- Daniel Mascali: `https://github.com/TurboTeam335`
 
-  ### Questions
+### Questions
 
-  - GitHub: `https://github.com/EFP18/AppointMe`
-  - Email: `info@appointme.com`
+- GitHub: `https://github.com/EFP18/AppointMe`
+- Email: `info@appointme.com`
 
 TODO:
 
 1. book an appointment button adds client appointment to db --> Ted !!!!!!!!!!!!
-2. client notes modal --> Drew 
+2. client notes modal --> Drew
 3. month view calendar can't open the event 2nd time --> Ted
-6. add services!!!!!!! team work!!
-7. upload images --> Hunter
-8. readme --> team work
-9. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
-10. responsive --> Daniel
-14. calendar can't view on month
-15. load error in landing page
-16. booking redirect to thank you page
+4. add services!!!!!!! team work!!
+5. upload images --> Hunter
+6. readme --> team work
+7. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
+8. responsive --> Daniel
+9. calendar can't view on month
+10. load error in landing page
+11. booking redirect to thank you page
+12. 
