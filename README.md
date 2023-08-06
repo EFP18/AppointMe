@@ -2,10 +2,6 @@
 
 CRM for freelancers and booking service
 
-![License](https://img.shields.io/badge/License-MIT.svg)
-
-https://opensource.org/licenses/MIT
-
 ## Table of Contents
 
 - [Description](#description)
@@ -13,7 +9,9 @@ https://opensource.org/licenses/MIT
 - [Usage](#usage)
 - [License](#license)
 - [Contributing](#contributing)
-- [Questions](#questions)
+- [Questions](#questions) 
+- [User Story](#user-story)
+- [Acceptance Criteria](#acceptance-criteria)
 
 ### Description
 
@@ -65,7 +63,7 @@ This project is a `MERN` stack single-page application, that uses `React` for th
 
 ### License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Contributing
 
