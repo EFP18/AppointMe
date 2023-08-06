@@ -44,7 +44,13 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 
   ### Usage
 
-  usage
+  This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
+
+  * `GraphQL API`, `Node.js`, and `Express.js` server.
+  * The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data. 
+  * `MongoDB` and `Mongoose ODM` for the database.
+  * `JWT` authentication.
+  * Component library: `Material UI`.
 
   ### License
 
@@ -69,6 +75,6 @@ TODO:
 8. readme --> team work
 9. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
 10. responsive --> Daniel
-13. description space for services remove?
 14. calendar can't view on month
 15. load error in landing page
+16. booking redirect to thank you page
