@@ -71,7 +71,7 @@ function App() {
               <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
               {/* // TODO :id for the clientview/:id ? */}
               <Route path='/services/:service' element={<ServicePage />} />
-              <Route path='/clientview/:id' element={<ClientView />} />
+              <Route path='/clientview/:_id' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
             </Routes>
