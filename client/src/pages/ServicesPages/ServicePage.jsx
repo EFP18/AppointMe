@@ -12,12 +12,9 @@ import { useQuery } from '@apollo/client';
 
 export default function ServicePage() {
   const { service } = useParams();
-
   const { loading, data } = useQuery(GET_BUSINESSES);
-  // const businessData = data?.business || [];
-  console.log(data);
+
   const businessData = data?.businesses || [];
-  // console.log(businessData)
   // Filter businesses based on the service tag
   const filteredBusinesses = businessData.filter((business) => {
     if (business.tags && typeof business.tags === 'object') {
@@ -26,7 +23,7 @@ export default function ServicePage() {
     return false;
   });
 
-  console.log(filteredBusinesses);
+  // console.log(filteredBusinesses);
   return (
     <Page
       title={`${service} - AppointMe`}
@@ -74,18 +71,19 @@ export default function ServicePage() {
               flexWrap: 'wrap',
               marginTop: '30px',
             }}
-            >
+          >
             {/* Generate a ServiceCard for every service in database */}
-            {filteredBusinesses.map((business, index) => (
+            {filteredBusinesses.map((business) => (
               <Grid
                 item
                 xs={12}
                 sm={6}
                 md={4}
-                key={index}
+                key={business.id}
                 sx={{ margin: '10px' }}
               >
                 <ServiceCard
+                  id={business.id}
                   name={business.name}
                   description={business.description}
                   image={business.image}
