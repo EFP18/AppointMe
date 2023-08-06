@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -36,6 +36,11 @@ function ClientView(props) {
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
+  // && setboxChecked(true)
+  // setCheckedService
+  // useEffect(() => {
+  //   setboxChecked(true);
+  // }, [boxChecked]);
 
   return (
     // dynamically create business name
@@ -117,8 +122,10 @@ function ClientView(props) {
                       '&.Mui-checked': { color: colors.primary },
                     }}
                     // checked = boolean value
-                    checked={checkedService === index && setboxChecked(true)}
-                    onChange={() => setCheckedService(index)}
+                    checked={checkedService === index}
+                    onChange={() =>
+                      setCheckedService(index) && setboxChecked(true)
+                    }
                   />
                   <Typography className={classes.serviceName}>
                     {service.name}
@@ -130,6 +137,21 @@ function ClientView(props) {
               <p>No services listed.</p>
             )}
 
+            {/* disable the button until at least 1 service is selected */}
+            <ThemeProvider theme={button}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Button disabled={!boxChecked} href='/book-appointment'>
+                  Continue
+                </Button>
+              </Box>
+            </ThemeProvider>
+            
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
@@ -210,20 +232,6 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {/* disable the button until at least 1 service is selected */}
-            <ThemeProvider theme={button}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <Button disabled={!boxChecked} href='/book-appointment'>
-                  Continue
-                </Button>
-              </Box>
-            </ThemeProvider>
           </Box>
         </Box>
         {/* ))} */}

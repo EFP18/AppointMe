@@ -48,11 +48,11 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 
 TODO:
 
-1. book an appointment button adds client to db --> Ted
-2. client notes modal --> Drew
+1. book an appointment button adds client to db --> Ted !!!!!!!!!!!!
+2. client notes modal --> Drew 
 3. month view calendar can't open the event 2nd time --> Ted
-4. pass category into business --> Ester
-5. populate category pages (Service) --> Ester
+4. pass category into business --> Ester !!!!!!!!!!!!
+5. populate category pages (Service) --> Ester !!!!!!!!!!!!
 6. add services!!!!!!! team work!!
 7. disable continue without selection of service --> Ted
 8. upload images --> Hunter
