@@ -35,8 +35,8 @@ function ProfileView() {
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
-  const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
-  const tagsData = tags?.tags || [];
+  const { loading: tagsLoading, data: tags } = useQuery(GET_BUSINESS);
+  const businessTagData = businessData?.tags?.name || '';
 
 
   return (
@@ -70,9 +70,9 @@ function ProfileView() {
                     <Typography variant='h4' className={classes.name}>
                       {businessData.name}
                     </Typography>
-                    {/* <Typography variant='body1' className={classes.location}>
-                      {tagsData.name}
-                    </Typography> */}
+                    <Typography variant='body1' className={classes.location}>
+                      {businessTagData}
+                    </Typography>
                   </Box>
                   <Box>
                     <ThemeProvider theme={button}>
