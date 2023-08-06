@@ -162,6 +162,19 @@ export const GET_BUSINESSCV = gql`
       name
       description
       image
+      services {
+        _id
+        name
+        description
+        price
+      }
+      socialMedia {
+        facebook
+        instagram
+        linkedIn
+        tikTok
+        youTube
+      }
     }
   }
 `;

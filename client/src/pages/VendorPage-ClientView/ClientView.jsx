@@ -34,15 +34,15 @@ function ClientView(props) {
   const { _id } = useParams();
 
   const { loading, data } = useQuery(GET_BUSINESSCV, {
-    variables: {id: _id}
+    variables: { id: _id },
   });
-  console.log(data)
+  // console.log(data)
   const businessData = data?.businessCV || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
 
-console.log(businessData)
+  // console.log(businessData)
 
   return (
     // dynamically create business name
@@ -109,7 +109,7 @@ console.log(businessData)
 
             <h2>Services</h2>
             {Array.isArray(businessData.services) &&
-              businessData.services.length > 0 ? (
+            businessData.services.length > 0 ? (
               businessData.services.map((service, index) => (
                 <Box key={index} className={classes.service}>
                   <Checkbox
