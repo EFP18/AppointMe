@@ -54,7 +54,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
         <Box
@@ -71,7 +71,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
           />
         </Box>
       </Stack>
@@ -225,7 +225,7 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
-      const convertFloat = (obj) => {
+      const convertFloat = obj => {
         obj.data.price = parseFloat(obj.data.price);
       };
 
@@ -317,7 +317,7 @@ export default function VendorProfile() {
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
-  const handleBusinessChange = (event) => {
+  const handleBusinessChange = event => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -325,12 +325,12 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = (event) => {
+  const handleSocial = event => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = (event) => {
+  const handleVendor = event => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
@@ -343,7 +343,8 @@ export default function VendorProfile() {
 
         <Box
           sx={{
-            margin: '10px 150px',
+            margin: '10px 0',
+            marginLeft: '90px',
             padding: '20px',
             borderRadius: '15px',
             flexGrow: 1,
@@ -496,7 +497,6 @@ export default function VendorProfile() {
                   label='First Name'
                   variant='outlined'
                   fullWidth
-                  margin='normal'
                   name='firstName'
                   value={vendor.firstName}
                   onChange={handleVendor}
@@ -505,7 +505,6 @@ export default function VendorProfile() {
                   label='Last Name'
                   variant='outlined'
                   fullWidth
-                  margin='normal'
                   name='lastName'
                   value={vendor.lastName}
                   onChange={handleVendor}
@@ -573,7 +572,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={(event) => handleFormSubmit(event, true)}
+                  onClick={event => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>

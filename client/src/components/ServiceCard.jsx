@@ -36,8 +36,10 @@ export default function ServiceCard({ id, name, description, image }) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         sx={{
-          maxWidth: 345,
-          height: 450,
+          display: 'flex',
+          flexDirection: 'column',
+          width: 300,
+          height: 400,
           margin: '20px',
           marginBottom: 3,
           transition: '0.3s',
@@ -55,8 +57,9 @@ export default function ServiceCard({ id, name, description, image }) {
           height='150'
           image={displayImage}
           style={{ objectFit: 'contain', marginTop: '20px' }}
+          
         />
-        <CardContent sx={{ padding: 2 }}>
+        <CardContent sx={{ padding: 2, flexGrow: 1 }}>
           <Typography
             gutterBottom
             variant='h5'

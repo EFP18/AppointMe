@@ -38,7 +38,7 @@ const CalendarPage = () => {
     <Page title={'My Calendar - AppointMe'} className='calendar-page'>
       <div sx={{ display: 'flex' }}>
         <Navbar />
-        <Card>
+        <Card >
           <Box
             sx={{
               marginLeft: '100px',
