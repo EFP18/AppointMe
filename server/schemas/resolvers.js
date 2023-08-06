@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Business, Client, Tag, Vendor, Service } = require('../models');
 const { signToken } = require('../utils/auth');
 const mongoose = require('mongoose');
+const { __DirectiveLocation } = require('graphql');
 
 const resolvers = {
     Query: {
@@ -116,11 +117,9 @@ const resolvers = {
             const newTag = await Tag.create({ name });
             return newTag;
         },
-        addTag: async (parent, {_id}, context) => {
-            console.log(_id)
+        addTag: async (parent,   { _id } , context) => {
             if (context.vendor) {
-                console.log(_id)
-                const tagId = new mongoose.Types.ObjectId(_id);
+                const tagId = new mongoose.Types.ObjectId(_id)
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
@@ -128,7 +127,7 @@ const resolvers = {
                     { new: true },
                 );
                 return updatedBusiness;
-            };
+            }
         },
         // convert _id to Object id type
         rmvTag: async (parent, { _id }, context) => {
@@ -138,7 +137,7 @@ const resolvers = {
                 const tagId = new mongoose.Types.ObjectId(_id)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $pull: { tags: tagId } },
+                    { $set: { tags: null } },
                     { new: true },
                 );
                 return updatedBusiness;
@@ -185,8 +184,7 @@ const resolvers = {
                 // servicesArr, filtered by type of edited and then create a new array that only includes the data and not the type
                 .filter(({ type }) => type === 'edited')
                 .map(({ data }) => data);
-            console.log(toBeEditedArr);
-
+            
             const toBeCreatedArr = servicesArr 
             // creates a new service, filters by type of new
             // creates new array with map with only the data
@@ -197,8 +195,6 @@ const resolvers = {
                     delete newData._id;
                     return newData;
                 });
-
-                console.log(toBeCreatedArr);
 
             
         },

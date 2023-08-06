@@ -21,14 +21,20 @@ import {
 } from 'react-share';
 import { colors } from './theme';
 
-export default function ServiceCard({ name, description, image }) {
+export default function ServiceCard({ id, name, description, image }) {
+console.log(id)
   // If no image is provided, use the default StockPhoto
   const displayImage = image || StockPhoto;
 
   const [hover, setHover] = React.useState(false);
 
+  // TODO: clientview/:id
+  // TODO: link needs to be out website/clientview/:id of the vendor they want to share
   return (
-    <Link to='/clientview' style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Link
+      to={`/clientview/${id}`}
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
       <Card
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -86,7 +92,6 @@ export default function ServiceCard({ name, description, image }) {
             SHARE
           </Typography>
           <div>
-
             {/* dynamic creation of urls  */}
             <WhatsappShareButton
               url={'https://www.example.com'}

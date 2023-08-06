@@ -12,10 +12,18 @@ import { useQuery } from '@apollo/client';
 
 export default function ServicePage() {
   const { service } = useParams();
-
   const { loading, data } = useQuery(GET_BUSINESSES);
-  const businessData = data?.business || [];
 
+  const businessData = data?.businesses || [];
+  // Filter businesses based on the service tag
+  const filteredBusinesses = businessData.filter((business) => {
+    if (business.tags && typeof business.tags === 'object') {
+      return business.tags.name === service;
+    }
+    return false;
+  });
+
+  // console.log(filteredBusinesses);
   return (
     <Page
       title={`${service} - AppointMe`}
@@ -56,7 +64,6 @@ export default function ServicePage() {
             {service}
           </Typography>
 
-          {/* Generate a ServiceCard for every service in database */}
           <Box
             sx={{
               display: 'flex',
@@ -65,24 +72,22 @@ export default function ServicePage() {
               marginTop: '30px',
             }}
           >
-            {businessData.map((service, index) => (
+            {/* Generate a ServiceCard for every service in database */}
+            {filteredBusinesses.map((business) => (
               <Grid
                 item
                 xs={12}
                 sm={6}
                 md={4}
-                key={index}
+                key={business.id}
                 sx={{ margin: '10px' }}
               >
-                //TODO: for each business in this category
-                {businessData.forEach((business) => {
-                  <ServiceCard
-                    name={business.name}
-                    description={business.description}
-                    image={business.image}
-                  />;
-                })}
-                <ServiceCard />
+                <ServiceCard
+                  id={business.id}
+                  name={business.name}
+                  description={business.description}
+                  image={business.image}
+                />
               </Grid>
             ))}
           </Box>

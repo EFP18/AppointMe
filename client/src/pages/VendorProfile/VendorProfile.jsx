@@ -22,15 +22,12 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// temporary seed file for testing
-// import categoryData from './categorySeeds.json';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
   UPD_BUSINESS,
   UPD_VENDOR,
   ADD_TAG,
-  RMV_TAG,
   ADD_SERVICE,
   DEL_SERVICE,
   UPD_SERVICE,
@@ -224,12 +221,6 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      // const tagVariables = {
-      //   name: tags.name,
-      //   id: tags._id,
-      // };
-      // console.log(tagVariables)
-
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
@@ -240,20 +231,17 @@ export default function VendorProfile() {
           },
         });
         // Call the updateBusiness mutation and pass the variables
-        console.log(category);
-
-        console.log(typeof category);
-        if (!data) {
+        if (!data.vendor.business) {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: { category } });
+          await addTag({ variables: {id: category} })
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
           // this is the equivalent of updatedBusiness from addTag mutation
-          await addTag({ variables: { _id: category } });
+          await addTag({ variables: {id: category} })
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -273,6 +261,7 @@ export default function VendorProfile() {
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
+  const businessTagData = businessData?.tags?._id || '';
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   const vendorData = data?.vendor || {};
@@ -313,6 +302,8 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
+    // console.log(businessTagData)
+    setCategory(businessTagData)
   }, [data]);
 
   const handleChange = (event) => {
@@ -320,9 +311,6 @@ export default function VendorProfile() {
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
     // grab the name of the tag through the id
-    // const selectedTag = tagsData.find((tag) => tag._id === selectedCategoryId);
-    // console.log(typeof selectedCategoryId)
-    // console.log(selectedTag.name);
 
     setBusiness({ ...business, category: selectedCategoryId });
   };
@@ -356,7 +344,6 @@ export default function VendorProfile() {
     setVendor({ ...vendor, [name]: event.target.value });
   };
 
-  // TODO: category not being saved
   // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
