@@ -51,15 +51,13 @@ TODO:
 1. book an appointment button adds client to db --> Ted !!!!!!!!!!!!
 2. client notes modal --> Drew 
 3. month view calendar can't open the event 2nd time --> Ted
-4. pass category into business --> Ester !!!!!!!!!!!!
-5. populate category pages (Service) --> Ester !!!!!!!!!!!!
 6. add services!!!!!!! team work!!
 7. disable continue without selection of service --> Ted
 8. upload images --> Hunter
 9. readme --> team work
 10. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
 11. responsive --> Daniel
-12. turn tags into a single object in the backend, not an array
 13. clientview/:id
 14. description space for services remove?
 15. calendar can't view on month
+16. service card todo

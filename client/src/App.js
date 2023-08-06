@@ -19,7 +19,6 @@ import WelcomePage from './pages/WelcomePage/WelcomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ClientDb from './pages/ClientDb/ClientDb';
 import GlobalStyle from './components/GlobalStyle';
-// import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { setContext } from '@apollo/client/link/context';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
@@ -69,10 +68,10 @@ function App() {
               <Route path='/calendarpage' element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
               <Route path='/vendorprofile' element={<PrivateRoute><VendorProfile /></PrivateRoute>} />
               <Route path='/profileview' element={<PrivateRoute><ProfileView /></PrivateRoute>} />
-              <Route path='/services/:service' element={<PrivateRoute><ServicePage /></PrivateRoute>} />
               <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
-              // TODO :id for the clientview/:id ?
-              <Route path='/clientview' element={<ClientView />} />
+              {/* // TODO :id for the clientview/:id ? */}
+              <Route path='/services/:service' element={<ServicePage />} />
+              <Route path='/clientview/:id' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
             </Routes>

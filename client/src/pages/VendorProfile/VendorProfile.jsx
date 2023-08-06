@@ -22,8 +22,6 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// // temporary seed file for testing
-// import categoryData from './categorySeeds.json';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
@@ -299,7 +297,7 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
-    console.log(businessTagData)
+    // console.log(businessTagData)
     setCategory(businessTagData)
   }, [data]);
 
@@ -308,9 +306,6 @@ export default function VendorProfile() {
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
     // grab the name of the tag through the id
-    // const selectedTag = tagsData.find((tag) => tag._id === selectedCategoryId);
-    // console.log(typeof selectedCategoryId)
-    // console.log(selectedTag.name);
 
     setBusiness({ ...business, category: selectedCategoryId });
   };
@@ -344,7 +339,6 @@ export default function VendorProfile() {
     setVendor({ ...vendor, [name]: event.target.value });
   };
 
-  // TODO: category not being saved
   // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
