@@ -29,7 +29,6 @@ const socialMediaSchema = require('./SocialMedia');
         },
         email: {
             type: String,
-            unique: true,
             match: [/.+@.+\..+/, 'Must use a valid email address'],
         },
         socialMedia: socialMediaSchema,

@@ -223,7 +223,13 @@ export default function VendorProfile() {
 
       // Service handling
       const servicesArr = Object.values(serviceObj);
-      console.log(serviceObj)
+
+      const convertFloat = (obj) => {
+          obj.data.price = parseFloat(obj.data.price)
+      }
+
+      servicesArr.forEach(convertFloat)
+
       console.log(servicesArr)
       try {
         await manageServices({
@@ -298,7 +304,6 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
-    // console.log(businessTagData)
     setCategory(businessTagData)
   }, [data]);
 
@@ -309,17 +314,6 @@ export default function VendorProfile() {
     // grab the name of the tag through the id
     
     setBusiness({ ...business, category: selectedCategoryId });
-  };
-
-  // const handleServiceChange = (event) => {
-  //   const name = event.target.name;
-  //   setServiceArr({ [name]: event.target.value });
-  // };
-
-  const handleAddService = () => {
-    // const values = [...business.services];
-    // values.push({ name: '', cost: '' });
-    // setServiceArr(values);
   };
 
   const handleBusinessChange = event => {
