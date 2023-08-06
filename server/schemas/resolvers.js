@@ -204,10 +204,8 @@ const resolvers = {
                     return newData;
                 });
 
-            console.log(toBeCreatedArr)
-
             const newService = async (data) => {
-                const addedService = await Service.create({ name: data.name, description: data.description, price: parseFloat(data.price) })
+                const addedService = await Service.create({ name: data.name, description: data.description, price: data.price })
                 if (context.vendor) {
                     const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                     const updatedBusiness = await Business.findOneAndUpdate(
@@ -218,17 +216,24 @@ const resolvers = {
                 }
             }
             
-
             if (toBeCreatedArr.length > 0){
                 toBeCreatedArr.forEach(newService)
             }
 
-            // const updService = await Service.findOneAndUpdate(
-            //     { _id: _id },
-            //     { $set: { name, description, price } },
-            //     { new: true },
-            // );
-            
+            console.log(toBeEditedArr)
+
+            const updService = async (data) => {
+                await Service.findOneAndUpdate(
+                    { _id: data._id },
+                    { $set: { name: data.name, description: data.description, price: data.price } },
+                    { new: true },
+                );
+            }
+
+            if (toBeEditedArr.length > 0){
+                toBeEditedArr.forEach(updService)
+            }
+
             return message;
         },
         addClient: async (parent, argsObj, context) => {
