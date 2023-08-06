@@ -223,7 +223,8 @@ export default function VendorProfile() {
 
       // Service handling
       const servicesArr = Object.values(serviceObj);
-
+      console.log(serviceObj)
+      console.log(servicesArr)
       try {
         await manageServices({
           variables: {
@@ -248,7 +249,7 @@ export default function VendorProfile() {
         setIsSaved(true);
         if (redirect) {
           // Redirect to the profile view page and reload page to update data
-          window.location.replace('/profileview');
+          // window.location.replace('/profileview');
         }
       } catch (err) {
         console.error('Error updating business:', err);
@@ -265,11 +266,6 @@ export default function VendorProfile() {
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   const vendorData = data?.vendor || {};
-  const servicesArr = businessData?.services || [
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-  ];
 
   useEffect(() => {
     if (!data) return;

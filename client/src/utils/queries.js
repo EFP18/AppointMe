@@ -153,3 +153,13 @@ export const GET_TAGS = gql`
     }
   }
 `;
+
+export const GET_BUSINESSCV = gql`
+  query GET_BUSINESSCV($id: ID!) {
+    businessCV(_id: $id) {
+      name
+      description
+    }
+  }
+`;
+
