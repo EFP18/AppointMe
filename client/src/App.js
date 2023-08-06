@@ -64,8 +64,14 @@ function App() {
               <Route path='/' element={<LandingPage />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
-             
-    setBusiness({ ...business, category: selectedCategoryId });
+              {/* these route elements are wrapped in PrivateRoutes so that they cannot be accessed without a login token */}
+              <Route path='/welcomepage' element={<PrivateRoute><WelcomePage /></PrivateRoute>} />
+              <Route path='/calendarpage' element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
+              <Route path='/vendorprofile' element={<PrivateRoute><VendorProfile /></PrivateRoute>} />
+              <Route path='/profileview' element={<PrivateRoute><ProfileView /></PrivateRoute>} />
+              <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
+              <Route path='/services/:service' element={<ServicePage />} />
+              <Route path='/clientview/:_id' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
               <Route path='/appointment-confirm' element={<AppointmentConfirm />} /> 
