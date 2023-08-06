@@ -69,9 +69,9 @@ function App() {
               <Route path='/calendarpage' element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
               <Route path='/vendorprofile' element={<PrivateRoute><VendorProfile /></PrivateRoute>} />
               <Route path='/profileview' element={<PrivateRoute><ProfileView /></PrivateRoute>} />
-              <Route path='/services/:service' element={<PrivateRoute><ServicePage /></PrivateRoute>} />
               <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
               // TODO :id for the clientview/:id ?
+              <Route path='/services/:service' element={<ServicePage />} />
               <Route path='/clientview' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
