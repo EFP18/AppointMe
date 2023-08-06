@@ -53,7 +53,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
         <Box
@@ -70,7 +70,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
           />
         </Box>
       </Stack>
@@ -223,8 +223,14 @@ export default function VendorProfile() {
 
       // Service handling
       const servicesArr = Object.values(serviceObj);
-      console.log(serviceObj)
-      console.log(servicesArr)
+
+      const convertFloat = (obj) => {
+        obj.data.price = parseFloat(obj.data.price);
+      };
+
+      servicesArr.forEach(convertFloat);
+
+      console.log(servicesArr);
       try {
         await manageServices({
           variables: {
@@ -236,20 +242,20 @@ export default function VendorProfile() {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: {id: category} })
+          await addTag({ variables: { id: category } });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
           // this is the equivalent of updatedBusiness from addTag mutation
-          await addTag({ variables: {id: category} })
+          await addTag({ variables: { id: category } });
         }
 
         // If the mutation is successful, you can proceed with the form submission
         setIsSaved(true);
         if (redirect) {
           // Redirect to the profile view page and reload page to update data
-          // window.location.replace('/profileview');
+          window.location.replace('/profileview');
         }
       } catch (err) {
         console.error('Error updating business:', err);
@@ -298,8 +304,7 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
-    // console.log(businessTagData)
-    setCategory(businessTagData)
+    setCategory(businessTagData);
   }, [data]);
 
   const handleChange = (event) => {
@@ -307,22 +312,11 @@ export default function VendorProfile() {
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
     // grab the name of the tag through the id
-    
+
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
-  // const handleServiceChange = (event) => {
-  //   const name = event.target.name;
-  //   setServiceArr({ [name]: event.target.value });
-  // };
-
-  const handleAddService = () => {
-    // const values = [...business.services];
-    // values.push({ name: '', cost: '' });
-    // setServiceArr(values);
-  };
-
-  const handleBusinessChange = event => {
+  const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -330,12 +324,12 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = event => {
+  const handleSocial = (event) => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = event => {
+  const handleVendor = (event) => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
@@ -578,7 +572,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={event => handleFormSubmit(event, true)}
+                  onClick={(event) => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>

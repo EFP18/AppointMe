@@ -204,25 +204,38 @@ const resolvers = {
                     return newData;
                 });
 
+            const newService = async (data) => {
+                const addedService = await Service.create({ name: data.name, description: data.description, price: data.price })
+                if (context.vendor) {
+                    const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+                    const updatedBusiness = await Business.findOneAndUpdate(
+                        { _id: currVendor.business._id },
+                        // push new services id to the business
+                        { $addToSet: { services: addedService._id } },
+                        { new: true },
+                    );
+                }
+            }
             
+            if (toBeCreatedArr.length > 0){
+                toBeCreatedArr.forEach(newService)
+            }
 
-            // const newService = await Service.create({ name, description, price })
-            // if (context.vendor) {
-            //     const currVendor = await Vendor.findOne({ _id: context.vendor._id });
-            //     const updatedBusiness = await Business.findOneAndUpdate(
-            //         { _id: currVendor.business._id },
-            //         { $addToSet: { services: newService._id } },
-            //         { new: true },
-            //     );
-            //     return updatedBusiness;
-            // }
+            console.log(toBeEditedArr)
 
-            // const updService = await Service.findOneAndUpdate(
-            //     { _id: _id },
-            //     { $set: { name, description, price } },
-            //     { new: true },
-            // );
-            
+            const updService = async (data) => {
+                await Service.findOneAndUpdate(
+                    { _id: data._id },
+                    { $set: { name: data.name, description: data.description, price: data.price } },
+                    { new: true },
+                );
+            }
+
+            if (toBeEditedArr.length > 0){
+                toBeEditedArr.forEach(updService)
+            }
+
+            return message;
         },
         addClient: async (parent, argsObj, context) => {
             const newClient = await Client.create(argsObj)
