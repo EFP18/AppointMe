@@ -210,6 +210,7 @@ const resolvers = {
                     const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                     const updatedBusiness = await Business.findOneAndUpdate(
                         { _id: currVendor.business._id },
+                        // push new services id to the business
                         { $addToSet: { services: addedService._id } },
                         { new: true },
                     );
