@@ -36,6 +36,7 @@ import {
 } from '../../utils/mutation';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
+import { margin } from '@mui/system';
 
 const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
   const arr = [];
@@ -224,13 +225,13 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
-      const convertFloat = (obj) => {
-          obj.data.price = parseFloat(obj.data.price)
-      }
+      const convertFloat = obj => {
+        obj.data.price = parseFloat(obj.data.price);
+      };
 
-      servicesArr.forEach(convertFloat)
+      servicesArr.forEach(convertFloat);
 
-      console.log(servicesArr)
+      console.log(servicesArr);
       try {
         await manageServices({
           variables: {
@@ -242,13 +243,13 @@ export default function VendorProfile() {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: {id: category} })
+          await addTag({ variables: { id: category } });
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
           // this is the equivalent of updatedBusiness from addTag mutation
-          await addTag({ variables: {id: category} })
+          await addTag({ variables: { id: category } });
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -304,15 +305,15 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
-    setCategory(businessTagData)
+    setCategory(businessTagData);
   }, [data]);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     // selected category returns the ID of the service
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
     // grab the name of the tag through the id
-    
+
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
@@ -422,7 +423,7 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {tagsData.map((category) => {
+                  {tagsData.map(category => {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
