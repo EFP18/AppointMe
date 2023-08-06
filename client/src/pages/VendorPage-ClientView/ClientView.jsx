@@ -112,7 +112,7 @@ function ClientView(props) {
 
             <h2>Services</h2>
             {Array.isArray(businessData.services) &&
-            businessData.services.length > 0 ? (
+              businessData.services.length > 0 ? (
               businessData.services.map((service, index) => (
                 <Box key={index} className={classes.service}>
                   <Checkbox
@@ -124,7 +124,7 @@ function ClientView(props) {
                     // checked = boolean value
                     checked={checkedService === index}
                     onChange={() =>
-                      setCheckedService(index) && setboxChecked(true)
+                      setCheckedService(index) || setboxChecked(true)
                     }
                   />
                   <Typography className={classes.serviceName}>
@@ -151,7 +151,7 @@ function ClientView(props) {
                 </Button>
               </Box>
             </ThemeProvider>
-            
+
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
