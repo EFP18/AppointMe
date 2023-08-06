@@ -138,13 +138,15 @@ export const CREATE_TAG = gql`
   }
 `;
 
-// add tag
 export const ADD_TAG = gql`
-  mutation ADD_TAG($id: ID!) {
-    addTag(_id: $id) {
-      name
+mutation ADD_TAG($id: ID!) {
+  addTag(_id: $id) {
+    name
+    tags {
+      _id
     }
   }
+}
 `;
 
 // remove tag
