@@ -27,6 +27,8 @@ export default function ServiceCard({ name, description, image }) {
 
   const [hover, setHover] = React.useState(false);
 
+  // TODO: clientview/:id
+  // TODO: link needs to be out website/clientview/:id of the vendor they want to share
   return (
     <Link to='/clientview' style={{ textDecoration: 'none', color: 'inherit' }}>
       <Card

@@ -14,8 +14,19 @@ export default function ServicePage() {
   const { service } = useParams();
 
   const { loading, data } = useQuery(GET_BUSINESSES);
-  const businessData = data?.business || [];
+  // const businessData = data?.business || [];
+  console.log(data);
+  const businessData = data?.businesses || [];
+  // console.log(businessData)
+  // Filter businesses based on the service tag
+  const filteredBusinesses = businessData.filter((business) => {
+    if (business.tags && typeof business.tags === 'object') {
+      return business.tags.name === service;
+    }
+    return false;
+  });
 
+  console.log(filteredBusinesses);
   return (
     <Page
       title={`${service} - AppointMe`}
@@ -56,7 +67,6 @@ export default function ServicePage() {
             {service}
           </Typography>
 
-          {/* Generate a ServiceCard for every service in database */}
           <Box
             sx={{
               display: 'flex',
@@ -64,8 +74,9 @@ export default function ServicePage() {
               flexWrap: 'wrap',
               marginTop: '30px',
             }}
-          >
-            {businessData.map((service, index) => (
+            >
+            {/* Generate a ServiceCard for every service in database */}
+            {filteredBusinesses.map((business, index) => (
               <Grid
                 item
                 xs={12}
@@ -74,15 +85,11 @@ export default function ServicePage() {
                 key={index}
                 sx={{ margin: '10px' }}
               >
-                //TODO: for each business in this category
-                {businessData.forEach((business) => {
-                  <ServiceCard
-                    name={business.name}
-                    description={business.description}
-                    image={business.image}
-                  />;
-                })}
-                <ServiceCard />
+                <ServiceCard
+                  name={business.name}
+                  description={business.description}
+                  image={business.image}
+                />
               </Grid>
             ))}
           </Box>
