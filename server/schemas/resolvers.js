@@ -184,7 +184,7 @@ const resolvers = {
                 // servicesArr, filtered by type of edited and then create a new array that only includes the data and not the type
                 .filter(({ type }) => type === 'edited')
                 .map(({ data }) => data);
-
+            
             const toBeCreatedArr = servicesArr 
             // creates a new service, filters by type of new
             // creates new array with map with only the data
