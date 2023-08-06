@@ -76,7 +76,7 @@ function App() {
                 <Route path='/' element={<LandingPage />} />
               )}
               // TODO :id for the clientview/:id ?
-              <Route path='/clientview' element={<ClientView />} />
+              <Route path='/clientview/:id' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
             </Routes>

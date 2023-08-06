@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   Button,
   Box,
@@ -30,8 +30,14 @@ import { useQuery } from '@apollo/client';
 
 function ClientView(props) {
   const classes = useStyles();
+  const { id } = useParams();
 
-  const { loading, data } = useQuery(GET_BUSINESS);
+
+  const { loading, data } = useQuery(GET_BUSINESS, {
+    variables: { id: id },
+  });
+
+  
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
@@ -117,7 +123,7 @@ function ClientView(props) {
                       '&.Mui-checked': { color: colors.primary },
                     }}
                     // checked = boolean value
-                    checked={checkedService === index && setboxChecked(true)}
+                    checked={checkedService === index}
                     onChange={() => setCheckedService(index)}
                   />
                   <Typography className={classes.serviceName}>
@@ -134,7 +140,7 @@ function ClientView(props) {
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
               <Link
-                to={`//${socialObj.facebook}`}
+              href={`//${socialObj.facebook}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -147,7 +153,7 @@ function ClientView(props) {
             )}
             {socialObj.youTube && (
               <Link
-                to={`//${socialObj.youTube}`}
+              href={`//${socialObj.youTube}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -160,7 +166,7 @@ function ClientView(props) {
             )}
             {socialObj.instagram && (
               <Link
-                to={`//${socialObj.instagram}`}
+              href={`//${socialObj.instagram}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -173,7 +179,7 @@ function ClientView(props) {
             )}
             {socialObj.linkedIn && (
               <Link
-                to={`//${socialObj.linkedIn}`}
+              href={`//${socialObj.linkedIn}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -186,7 +192,7 @@ function ClientView(props) {
             )}
             {socialObj.tikTok && (
               <Link
-                to={`//${socialObj.tikTok}`}
+              href={`//${socialObj.tikTok}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -199,7 +205,7 @@ function ClientView(props) {
             )}
             {businessData.email && (
               <Link
-                to={`mailto:${businessData.email}`}
+              href={`mailto:${businessData.email}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
