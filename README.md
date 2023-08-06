@@ -80,6 +80,32 @@ MIT
 - GitHub: `https://github.com/EFP18/AppointMe`
 - Email: `info@appointme.com`
 
+## User Story
+
+```
+AS A freelancer/business owner/service provider
+I WANT to have an appointment management system
+SO THAT I can manage my clients, appointments and work schedule
+```
+
+## Acceptance Criteria
+
+```
+GIVEN a CRM site
+WHEN I search for a business on the landing page
+THEN I am presented with a searchbox/dropdown menu for available services
+WHEN I click on the service that I want
+THEN I am presented with the vendors/freelancers/businesses available
+WHEN I click on the vendors/freelancers/businesses
+THEN I am presented with the vendor's profile with their offered services
+WHEN I choose a service and click continue
+THEN I am presented with a calendar to pick a date and time to schedule my appointment
+WHEN I choose a date and time
+THEN I can enter my information for the appointment
+WHEN I click on "Book Appointment"
+THEN I am presented with an appointment confirmation message
+```
+
 TODO:
 
 1. book an appointment button adds client appointment to db --> Ted !!!!!!!!!!!!
@@ -93,4 +119,3 @@ TODO:
 9. calendar can't view on month
 10. load error in landing page
 11. booking redirect to thank you page
-12. 
