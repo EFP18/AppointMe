@@ -137,6 +137,21 @@ function ClientView(props) {
               <p>No services listed.</p>
             )}
 
+            {/* disable the button until at least 1 service is selected */}
+            <ThemeProvider theme={button}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Button disabled={!boxChecked} href='/book-appointment'>
+                  Continue
+                </Button>
+              </Box>
+            </ThemeProvider>
+            
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
@@ -217,20 +232,6 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {/* disable the button until at least 1 service is selected */}
-            <ThemeProvider theme={button}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <Button disabled={!boxChecked} href='/book-appointment'>
-                  Continue
-                </Button>
-              </Box>
-            </ThemeProvider>
           </Box>
         </Box>
         {/* ))} */}
