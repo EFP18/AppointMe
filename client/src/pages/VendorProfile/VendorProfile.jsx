@@ -224,6 +224,7 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
       console.log(serviceObj)
+      console.log(servicesArr)
       try {
         await manageServices({
           variables: {
@@ -248,7 +249,7 @@ export default function VendorProfile() {
         setIsSaved(true);
         if (redirect) {
           // Redirect to the profile view page and reload page to update data
-          window.location.replace('/profileview');
+          // window.location.replace('/profileview');
         }
       } catch (err) {
         console.error('Error updating business:', err);

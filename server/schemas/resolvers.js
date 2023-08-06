@@ -46,6 +46,12 @@ const resolvers = {
                 .populate('services')
                 .populate('clients');
         },
+        businessCV: async (parent, { _id }) => {
+            return Business.findOne({ _id: _id })
+                .populate('tags')
+                .populate('socialMedia')
+                .populate('services')
+        },
         client: async (parent, { _id }, context) => {
             return Client.findOne({ _id }).populate('previousShopping');
         },
@@ -216,7 +222,6 @@ const resolvers = {
             //     { $set: { name, description, price } },
             //     { new: true },
             // );
-            // return updService;
             
         },
         addClient: async (parent, argsObj, context) => {
