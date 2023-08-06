@@ -53,7 +53,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
         <Box
@@ -70,7 +70,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
           />
         </Box>
       </Stack>
@@ -307,7 +307,7 @@ export default function VendorProfile() {
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
     // grab the name of the tag through the id
-
+    
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
@@ -322,7 +322,7 @@ export default function VendorProfile() {
     // setServiceArr(values);
   };
 
-  const handleBusinessChange = (event) => {
+  const handleBusinessChange = event => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -330,12 +330,12 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = (event) => {
+  const handleSocial = event => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = (event) => {
+  const handleVendor = event => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
@@ -490,6 +490,7 @@ export default function VendorProfile() {
               >
                 +
               </Button>
+
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
@@ -577,7 +578,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={(event) => handleFormSubmit(event, true)}
+                  onClick={event => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>

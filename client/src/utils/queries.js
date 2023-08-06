@@ -5,38 +5,38 @@ export const GET_BUSINESS = gql`
   query GET_BUSINESS {
     business {
       _id
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
-        _id
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        _id
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            _id
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            _id
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
   }
 `;
@@ -44,38 +44,37 @@ export const GET_BUSINESS = gql`
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {
     businesses {
-      _id
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
-        _id
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            _id
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
   }
 `;
