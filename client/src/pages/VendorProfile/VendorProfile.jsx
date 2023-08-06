@@ -30,7 +30,6 @@ import {
   UPD_BUSINESS,
   UPD_VENDOR,
   ADD_TAG,
-  RMV_TAG,
   ADD_SERVICE,
   DEL_SERVICE,
   UPD_SERVICE,
@@ -240,20 +239,17 @@ export default function VendorProfile() {
           },
         });
         // Call the updateBusiness mutation and pass the variables
-        console.log(category);
-
-        console.log(typeof category);
-        if (!data) {
+        if (!data.vendor.business) {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: { category } });
+          await addTag({ variables: {id: category} })
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
           // this is the equivalent of updatedBusiness from addTag mutation
-          await addTag({ variables: { _id: category } });
+          await addTag({ variables: {id: category} })
         }
 
         // If the mutation is successful, you can proceed with the form submission
@@ -273,6 +269,7 @@ export default function VendorProfile() {
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
+  const businessTagData = businessData?.tags?._id || '';
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   const vendorData = data?.vendor || {};
@@ -313,6 +310,8 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
+    console.log(businessTagData)
+    setCategory(businessTagData)
   }, [data]);
 
   const handleChange = (event) => {
