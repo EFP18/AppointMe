@@ -298,7 +298,6 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
-    // console.log(businessTagData)
     setCategory(businessTagData)
   }, [data]);
 
