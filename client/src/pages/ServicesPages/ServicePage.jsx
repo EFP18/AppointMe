@@ -16,6 +16,8 @@ export default function ServicePage() {
   const businessData = data?.businesses || [];
   // Filter businesses based on the service tag
   const filteredBusinesses = businessData.filter((business) => {
+    console.log(business._id);
+    console.log(typeof business.tags);
     if (business.tags && typeof business.tags === 'object') {
       return business.tags.name === service;
     }

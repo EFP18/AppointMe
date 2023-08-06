@@ -33,17 +33,17 @@ function ClientView(props) {
   const classes = useStyles();
 
   const { _id } = useParams();
-
+  // console.log(_id);
   const { loading, data } = useQuery(GET_BUSINESSCV, {
     variables: { id: _id },
   });
-  // console.log(data)
-  const businessData = data?.business || {};
+  console.log(data);
+  const businessData = data?.businessCV || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
 
-  // console.log(businessData)
+  console.log(businessData);
 
   return (
     // dynamically create business name
@@ -154,7 +154,7 @@ function ClientView(props) {
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
               <Link
-              href={`//${socialObj.facebook}`}
+                href={`//${socialObj.facebook}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -167,7 +167,7 @@ function ClientView(props) {
             )}
             {socialObj.youTube && (
               <Link
-              href={`//${socialObj.youTube}`}
+                href={`//${socialObj.youTube}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -180,7 +180,7 @@ function ClientView(props) {
             )}
             {socialObj.instagram && (
               <Link
-              href={`//${socialObj.instagram}`}
+                href={`//${socialObj.instagram}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -193,7 +193,7 @@ function ClientView(props) {
             )}
             {socialObj.linkedIn && (
               <Link
-              href={`//${socialObj.linkedIn}`}
+                href={`//${socialObj.linkedIn}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -206,7 +206,7 @@ function ClientView(props) {
             )}
             {socialObj.tikTok && (
               <Link
-              href={`//${socialObj.tikTok}`}
+                href={`//${socialObj.tikTok}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -219,7 +219,7 @@ function ClientView(props) {
             )}
             {businessData.email && (
               <Link
-              href={`mailto:${businessData.email}`}
+                href={`mailto:${businessData.email}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
