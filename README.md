@@ -1,6 +1,6 @@
 # AppointMe
 
-CRM for freelancers
+CRM for freelancers and booking service
 
 ![License](https://img.shields.io/badge/License-MIT.svg)
 
@@ -19,15 +19,28 @@ https://opensource.org/licenses/MIT
 
 AppointMe is a platform for service providers and seekers. It targets freelancers who have their own business but don't have a website, and it gives them the chance to create a business profile, track their clients and their schedule, as well as get directly booked through the platform by people looking for their services.
 
-![LandingPage](add screenshot here)
+![LandingPage](./client/src/images/landingpage.png)
+![EditProfile](./client/src/images/editProfileScreenshot.png)
+![ViewProfile](./client/src/images/viewProfileScreenshot.png)
 
-- Follow the link to access the live version of my Portfolio: `add link`
 
-- GitHub repository: `https://github.com/EFP18/React-Portfolio`
+- Follow the link to access the live version of AppointMe: `add link`
+
+- GitHub repository: `https://github.com/EFP18/AppointMe`
 
   ### Installation
 
-  install
+  Follow the steps below to install the application:
+
+- Clone the repository in your local machine.
+- Navigate to the cloned repository locally.
+- Run `npm i` to install all necessary dependencies.
+- Run `npm run seed` to populate the seeded categories.
+- Run `npm run develop` to start the application.
+
+  Once your repository is compiled successfully, the website will load automatically on your browser. 
+
+  This application is deployed using `Heroku`.
 
   ### Usage
 
@@ -43,8 +56,8 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 
   ### Questions
 
-  - GitHub: http://github.com/https://github.com/EFP18/AppointMe
-  - Email: info@appointme.com
+  - GitHub: `https://github.com/EFP18/AppointMe`
+  - Email: `info@appointme.com`
 
 TODO:
 
@@ -56,8 +69,6 @@ TODO:
 8. readme --> team work
 9. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
 10. responsive --> Daniel
-11. turn tags into a single object in the backend, not an array
-12. clientview/:id
 13. description space for services remove?
 14. calendar can't view on month
 15. load error in landing page
