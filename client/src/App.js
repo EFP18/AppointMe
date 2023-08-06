@@ -19,12 +19,13 @@ import WelcomePage from './pages/WelcomePage/WelcomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ClientDb from './pages/ClientDb/ClientDb';
 import GlobalStyle from './components/GlobalStyle';
-// import MusicServicePage from './pages/ServicesPages/MusicServicePage';
 import { setContext } from '@apollo/client/link/context';
 import ServicePage from './pages/ServicesPages/ServicePage.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import authServiceInstance from './utils/auth';
 import { colors } from './components/theme';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
+import AppointmentConfirm from './pages/AppointmentConfirm/AppointmentConfirm'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -63,22 +64,11 @@ function App() {
               <Route path='/' element={<LandingPage />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
-              {authServiceInstance.loggedIn() ? (
-                <>
-                  <Route path='/welcomepage' element={<WelcomePage />} />
-                  <Route path='/calendarpage' element={<CalendarPage />} />
-                  <Route path='/vendorprofile' element={<VendorProfile />} />
-                  <Route path='/profileview' element={<ProfileView />} />
-                  <Route path='/services/:service' element={<ServicePage />} />
-                  <Route path='/clientDb' element={<ClientDb />} />
-                </>
-              ) : (
-                <Route path='/' element={<LandingPage />} />
-              )}
-              // TODO :id for the clientview/:id ?
-              <Route path='/clientview/:id' element={<ClientView />} />
+             
+    setBusiness({ ...business, category: selectedCategoryId });
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
+              <Route path='/appointment-confirm' element={<AppointmentConfirm />} /> 
             </Routes>
             {/* <Footer /> */}
           </BrowserRouter>

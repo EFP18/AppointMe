@@ -78,7 +78,6 @@ export default function ClientTable({
   const handleDelete = async (id) => {
   // Add an id to the new client
   try {
-    console.log(id)
     const { data } = await delClient({
       variables: {id}
     })

@@ -27,7 +27,7 @@ export default function BookAppointment() {
 
   const availableDates = [
     {
-      date: new Date(2023, 7, 10),
+      date: new Date(2023, 7, 7),
       slots: ['10:00 AM', '11:00 AM', '12:00 PM'],
     },
     {
@@ -50,6 +50,7 @@ export default function BookAppointment() {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    console.log(date);
     const availableDate = availableDates.find((item) =>
       isSameDay(item.date, date)
     );

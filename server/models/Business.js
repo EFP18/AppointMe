@@ -33,12 +33,10 @@ const socialMediaSchema = require('./SocialMedia');
             match: [/.+@.+\..+/, 'Must use a valid email address'],
         },
         socialMedia: socialMediaSchema,
-        tags: [
-            {
+        tags: {
                 type: Schema.Types.ObjectId,
                 ref: 'Tag',
             },
-        ],
         services: [
             {
                 type: Schema.Types.ObjectId,

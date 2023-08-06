@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Business, Client, Tag, Vendor, Service } = require('../models');
 const { signToken } = require('../utils/auth');
 const mongoose = require('mongoose');
+const { __DirectiveLocation } = require('graphql');
 
 const resolvers = {
     Query: {
@@ -44,6 +45,12 @@ const resolvers = {
                 .populate('tags')
                 .populate('services')
                 .populate('clients');
+        },
+        businessCV: async (parent, { _id }) => {
+            return Business.findOne({ _id: _id })
+                .populate('tags')
+                .populate('socialMedia')
+                .populate('services')
         },
         client: async (parent, { _id }, context) => {
             return Client.findOne({ _id }).populate('previousShopping');
@@ -116,16 +123,17 @@ const resolvers = {
             const newTag = await Tag.create({ name });
             return newTag;
         },
-        addTag: async (parent, { _id }, context) => {
+        addTag: async (parent,   { _id } , context) => {
             if (context.vendor) {
+                const tagId = new mongoose.Types.ObjectId(_id)
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $addToSet: { tags: _id } },
+                    { $set: { tags: tagId } },
                     { new: true },
                 );
                 return updatedBusiness;
-            };
+            }
         },
         // convert _id to Object id type
         rmvTag: async (parent, { _id }, context) => {
@@ -135,7 +143,7 @@ const resolvers = {
                 const tagId = new mongoose.Types.ObjectId(_id)
                 const updatedBusiness = await Business.findOneAndUpdate(
                     { _id: currVendor.business._id },
-                    { $pull: { tags: tagId } },
+                    { $set: { tags: null } },
                     { new: true },
                 );
                 return updatedBusiness;
@@ -178,12 +186,13 @@ const resolvers = {
         },
         manageServices: async (parent, { servicesArr }, context) => {
 
+            const message = "Services updated"
+
             const toBeEditedArr = servicesArr
                 // servicesArr, filtered by type of edited and then create a new array that only includes the data and not the type
                 .filter(({ type }) => type === 'edited')
                 .map(({ data }) => data);
-            console.log(toBeEditedArr);
-
+            
             const toBeCreatedArr = servicesArr 
             // creates a new service, filters by type of new
             // creates new array with map with only the data
@@ -195,8 +204,24 @@ const resolvers = {
                     return newData;
                 });
 
-                console.log(toBeCreatedArr);
+            
 
+            // const newService = await Service.create({ name, description, price })
+            // if (context.vendor) {
+            //     const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+            //     const updatedBusiness = await Business.findOneAndUpdate(
+            //         { _id: currVendor.business._id },
+            //         { $addToSet: { services: newService._id } },
+            //         { new: true },
+            //     );
+            //     return updatedBusiness;
+            // }
+
+            // const updService = await Service.findOneAndUpdate(
+            //     { _id: _id },
+            //     { $set: { name, description, price } },
+            //     { new: true },
+            // );
             
         },
         addClient: async (parent, argsObj, context) => {

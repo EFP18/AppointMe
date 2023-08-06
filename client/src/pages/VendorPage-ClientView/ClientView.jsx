@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Box,
@@ -25,31 +25,31 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import phoneIcon from './img/phone.png';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESSCV } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 function ClientView(props) {
   const classes = useStyles();
-  const { id } = useParams();
 
+  const { _id } = useParams();
 
-  const { loading, data } = useQuery(GET_BUSINESS, {
-    variables: { id: id },
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: { id: _id },
   });
-
-  
+  // console.log(data)
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
+
+  // console.log(businessData)
 
   return (
     // dynamically create business name
     <Page title={`${businessData.name} - AppointMe`}>
       <Header />
       <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
-        {/* {vendorData.map((vendor) => ( */}
-        {/* {businessData.map((business) => ( */}
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
           <Box className={classes.profile}>
             <Box className={classes.header}>
@@ -74,9 +74,6 @@ function ClientView(props) {
                 >
                   <Box>
                     <Typography variant='h4'>{businessData.name}</Typography>
-                    {/* <Typography variant='body1' className={classes.location}>
-                      {businessData.firstName}
-                    </Typography> */}
                   </Box>
                 </Box>
               </Box>
@@ -124,7 +121,9 @@ function ClientView(props) {
                     }}
                     // checked = boolean value
                     checked={checkedService === index}
-                    onChange={() => setCheckedService(index)}
+                    onChange={() =>
+                      setCheckedService(index) || setboxChecked(true)
+                    }
                   />
                   <Typography className={classes.serviceName}>
                     {service.name}
@@ -135,6 +134,21 @@ function ClientView(props) {
             ) : (
               <p>No services listed.</p>
             )}
+
+            {/* disable the button until at least 1 service is selected */}
+            <ThemeProvider theme={button}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Button disabled={!boxChecked} href='/book-appointment'>
+                  Continue
+                </Button>
+              </Box>
+            </ThemeProvider>
 
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
@@ -216,20 +230,6 @@ function ClientView(props) {
                 />
               </Link>
             )}
-            {/* disable the button until at least 1 service is selected */}
-            <ThemeProvider theme={button}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <Button disabled={!boxChecked} href='/book-appointment'>
-                  Continue
-                </Button>
-              </Box>
-            </ThemeProvider>
           </Box>
         </Box>
         {/* ))} */}

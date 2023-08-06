@@ -22,16 +22,12 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// // temporary seed file for testing
-// import categoryData from './categorySeeds.json';
-// import { GET_TAGS } from '../../utils/queries';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
   ADD_BUSINESS,
   UPD_BUSINESS,
   UPD_VENDOR,
   ADD_TAG,
-  RMV_TAG,
   ADD_SERVICE,
   DEL_SERVICE,
   UPD_SERVICE,
@@ -87,6 +83,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
 };
 
 export default function VendorProfile() {
+  // useState
   const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [business, setBusiness] = useState({
@@ -102,7 +99,7 @@ export default function VendorProfile() {
     firstName: '',
     lastName: '',
   });
-
+  const [serviceObj, setServiceObj] = useState({});
   // 'someId': {
   // 'unaltered', 'edited', 'deleted', 'new'
   //   type: '',
@@ -113,8 +110,33 @@ export default function VendorProfile() {
   //     description: '',
   //   }
   // }
-  const [serviceObj, setServiceObj] = useState({});
+  const [social, setSocial] = useState({
+    facebook: '',
+    instagram: '',
+    youTube: '',
+    tikTok: '',
+    linkedIn: '',
+  });
+  const [isLoading, setLoading] = useState(true);
 
+  // Error handling
+  const [businessNameError, setBusinessNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const emailValidation = /.+@.+\..+/;
+  const history = useNavigate();
+  const navigate = useNavigate();
+
+  // Mutations
+  const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
+    useMutation(UPD_BUSINESS);
+  const [addBusiness] = useMutation(ADD_BUSINESS);
+  const [manageServices] = useMutation(MANAGE_SERVICES);
+  const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
+  const [updVendor] = useMutation(UPD_VENDOR);
+  const [addTag] = useMutation(ADD_TAG);
+
+  // Service
   const handleAddServiceObj = () => {
     const _id = uuidv4();
     setServiceObj({
@@ -150,28 +172,7 @@ export default function VendorProfile() {
     });
   };
 
-  const [social, setSocial] = useState({
-    facebook: '',
-    instagram: '',
-    youTube: '',
-    tikTok: '',
-    linkedIn: '',
-  });
-  const [isLoading, setLoading] = useState(true);
-  const [businessNameError, setBusinessNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
-  const emailValidation = /.+@.+\..+/;
-  const history = useNavigate();
-  const navigate = useNavigate();
-  const [updateBusiness, { loading: mutationLoading, error: mutationError }] =
-    useMutation(UPD_BUSINESS);
-  const [addBusiness] = useMutation(ADD_BUSINESS);
-  const [manageServices] = useMutation(MANAGE_SERVICES);
-  const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
-  const [updVendor] = useMutation(UPD_VENDOR);
-  const [addTag] = useMutation(ADD_TAG);
-
+  // Save profile handling
   const handleFormSubmit = async (event, redirect = false) => {
     event.preventDefault();
 
@@ -220,13 +221,10 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      const tagVariables = {
-        name: tags.name,
-        id: tags._id
-      };
-      // Services
+      // Service handling
       const servicesArr = Object.values(serviceObj);
-
+      console.log(serviceObj)
+      console.log(servicesArr)
       try {
         await manageServices({
           variables: {
@@ -234,23 +232,24 @@ export default function VendorProfile() {
           },
         });
         // Call the updateBusiness mutation and pass the variables
-        if (!data) {
+        if (!data.vendor.business) {
           await addBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: tagVariables });
+          await addTag({ variables: {id: category} })
         } else {
           await updateBusiness({ variables });
           await updSocialMedia({ variables: socialVariables });
           await updVendor({ variables: vendorVariables });
-          await addTag({ variables: tagVariables });
+          // this is the equivalent of updatedBusiness from addTag mutation
+          await addTag({ variables: {id: category} })
         }
 
         // If the mutation is successful, you can proceed with the form submission
         setIsSaved(true);
         if (redirect) {
           // Redirect to the profile view page and reload page to update data
-          window.location.replace('/profileview');
+          // window.location.replace('/profileview');
         }
       } catch (err) {
         console.error('Error updating business:', err);
@@ -258,15 +257,12 @@ export default function VendorProfile() {
     }
   };
 
+  // Queries
   const { loading, data } = useQuery(GET_VENDOR);
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
-  const servicesArr = businessData?.services || [
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-  ];
+  const businessTagData = businessData?.tags?._id || '';
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   const vendorData = data?.vendor || {};
@@ -302,14 +298,17 @@ export default function VendorProfile() {
       firstName: vendorData.firstName,
       lastName: vendorData.lastName,
     });
+    // console.log(businessTagData)
+    setCategory(businessTagData)
   }, [data]);
 
-  // const [addBusiness]
-
-  const handleChange = event => {
-    const selectedCategory = event.target.value;
-    setCategory(selectedCategory);
-    setBusiness({ ...business, category: selectedCategory });
+  const handleChange = (event) => {
+    // selected category returns the ID of the service
+    const selectedCategoryId = event.target.value;
+    setCategory(selectedCategoryId);
+    // grab the name of the tag through the id
+    
+    setBusiness({ ...business, category: selectedCategoryId });
   };
 
   // const handleServiceChange = (event) => {
@@ -341,7 +340,6 @@ export default function VendorProfile() {
     setVendor({ ...vendor, [name]: event.target.value });
   };
 
-  // TODO: category not being saved
   // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
@@ -434,6 +432,7 @@ export default function VendorProfile() {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
+
                         {/* attribute for menuitem  */}
                         {/* selected={category.name ? selected= "true": selected="false"} */}
                       </MenuItem>
@@ -575,14 +574,6 @@ export default function VendorProfile() {
                 alignItems='baseline'
                 justifyContent='center'
               >
-                {/* <Button
-                  type='submit'
-                  variant='contained'
-                  style={{ marginTop: '30px', marginBottom: '0px' }}
-                >
-                  Save Profile
-                </Button> */}
-
                 <Button
                   href='/profileview'
                   variant='contained'

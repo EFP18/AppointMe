@@ -2,40 +2,41 @@ import { gql } from '@apollo/client';
 
 // retrieves all current user data--including saved books
 export const GET_BUSINESS = gql`
-  query GetBusiness($id: ID!) {
-    business(id: $id) {
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
-        _id
+  query GET_BUSINESS {
+    business {
+      _id
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        _id
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            _id
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            _id
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
   }
 `;
@@ -43,37 +44,37 @@ export const GET_BUSINESS = gql`
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {
     businesses {
-      name
-      email
-      description
-      address
-      phone
-      image
-      logo
-      services {
-        _id
         name
-        description
-        price
-      }
-      tags {
-        name
-      }
-      socialMedia {
-        facebook
-        instagram
-        linkedIn
-        tikTok
-        youTube
-      }
-      clients {
-        firstName
-        lastName
         email
+        description
         address
         phone
-        note
-      }
+        image
+        logo
+        services {
+            _id
+            name
+            description
+            price
+        }
+        tags {
+            name
+        }
+        socialMedia {
+            facebook
+            instagram
+            linkedIn
+            tikTok
+            youTube
+        }
+        clients {
+            firstName
+            lastName
+            email
+            address
+            phone
+            note
+        }
     }
   }
 `;
@@ -149,6 +150,30 @@ export const GET_TAGS = gql`
     tags {
       _id
       name
+    }
+  }
+`;
+
+export const GET_BUSINESSCV = gql`
+  query GET_BUSINESSCV($id: ID) {
+    businessCV(_id: $id) {
+      _id
+      name
+      description
+      image
+      services {
+        _id
+        name
+        description
+        price
+      }
+      socialMedia {
+        facebook
+        instagram
+        linkedIn
+        tikTok
+        youTube
+      }
     }
   }
 `;

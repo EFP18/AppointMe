@@ -24,7 +24,7 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import Page from '../../components/Page';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESS, GET_TAGS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 function ProfileView() {
@@ -35,6 +35,8 @@ function ProfileView() {
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
+  const { loading: tagsLoading, data: tags } = useQuery(GET_BUSINESS);
+  const businessTagData = businessData?.tags?.name || '';
 
   return (
     // Needs to take the variable of the id from GET_VENDOR, to only populate the vendor page we are logged in as
@@ -64,12 +66,15 @@ function ProfileView() {
                   }}
                 >
                   <Box>
-                    <Typography variant='h4' className={classes.name}>
+                    <Typography variant='h3' className={classes.name}>
                       {businessData.name}
                     </Typography>
-                    {/* <Typography variant='body1' className={classes.location}>
-                      {businessData.firstName}
-                    </Typography> */}
+                    <Typography
+                      variant='h5'
+                      className={classes.location}
+                    >
+                      {businessTagData}
+                    </Typography>
                   </Box>
                   <Box>
                     <ThemeProvider theme={button}>
