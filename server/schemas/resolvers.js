@@ -46,6 +46,12 @@ const resolvers = {
                 .populate('services')
                 .populate('clients');
         },
+        businessCV: async (parent, { _id }) => {
+            return Business.findOne({ _id: _id })
+                .populate('tags')
+                .populate('socialMedia')
+                .populate('services')
+        },
         client: async (parent, { _id }, context) => {
             return Client.findOne({ _id }).populate('previousShopping');
         },
@@ -180,6 +186,8 @@ const resolvers = {
         },
         manageServices: async (parent, { servicesArr }, context) => {
 
+            const message = "Services updated"
+
             const toBeEditedArr = servicesArr
                 // servicesArr, filtered by type of edited and then create a new array that only includes the data and not the type
                 .filter(({ type }) => type === 'edited')
@@ -196,6 +204,24 @@ const resolvers = {
                     return newData;
                 });
 
+            
+
+            // const newService = await Service.create({ name, description, price })
+            // if (context.vendor) {
+            //     const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+            //     const updatedBusiness = await Business.findOneAndUpdate(
+            //         { _id: currVendor.business._id },
+            //         { $addToSet: { services: newService._id } },
+            //         { new: true },
+            //     );
+            //     return updatedBusiness;
+            // }
+
+            // const updService = await Service.findOneAndUpdate(
+            //     { _id: _id },
+            //     { $set: { name, description, price } },
+            //     { new: true },
+            // );
             
         },
         addClient: async (parent, argsObj, context) => {
