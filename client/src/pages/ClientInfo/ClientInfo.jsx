@@ -144,7 +144,7 @@ export default function ClientInfo() {
                     onChange={handleNotesChange}
                   />
                   <ThemeProvider theme={button}>
-                    <Button type='submit' style={{ margin: '10px' }}>
+                    <Button href='/' type='submit' style={{ margin: '10px' }}>
                       Book Appointment
                     </Button>
                   </ThemeProvider>
