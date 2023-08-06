@@ -59,7 +59,6 @@ TODO:
 9. readme --> team work
 10. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
 11. responsive --> Daniel
-12. turn tags into a single object in the backend, not an array
 13. clientview/:id
 14. description space for services remove?
 15. calendar can't view on month
