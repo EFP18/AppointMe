@@ -27,28 +27,23 @@ import stockBackgroundImg from './img/bgimg.png';
 import phoneIcon from './img/phone.png';
 import { GET_BUSINESS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 function ClientView(props) {
   const classes = useStyles();
+  const { _id } = useParams();
 
   const { loading, data } = useQuery(GET_BUSINESS);
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
-  // && setboxChecked(true)
-  // setCheckedService
-  // useEffect(() => {
-  //   setboxChecked(true);
-  // }, [boxChecked]);
 
   return (
     // dynamically create business name
     <Page title={`${businessData.name} - AppointMe`}>
       <Header />
       <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
-        {/* {vendorData.map((vendor) => ( */}
-        {/* {businessData.map((business) => ( */}
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
           <Box className={classes.profile}>
             <Box className={classes.header}>
@@ -73,9 +68,6 @@ function ClientView(props) {
                 >
                   <Box>
                     <Typography variant='h4'>{businessData.name}</Typography>
-                    {/* <Typography variant='body1' className={classes.location}>
-                      {businessData.firstName}
-                    </Typography> */}
                   </Box>
                 </Box>
               </Box>

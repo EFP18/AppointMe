@@ -3,7 +3,6 @@ import { Box, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Page from '../../components/Page';
 import Header from '../../components/Header';
-
 import { useParams } from 'react-router-dom';
 import ServiceCard from '../../components/ServiceCard';
 import { colors } from '../../components/theme';
@@ -22,8 +21,9 @@ export default function ServicePage() {
     }
     return false;
   });
+  console.log(filteredBusinesses);
 
-  // console.log(filteredBusinesses);
+  console.log(businessData);
   return (
     <Page
       title={`${service} - AppointMe`}
@@ -83,7 +83,7 @@ export default function ServicePage() {
                 sx={{ margin: '10px' }}
               >
                 <ServiceCard
-                  id={business.id}
+                  id={business._id}
                   name={business.name}
                   description={business.description}
                   image={business.image}
