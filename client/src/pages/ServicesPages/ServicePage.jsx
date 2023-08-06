@@ -50,7 +50,6 @@ export default function ServicePage() {
             padding: '16px',
           }}
         >
-          {/* Use the selectedIndustry state to display the dynamically updated title */}
           <Typography
             variant='h2'
             sx={{

@@ -4,6 +4,7 @@ import { gql } from '@apollo/client';
 export const GET_BUSINESS = gql`
   query GET_BUSINESS {
     business {
+      _id
       name
       email
       description
@@ -155,11 +156,12 @@ export const GET_TAGS = gql`
 `;
 
 export const GET_BUSINESSCV = gql`
-  query GET_BUSINESSCV($id: ID!) {
+  query GET_BUSINESSCV($id: ID) {
     businessCV(_id: $id) {
+      _id
       name
       description
+      image
     }
   }
 `;
-

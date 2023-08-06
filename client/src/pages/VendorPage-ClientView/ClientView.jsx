@@ -25,7 +25,7 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import phoneIcon from './img/phone.png';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESSCV } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
@@ -33,11 +33,16 @@ function ClientView(props) {
   const classes = useStyles();
   const { _id } = useParams();
 
-  const { loading, data } = useQuery(GET_BUSINESS);
-  const businessData = data?.business || {};
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: {id: _id}
+  });
+  console.log(data)
+  const businessData = data?.businessCV || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
+
+console.log(businessData)
 
   return (
     // dynamically create business name
