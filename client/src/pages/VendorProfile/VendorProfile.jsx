@@ -22,7 +22,7 @@ import button from '../../components/button';
 import './VendorProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Page from '../../components/Page';
-// // temporary seed file for testing
+// temporary seed file for testing
 // import categoryData from './categorySeeds.json';
 import { GET_TAGS, GET_VENDOR } from '../../utils/queries';
 import {
