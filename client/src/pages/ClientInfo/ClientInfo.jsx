@@ -111,7 +111,6 @@ export default function ClientInfo() {
                     variant='outlined'
                     fullWidth
                     margin='normal'
-                    required
                     value={email}
                     onChange={handleEmailChange}
                     error={emailError}
@@ -130,7 +129,6 @@ export default function ClientInfo() {
                     fullWidth
                     margin='normal'
                     placeholder='Your address'
-                    required
                   />
                   <TextField
                     label={`Appointment notes (optional) (${notes.length}/${maxNotesLength})`}

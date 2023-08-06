@@ -23,14 +23,13 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 ![EditProfile](./client/src/images/editProfileScreenshot.png)
 ![ViewProfile](./client/src/images/viewProfileScreenshot.png)
 
-
 - Follow the link to access the live version of AppointMe: `add link`
 
 - GitHub repository: `https://github.com/EFP18/AppointMe`
 
-  ### Installation
+### Installation
 
-  Follow the steps below to install the application:
+Follow the steps below to install the application:
 
 - Clone the repository in your local machine.
 - Navigate to the cloned repository locally.
@@ -38,43 +37,71 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 - Run `npm run seed` to populate the seeded categories.
 - Run `npm run develop` to start the application.
 
-  Once your repository is compiled successfully, the website will load automatically on your browser. 
+  Once your repository is compiled successfully, the website will load automatically on your browser.
 
   This application is deployed using `Heroku`.
 
-  ### Usage
+### Usage
 
-  This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
+This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
 
-  * `GraphQL API`, `Node.js`, and `Express.js` server.
-  * The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data. 
-  * `MongoDB` and `Mongoose ODM` for the database.
-  * `JWT` authentication.
-  * Component library: `Material UI`.
+- `GraphQL API`, `Node.js`, and `Express.js` server.
+- The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data.
+- `MongoDB` and `Mongoose ODM` for the database.
+- `JWT` authentication.
+- Component library: `Material UI`.
 
-  ### License
+### License
 
-  MIT
+MIT
 
-  ### Contributing
+### Contributing
 
-  contibution?
+contribution?
 
-  ### Questions
+### Questions
 
-  - GitHub: `https://github.com/EFP18/AppointMe`
-  - Email: `info@appointme.com`
+- GitHub: `https://github.com/EFP18/AppointMe`
+- Email: `info@appointme.com`
+
+
+<!-- PLACEHOLDERS -->
+## User Story
+
+```
+AS A hungry person
+I WANT to quickly search for good restaurants near me
+SO THAT I can plan my meals
+```
+
+## Acceptance Criteria
+
+```
+GIVEN a map with a restaurant input
+WHEN I search for a city
+THEN I am presented autofilled options for available cities
+WHEN I click on the city that I want
+THEN I am presented with the restaurants nearby on the cards
+WHEN I view map
+THEN I am presented with the city I search for and red pins for recommended restaurants
+WHEN I view the restaurant cards
+THEN I am presented with the restaurant's name, phone number, price, rating and reviews
+WHEN I click on a restaurant's phone number
+THEN I can make a call to that restaurant
+WHEN I click on a restaurant's address
+THEN I am presented with the map zoom in at the restaurant's location
+```
 
 TODO:
 
 1. book an appointment button adds client appointment to db --> Ted !!!!!!!!!!!!
-2. client notes modal --> Drew 
+2. client notes modal --> Drew
 3. month view calendar can't open the event 2nd time --> Ted
-6. add services!!!!!!! team work!!
-7. upload images --> Hunter
-8. readme --> team work
-9. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
-10. responsive --> Daniel
-14. calendar can't view on month
-15. load error in landing page
-16. booking redirect to thank you page
+4. add services!!!!!!! team work!!
+5. upload images --> Hunter
+6. readme --> team work
+7. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
+8. responsive --> Daniel
+9. calendar can't view on month
+10. load error in landing page
+11. booking redirect to thank you page
