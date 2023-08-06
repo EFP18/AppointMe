@@ -223,15 +223,9 @@ export default function VendorProfile() {
         lastName: vendor.lastName,
       };
 
-      // const tagVariables = {
-      //   name: tags.name,
-      //   id: tags._id,
-      // };
-      // console.log(tagVariables)
-
       // Service handling
       const servicesArr = Object.values(serviceObj);
-
+      console.log(serviceObj)
       try {
         await manageServices({
           variables: {
@@ -273,11 +267,6 @@ export default function VendorProfile() {
   const socialObj = businessData?.socialMedia || {};
   const businessDescription = businessData?.description || '';
   const vendorData = data?.vendor || {};
-  const servicesArr = businessData?.services || [
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-    { name: '', price: 0.0, description: '' },
-  ];
 
   useEffect(() => {
     if (!data) return;
