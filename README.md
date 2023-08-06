@@ -80,32 +80,30 @@ MIT
 - GitHub: `https://github.com/EFP18/AppointMe`
 - Email: `info@appointme.com`
 
-
-<!-- PLACEHOLDERS -->
 ## User Story
 
 ```
-AS A hungry person
-I WANT to quickly search for good restaurants near me
-SO THAT I can plan my meals
+AS A freelancer/business owner/service provider
+I WANT to have an appointment management system
+SO THAT I can manage my clients, appointments and work schedule
 ```
 
 ## Acceptance Criteria
 
 ```
-GIVEN a map with a restaurant input
-WHEN I search for a city
-THEN I am presented autofilled options for available cities
-WHEN I click on the city that I want
-THEN I am presented with the restaurants nearby on the cards
-WHEN I view map
-THEN I am presented with the city I search for and red pins for recommended restaurants
-WHEN I view the restaurant cards
-THEN I am presented with the restaurant's name, phone number, price, rating and reviews
-WHEN I click on a restaurant's phone number
-THEN I can make a call to that restaurant
-WHEN I click on a restaurant's address
-THEN I am presented with the map zoom in at the restaurant's location
+GIVEN a CRM site
+WHEN I search for a business on the landing page
+THEN I am presented with a searchbox/dropdown menu for available services
+WHEN I click on the service that I want
+THEN I am presented with the vendors/freelancers/businesses available
+WHEN I click on the vendors/freelancers/businesses
+THEN I am presented with the vendor's profile with their offered services
+WHEN I choose a service and click continue
+THEN I am presented with a calendar to pick a date and time to schedule my appointment
+WHEN I choose a date and time
+THEN I can enter my information for the appointment
+WHEN I click on "Book Appointment"
+THEN I am presented with an appointment confirmation message
 ```
 
 TODO:
@@ -121,4 +119,3 @@ TODO:
 9. calendar can't view on month
 10. load error in landing page
 11. booking redirect to thank you page
-12. 
