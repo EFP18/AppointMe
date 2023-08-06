@@ -50,6 +50,7 @@ export default function BookAppointment() {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    console.log(date)
     const availableDate = availableDates.find((item) =>
       isSameDay(item.date, date)
     );
