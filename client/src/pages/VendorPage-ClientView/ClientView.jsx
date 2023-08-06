@@ -124,7 +124,7 @@ function ClientView(props) {
                     // checked = boolean value
                     checked={checkedService === index}
                     onChange={() =>
-                      setCheckedService(index) && setboxChecked(true)
+                      setCheckedService(index) || setboxChecked(true)
                     }
                   />
                   <Typography className={classes.serviceName}>
@@ -151,7 +151,7 @@ function ClientView(props) {
                 </Button>
               </Box>
             </ThemeProvider>
-            
+
             {/* <h2>Availability</h2> */}
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
