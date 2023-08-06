@@ -1,6 +1,6 @@
 # AppointMe
 
-CRM for freelancers
+CRM for freelancers and booking service
 
 ![License](https://img.shields.io/badge/License-MIT.svg)
 
@@ -19,59 +19,78 @@ https://opensource.org/licenses/MIT
 
 AppointMe is a platform for service providers and seekers. It targets freelancers who have their own business but don't have a website, and it gives them the chance to create a business profile, track their clients and their schedule, as well as get directly booked through the platform by people looking for their services.
 
-![LandingPage](add screenshot here)
+- Landing page. Browse through the different industries to find the Vendor you'd like to book your appointment with.
 
-- Follow the link to access the live version of my Portfolio: `add link`
+![LandingPage](./client/src/images/landingpage.png)
 
-- GitHub repository: `https://github.com/EFP18/React-Portfolio`
+- Edit Profile for vendors.
 
-  ### Installation
+![EditProfile](./client/src/images/editProfileScreenshot.png)
 
-  install
+- Vendor Profile view.
 
-  ### Usage
+![ClientView](./client/src/images/viewProfileScreenshot.png)
 
-  usage
+- Book Appointment view.
 
-  ### License
+![BookAppointment](./client/src/images/bookAppointment.png)
 
-  MIT
+- Follow the link to access the live version of AppointMe: `add link`
 
-  ### Contributing
+- GitHub repository: `https://github.com/EFP18/AppointMe`
 
-  contibution?
+### Installation
 
-  ### Questions
+Follow the steps below to install the application:
 
-  - GitHub: http://github.com/https://github.com/EFP18/AppointMe
-  - Email: info@appointme.com
+- Clone the repository in your local machine.
+- Navigate to the cloned repository locally.
+- Run `npm i` to install all necessary dependencies.
+- Run `npm run seed` to populate the seeded categories.
+- Run `npm run develop` to start the application.
+
+Once your repository is compiled successfully, the website will load automatically on your browser.
+
+This application is deployed using `Heroku`.
+
+### Usage
+
+This project is a `MERN` stack single-page application, that uses `React` for the front end. Additionally, it uses the following technologies:
+
+- `GraphQL API`, `Node.js`, and `Express.js` server.
+- The application uses `queries` and `mutations` for retrieving, adding, updating, and deleting data.
+- `MongoDB` and `Mongoose ODM` for the database.
+- `JWT` authentication.
+- Component library: `Material UI`.
+
+### License
+
+MIT
+
+### Contributing
+
+- Drew Smith: `https://github.com/ds055`
+- Thanh Doan: `https://github.com/teddysm`
+- Ester Pelosof: `https://github.com/EFP18`
+- Hunter Tran: `https://github.com/ShimmyShong`
+- Daniel Mascali: `https://github.com/TurboTeam335`
+
+### Questions
+
+- GitHub: `https://github.com/EFP18/AppointMe`
+- Email: `info@appointme.com`
 
 TODO:
 
 1. book an appointment button adds client appointment to db --> Ted !!!!!!!!!!!!
-2. client notes modal --> Drew 
+2. client notes modal --> Drew
 3. month view calendar can't open the event 2nd time --> Ted
-<<<<<<< HEAD
-4. saving category into business --> Ester !!!!!!!!!!!!
-5. populate category pages (Service) --> Ester !!!!!!!!!!!!
-6. add services!!!!!!! team work!!
-7. upload images --> Hunter
-8. readme --> team work
-9. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
-10. responsive --> Daniel
-11. turn tags into a single object in the backend, not an array
-12. clientview/:id
-13. description space for services remove?
-14. calendar can't view on month
-=======
-6. add services!!!!!!! team work!!
-7. disable continue without selection of service --> Ted
-8. upload images --> Hunter
-9. readme --> team work
-10. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
-11. responsive --> Daniel
-13. clientview/:id
-14. description space for services remove?
-15. calendar can't view on month
-16. service card todo
->>>>>>> eb65fcef7ac0fbcdd63c2281d433555c57890fc6
+4. add services!!!!!!! team work!!
+5. upload images --> Hunter
+6. readme --> team work
+7. presentation : https://docs.google.com/presentation/d/1eKiCMBW5lZgPrqKxn2AehO71AmGxK-dtk1qi69G2_JU/edit#slide=id.p --> team work
+8. responsive --> Daniel
+9. calendar can't view on month
+10. load error in landing page
+11. booking redirect to thank you page
+12. 

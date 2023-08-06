@@ -38,7 +38,6 @@ function ProfileView() {
   const { loading: tagsLoading, data: tags } = useQuery(GET_BUSINESS);
   const businessTagData = businessData?.tags?.name || '';
 
-
   return (
     // Needs to take the variable of the id from GET_VENDOR, to only populate the vendor page we are logged in as
     <Page title={'My Profile - AppointMe'} className='landing-page'>
@@ -67,10 +66,13 @@ function ProfileView() {
                   }}
                 >
                   <Box>
-                    <Typography variant='h4' className={classes.name}>
+                    <Typography variant='h3' className={classes.name}>
                       {businessData.name}
                     </Typography>
-                    <Typography variant='body1' className={classes.location}>
+                    <Typography
+                      variant='h5'
+                      className={classes.location}
+                    >
                       {businessTagData}
                     </Typography>
                   </Box>

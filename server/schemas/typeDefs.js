@@ -80,7 +80,7 @@ const typeDefs = gql`
         vendor: Vendor
         business: Business
         businesses: [Business]
-        businessCV (_id: ID!): Business
+        businessCV (_id: ID): Business
         client (_id: ID!): Client
         clients: [Client]
         tags: [Tag]

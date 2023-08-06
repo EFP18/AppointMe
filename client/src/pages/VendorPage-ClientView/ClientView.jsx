@@ -25,30 +25,31 @@ import emailLogo from './img/email2.png';
 import stockImg from './img/stock-photo.png';
 import stockBackgroundImg from './img/bgimg.png';
 import phoneIcon from './img/phone.png';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESSCV } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 function ClientView(props) {
   const classes = useStyles();
 
-  const { loading, data } = useQuery(GET_BUSINESS);
+  const { _id } = useParams();
+
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: { id: _id },
+  });
+  // console.log(data)
   const businessData = data?.business || {};
   const socialObj = businessData?.socialMedia || {};
   const [checkedService, setCheckedService] = useState(null);
   const [boxChecked, setboxChecked] = useState(false);
-  // && setboxChecked(true)
-  // setCheckedService
-  // useEffect(() => {
-  //   setboxChecked(true);
-  // }, [boxChecked]);
+
+  // console.log(businessData)
 
   return (
     // dynamically create business name
     <Page title={`${businessData.name} - AppointMe`}>
       <Header />
       <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
-        {/* {vendorData.map((vendor) => ( */}
-        {/* {businessData.map((business) => ( */}
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
           <Box className={classes.profile}>
             <Box className={classes.header}>
@@ -73,9 +74,6 @@ function ClientView(props) {
                 >
                   <Box>
                     <Typography variant='h4'>{businessData.name}</Typography>
-                    {/* <Typography variant='body1' className={classes.location}>
-                      {businessData.firstName}
-                    </Typography> */}
                   </Box>
                 </Box>
               </Box>
@@ -156,7 +154,7 @@ function ClientView(props) {
             {/* Render availability based on its structure */}
             {socialObj.facebook && (
               <Link
-                to={`//${socialObj.facebook}`}
+              href={`//${socialObj.facebook}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -169,7 +167,7 @@ function ClientView(props) {
             )}
             {socialObj.youTube && (
               <Link
-                to={`//${socialObj.youTube}`}
+              href={`//${socialObj.youTube}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -182,7 +180,7 @@ function ClientView(props) {
             )}
             {socialObj.instagram && (
               <Link
-                to={`//${socialObj.instagram}`}
+              href={`//${socialObj.instagram}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -195,7 +193,7 @@ function ClientView(props) {
             )}
             {socialObj.linkedIn && (
               <Link
-                to={`//${socialObj.linkedIn}`}
+              href={`//${socialObj.linkedIn}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -208,7 +206,7 @@ function ClientView(props) {
             )}
             {socialObj.tikTok && (
               <Link
-                to={`//${socialObj.tikTok}`}
+              href={`//${socialObj.tikTok}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -221,7 +219,7 @@ function ClientView(props) {
             )}
             {businessData.email && (
               <Link
-                to={`mailto:${businessData.email}`}
+              href={`mailto:${businessData.email}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >

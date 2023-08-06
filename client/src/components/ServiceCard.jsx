@@ -22,14 +22,11 @@ import {
 import { colors } from './theme';
 
 export default function ServiceCard({ id, name, description, image }) {
-console.log(id)
   // If no image is provided, use the default StockPhoto
   const displayImage = image || StockPhoto;
 
   const [hover, setHover] = React.useState(false);
 
-  // TODO: clientview/:id
-  // TODO: link needs to be out website/clientview/:id of the vendor they want to share
   return (
     <Link
       to={`/clientview/${id}`}
@@ -40,6 +37,7 @@ console.log(id)
         onMouseLeave={() => setHover(false)}
         sx={{
           maxWidth: 345,
+          height: 450,
           margin: '20px',
           marginBottom: 3,
           transition: '0.3s',

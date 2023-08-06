@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 // retrieves all current user data--including saved books
 export const GET_BUSINESS = gql`
-    query GET_BUSINESS {
+  query GET_BUSINESS {
     business {
+      _id
         name
         email
         description
@@ -37,7 +38,8 @@ export const GET_BUSINESS = gql`
             note
         }
     }
-}`
+  }
+`;
 
 export const GET_BUSINESSES = gql`
   query GET_BUSINESSES {
@@ -78,41 +80,41 @@ export const GET_BUSINESSES = gql`
 `;
 
 export const GET_VENDOR = gql`
-query Vendor {
-  vendor {
-    _id
-    business {
+  query Vendor {
+    vendor {
       _id
-      name
-      description
-      logo
-      image
-      address
-      phone
-      email
-      socialMedia {
-        facebook
-        instagram
-        youTube
-        tikTok
-        linkedIn
-      }
-      services {
+      business {
         _id
         name
         description
-        price
+        logo
+        image
+        address
+        phone
+        email
+        socialMedia {
+          facebook
+          instagram
+          youTube
+          tikTok
+          linkedIn
+        }
+        services {
+          _id
+          name
+          description
+          price
+        }
+        tags {
+          _id
+          name
+        }
       }
-      tags {
-        _id
-        name
-      }
+      email
+      firstName
+      lastName
     }
-    email
-    firstName
-    lastName
   }
-}
 `;
 
 export const GET_CLIENT = gql`
@@ -153,11 +155,25 @@ export const GET_TAGS = gql`
 `;
 
 export const GET_BUSINESSCV = gql`
-  query GET_BUSINESSCV($id: ID!) {
+  query GET_BUSINESSCV($id: ID) {
     businessCV(_id: $id) {
+      _id
       name
       description
+      image
+      services {
+        _id
+        name
+        description
+        price
+      }
+      socialMedia {
+        facebook
+        instagram
+        linkedIn
+        tikTok
+        youTube
+      }
     }
   }
 `;
-
