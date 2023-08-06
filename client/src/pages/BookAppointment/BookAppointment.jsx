@@ -27,22 +27,22 @@ export default function BookAppointment() {
 
   const availableDates = [
     {
-      date: new Date(2023, 7, 10),
+      date: new Date(2023, 8, 7),
       slots: ['10:00 AM', '11:00 AM', '12:00 PM'],
     },
     {
-      date: new Date(2023, 7, 15),
+      date: new Date(2023, 8, 15),
       slots: ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM'],
     },
     {
-      date: new Date(2023, 7, 17),
+      date: new Date(2023, 8, 17),
       slots: ['11:00 AM', '1:00 PM', '2:00PM', '3:00PM'],
     },
     {
-      date: new Date(2023, 7, 18),
+      date: new Date(2023, 8, 18),
       slots: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'],
     },
-    { date: new Date(2023, 7, 21), slots: ['10:00 AM', '1:00 PM'] },
+    { date: new Date(2023, 8, 21), slots: ['10:00 AM', '1:00 PM'] },
   ];
 
   const [selectedDate, setSelectedDate] = React.useState(null);
@@ -50,7 +50,7 @@ export default function BookAppointment() {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    console.log(date)
+    console.log(date);
     const availableDate = availableDates.find((item) =>
       isSameDay(item.date, date)
     );
