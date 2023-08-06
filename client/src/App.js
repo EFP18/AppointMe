@@ -25,6 +25,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import authServiceInstance from './utils/auth';
 import { colors } from './components/theme';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
+import AppointmentConfirm from './pages/AppointmentConfirm/AppointmentConfirm'
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -73,6 +74,7 @@ function App() {
               <Route path='/clientview/:_id' element={<ClientView />} />
               <Route path='/book-appointment' element={<BookAppointment />} />
               <Route path='/client-info' element={<ClientInfo />} />
+              <Route path='/appointment-confirm' element={<AppointmentConfirm />} /> 
             </Routes>
             {/* <Footer /> */}
           </BrowserRouter>
