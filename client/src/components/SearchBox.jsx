@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TextField, Autocomplete, Typography } from '@mui/material';
 import { styled, lighten, darken } from '@mui/system';
 import { useTheme } from '@mui/material';
@@ -25,6 +25,16 @@ export default function SearchBox({ details, onSelect }) {
 
   // initialize the value of inputText using useState
   const [inputText, setInputText] = useState('');
+  const [labelText, setLabelText] = useState('Business')
+
+  useEffect(() => {
+    if (inputText) {
+      setLabelText('')
+    } else {
+      setLabelText('Business')
+    }
+    console.log('hit')
+  }, [inputText])
 
   const handleSearch = e => {
     setInputText(e.target.value);
@@ -59,12 +69,8 @@ export default function SearchBox({ details, onSelect }) {
       renderInput={params => (
         <TextField
           {...params}
-          label='Business'
-          onKeyPress={event => {
-            if (event.key === 'Enter') {
-              handleSearch(event);
-            }
-          }}
+          label={labelText}
+          onChange={event => handleSearch(event)}
           InputProps={{
             ...params.InputProps,
             style: {
@@ -72,7 +78,7 @@ export default function SearchBox({ details, onSelect }) {
               paddingRight: '50px',
               fontFamily: 'League Spartan',
               fontSize: '16px',
-              
+
             },
           }}
           InputLabelProps={{
