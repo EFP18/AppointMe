@@ -13,19 +13,20 @@ export default function ServicePage() {
   const { service } = useParams();
   const { loading, data } = useQuery(GET_BUSINESSES);
 
+  
   const businessData = data?.businesses || [];
   // Filter businesses based on the service tag
   const filteredBusinesses = businessData.filter((business) => {
-    console.log(business._id);
-    console.log(typeof business.tags);
+    // console.log(business._id);
+    // console.log(typeof business.tags);
     if (business.tags && typeof business.tags === 'object') {
       return business.tags.name === service;
     }
     return false;
   });
-  console.log(filteredBusinesses);
+  // console.log(filteredBusinesses);
 
-  console.log(businessData);
+  // console.log(businessData);
   return (
     <Page
       title={`${service} - AppointMe`}

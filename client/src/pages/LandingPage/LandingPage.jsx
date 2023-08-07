@@ -42,7 +42,7 @@ function LandingPage() {
     <Page title={'AppointMe'} className='landing-page'>
       <Header />
 
-      <Container maxWidth='xl' sx={{ display: 'flex'}}>
+      <Container sx={{ display: 'flex'}}>
         <StyledCard>
           <h1 style={{ textAlign: 'left', color: colors.black }}>
             {' '}
