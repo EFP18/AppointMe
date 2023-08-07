@@ -38,48 +38,59 @@ import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import { margin } from '@mui/system';
 
-const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
-  const arr = [];
-
-  for (const serviceId in serviceObj) {
-    const service = serviceObj[serviceId].data;
-
-    const elm = (
-      <Stack key={service._id} direction='row' spacing={2} alignItems='center'>
-  <TextField
-    label='Service Name'
-    variant='outlined'
-    fullWidth
-
-    style={{ marginBottom: '0px', flex: 3 }}
-    name='name'
-    value={service.name}
-    onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
-  />
-  
-  <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
-    <TextField
-      label='Service Cost ($)'
-      variant='outlined'
-      fullWidth
-      style={{ marginBottom: '0px' }}
-      name='price'
-      value={service.price}
-      onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
-    />
-  </Stack>
-    <Button variant="contained" color="secondary">Delete</Button>
-</Stack>
-
-    );
-
-    arr.push(elm);
-  }
-
-  return arr;
-};
-
 export default function VendorProfile() {
+  const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
+    const arr = [];
+
+    for (const serviceId in serviceObj) {
+      const service = serviceObj[serviceId].data;
+
+      const elm = (
+        <Stack
+          key={service._id}
+          direction='row'
+          spacing={2}
+          alignItems='center'
+        >
+          <TextField
+            label='Service Name'
+            variant='outlined'
+            fullWidth
+            style={{ marginBottom: '0px', flex: 3 }}
+            name='name'
+            value={service.name}
+            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+          />
+
+          <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
+            <TextField
+              label='Service Cost ($)'
+              variant='outlined'
+              fullWidth
+              style={{ marginBottom: '0px' }}
+              name='price'
+              value={service.price}
+              onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            />
+          </Stack>
+          <Button
+            variant='contained'
+            color='secondary'
+            name={service._id}
+            key={service._id}
+            onClick={deleteService}
+          >
+            Delete
+          </Button>
+        </Stack>
+      );
+
+      arr.push(elm);
+    }
+
+    return arr;
+  };
+
   // useState
   const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
@@ -132,7 +143,14 @@ export default function VendorProfile() {
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
   const [updVendor] = useMutation(UPD_VENDOR);
   const [addTag] = useMutation(ADD_TAG);
+  const [DelService] = useMutation(DEL_SERVICE);
 
+  const deleteService = async (e) => {
+    await DelService({
+      variables: { id: e.target.name },
+    });
+    refetch();
+  };
   // Service
   const handleAddServiceObj = () => {
     const _id = uuidv4();
@@ -221,7 +239,7 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
-      const convertFloat = obj => {
+      const convertFloat = (obj) => {
         obj.data.price = parseFloat(obj.data.price);
       };
 
@@ -261,7 +279,7 @@ export default function VendorProfile() {
   };
 
   // Queries
-  const { loading, data } = useQuery(GET_VENDOR);
+  const { loading, data, refetch } = useQuery(GET_VENDOR);
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
@@ -304,7 +322,7 @@ export default function VendorProfile() {
     setCategory(businessTagData);
   }, [data]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     // selected category returns the ID of the service
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
@@ -313,7 +331,7 @@ export default function VendorProfile() {
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
-  const handleBusinessChange = event => {
+  const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -321,17 +339,16 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = event => {
+  const handleSocial = (event) => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = event => {
+  const handleVendor = (event) => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
 
-  // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>
@@ -420,7 +437,7 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {tagsData.map(category => {
+                  {tagsData.map((category) => {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
@@ -469,13 +486,12 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
-              
+
               {
                 <DisplayServices
                   serviceObj={serviceObj}
                   handleEditServiceObj={handleEditServiceObj}
                 />
-                
               }
               <Button
                 variant='contained'
@@ -570,7 +586,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={event => handleFormSubmit(event, true)}
+                  onClick={(event) => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>
