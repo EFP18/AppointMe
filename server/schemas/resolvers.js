@@ -169,7 +169,7 @@ const resolvers = {
             );
             return updService;
         },
-        delService: async (parent, { _id }, context) => {
+        DelService: async (parent, { _id }, context) => {
             if (context.vendor) {
                 const serviceId = new mongoose.Types.ObjectId(_id)
                 const currVendor = await Vendor.findOne({ _id: context.vendor._id });
@@ -221,6 +221,22 @@ const resolvers = {
                 toBeCreatedArr.forEach(newService)
             }
 
+            // const DelService = async (data) => {
+            //     const deletedService = await Service.deleteOne({ name: data.name, description: data.description, price: data.price })
+            //     if (context.vendor) {
+            //         const currVendor = await Vendor.findOne({ _id: context.vendor._id });
+            //         const updatedBusiness = await Business.findOneAndUpdate(
+            //             { _id: currVendor.business._id },
+            //             // push new services id to the business
+            //             { $addToSet: { services: deletedService._id } },
+            //             { new: true },
+            //         );
+            //     }
+            // }
+            
+            // if (toBeEditedArr.length > 0){
+            //     toBeEditedArr.forEach(DelService)
+            // }
             console.log(toBeEditedArr)
 
             const updService = async (data) => {
