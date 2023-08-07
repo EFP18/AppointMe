@@ -38,60 +38,63 @@ import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import { margin } from '@mui/system';
 
-export default function VendorProfile() {
-  const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
-    const arr = [];
+const DisplayServices = ({
+  serviceObj,
+  handleEditServiceObj,
+  deleteService,
+}) => {
+  const arr = [];
 
-    for (const serviceId in serviceObj) {
-      const service = serviceObj[serviceId].data;
+  for (const serviceId in serviceObj) {
+    const service = serviceObj[serviceId].data;
 
-      const elm = (
-        <Stack
-          key={service._id}
-          direction='row'
-          spacing={2}
-          alignItems='center'
-          sx={{marginBottom: '15px'}}
-        >
+    const elm = (
+      <Stack
+        key={service._id}
+        direction='row'
+        spacing={2}
+        alignItems='center'
+        sx={{ marginBottom: '15px' }}
+      >
+        <TextField
+          label='Service Name'
+          variant='outlined'
+          fullWidth
+          style={{ marginBottom: '0px', flex: 3 }}
+          name='name'
+          value={service.name}
+          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+        />
+
+        <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
           <TextField
-            label='Service Name'
+            label='Service Cost ($)'
             variant='outlined'
             fullWidth
-            style={{ marginBottom: '0px', flex: 3 }}
-            name='name'
-            value={service.name}
+            style={{ marginBottom: '0px' }}
+            name='price'
+            value={service.price}
             onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
           />
-
-          <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
-            <TextField
-              label='Service Cost ($)'
-              variant='outlined'
-              fullWidth
-              style={{ marginBottom: '0px' }}
-              name='price'
-              value={service.price}
-              onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
-            />
-          </Stack>
-          <Button
-            variant='contained'
-            color='secondary'
-            name={service._id}
-            key={service._id}
-            onClick={deleteService}
-          >
-            Delete
-          </Button>
         </Stack>
-      );
+        <Button
+          variant='contained'
+          color='secondary'
+          name={service._id}
+          key={service._id}
+          onClick={deleteService}
+        >
+          Delete
+        </Button>
+      </Stack>
+    );
 
-      arr.push(elm);
-    }
+    arr.push(elm);
+  }
 
-    return arr;
-  };
-
+  return arr;
+};
+export default function VendorProfile() {
   // useState
   const [category, setCategory] = useState('');
   const [isSaved, setIsSaved] = useState(false);
@@ -492,6 +495,7 @@ export default function VendorProfile() {
                 <DisplayServices
                   serviceObj={serviceObj}
                   handleEditServiceObj={handleEditServiceObj}
+                  deleteService={deleteService}
                 />
               }
               <Button
@@ -599,5 +603,3 @@ export default function VendorProfile() {
     </Page>
   );
 }
-
-
