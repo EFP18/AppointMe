@@ -182,7 +182,7 @@ export default function VendorProfile() {
     console.log(name)
 
     if (name === 'price') {
-      const pricePattern = /^\d+\.\d{2}$/;
+      const pricePattern = /^\d+\.\d{2}$/; // checks to see if the inputted value has exactly 2 decimal points
       const isValidPrice = pricePattern.test(value)
       if (!isValidPrice) {
         setPriceError(value)
