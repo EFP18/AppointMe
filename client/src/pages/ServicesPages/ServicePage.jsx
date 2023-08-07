@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Page from '../../components/Page';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import { useParams } from 'react-router-dom';
 import ServiceCard from '../../components/ServiceCard';
 import { colors } from '../../components/theme';
@@ -31,7 +31,7 @@ export default function ServicePage() {
       title={`${service} - AppointMe`}
       sx={{ backgroundColor: colors.grey }}
     >
-      <Header />
+      <HeaderNoButton />
       <Box
         sx={{
           flexGrow: 1,
