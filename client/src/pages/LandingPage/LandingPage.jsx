@@ -15,8 +15,9 @@ const Container = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'flex-start',
+  // justifyContent: 'center',
   minHeight: '100vh',
+  flex: 1,
   // boxShadow: colors.shadow,
 });
 
@@ -41,7 +42,7 @@ function LandingPage() {
     <Page title={'AppointMe'} className='landing-page'>
       <Header />
 
-      <Container maxWidth='xl'>
+      <Container maxWidth='xl' sx={{ display: 'flex'}}>
         <StyledCard>
           <h1 style={{ textAlign: 'left', color: colors.black }}>
             {' '}

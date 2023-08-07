@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { Box, styled } from '@mui/system';
-import { Card, Grid, Typography, Alert } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import HeaderNoButton from '../../components/HeaderNoButton';
 import Page from '../../components/Page';
-import SearchBox from '../../components/SearchBox';
 import Footer from '../../components/Footer';
 import { colors } from '../../components/theme';
-import categoryData from '../VendorProfile/categorySeeds.json';
-import { GET_BUSINESSCV } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+
 
 const Container = styled(Box)({
   display: 'flex',
