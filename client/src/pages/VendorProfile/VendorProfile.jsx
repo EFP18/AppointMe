@@ -42,6 +42,7 @@ const DisplayServices = ({
   serviceObj,
   handleEditServiceObj,
   deleteService,
+  handleEditServiceError
 }) => {
   const arr = [];
 
@@ -75,6 +76,7 @@ const DisplayServices = ({
             name='price'
             value={service.price}
             onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onBlur={(e) => handleEditServiceError(e)}
           />
         </Stack>
         <Button
@@ -91,9 +93,9 @@ const DisplayServices = ({
 
     arr.push(elm);
   }
-
   return arr;
 };
+
 export default function VendorProfile() {
   // useState
   const [category, setCategory] = useState('');
@@ -135,6 +137,7 @@ export default function VendorProfile() {
   const [businessNameError, setBusinessNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
+  const [priceError, setPriceError] = useState(false)
   const emailValidation = /.+@.+\..+/;
   const history = useNavigate();
   const navigate = useNavigate();
@@ -189,6 +192,22 @@ export default function VendorProfile() {
         },
       },
     });
+  };
+
+  const handleEditServiceError = (e) => {
+    const { name, value } = e.target;
+
+    console.log(name)
+
+    if (name === 'price') {
+      const pricePattern = /^\d+\.\d{2}$/; // checks to see if the inputted value has exactly 2 decimal points
+      const isValidPrice = pricePattern.test(value)
+      if (!isValidPrice) {
+        setPriceError(value)
+      } else {
+        setPriceError(false)
+      }
+    }
   };
 
   // Save profile handling
@@ -489,22 +508,24 @@ export default function VendorProfile() {
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
 
-              <h2 style={{ textAlign: 'left' }}>Services</h2>
-
-              {
-                <DisplayServices
-                  serviceObj={serviceObj}
-                  handleEditServiceObj={handleEditServiceObj}
-                  deleteService={deleteService}
-                />
-              }
-              <Button
-                variant='contained'
-                style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-                onClick={handleAddServiceObj}
-              >
-                +
-              </Button>
+              <div>
+                <h2 style={{ textAlign: 'left' }}>Services</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <DisplayServices
+                    serviceObj={serviceObj}
+                    handleEditServiceObj={handleEditServiceObj}
+                    handleEditServiceError={handleEditServiceError}
+                  />
+                  {priceError && <p style={{ color: 'red', textAlign: 'left', fontWeight: 'bold' }}>Invalid Price Format ({priceError})</p>}
+                </div>
+                <Button
+                  variant='contained'
+                  style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                  onClick={handleAddServiceObj}
+                >
+                  +
+                </Button>
+              </div>
 
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
