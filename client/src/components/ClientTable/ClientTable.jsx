@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {
   Table,
   TableBody,
@@ -14,8 +13,6 @@ import AddClientModal from '../AddClientModal';
 import button from '../button';
 import { ThemeProvider } from '@mui/material/styles';
 import { colors } from '../theme';
-
-import { GET_BUSINESS } from '../../utils/queries';
 import { ADD_CLIENT, DEL_CLIENT } from '../../utils/mutation'
 
 const commonStyle = {
@@ -44,21 +41,13 @@ export default function ClientTable({
   handleChangePage,
   handleChangeRowsPerPage,
   handleOpen,
+  clients,
+  refetch
 }) {
 
   const [addNewClient, { loadingNewClient, errorNewClient } ] = useMutation(ADD_CLIENT)
   const [delClient, { loadingDelCl, errorDelCl }] = useMutation(DEL_CLIENT)
 
-  const [clients, setClients] = useState([]);
-
-  const { loading, data, refetch } = useQuery(GET_BUSINESS)
-  const clientsData = data?.business.clients || [];
-
-
-  useEffect(() => {
-    if (!data) return;
-    setClients(clientsData)
-  }, [data])
 
 
   const addClient = async (newClient) => {
