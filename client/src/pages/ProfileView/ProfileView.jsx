@@ -42,9 +42,9 @@ function ProfileView() {
     // Needs to take the variable of the id from GET_VENDOR, to only populate the vendor page we are logged in as
     <Page title={'My Profile - AppointMe'} className='landing-page'>
       <Navbar />
-      <Card sx={{ backgroundColor: colors.grey, padding: '20px' }}>
+      
         {/* {businessData.map((business) => ( */}
-        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '15px', marginRight: '15px' }}>
           <Box className={classes.profile}>
             <Box className={classes.header}>
               <img
@@ -207,7 +207,7 @@ function ProfileView() {
           </Box>
         </Box>
         {/* ))} */}
-      </Card>
+      
     </Page>
   );
 }
