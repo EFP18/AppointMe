@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClientModal from '../../components/ClientModal/ClientModal';
 import ClientTable from '../../components/ClientTable/ClientTable';
 import Navbar from '../../components/Navbar/Navbar';
 import { Box } from '@mui/material';
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_BUSINESS } from '../../utils/queries'
+import { UPD_CLIENT } from '../../utils/mutation'
 import './ClientDb.css';
 import Page from '../../components/Page';
 
@@ -13,6 +16,21 @@ export default function ClientDb() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [note, setNote] = useState('');
+  const [saveNote] = useMutation(UPD_CLIENT)
+
+
+
+  const [clients, setClients] = useState([]);
+
+  const { loading, data, refetch } = useQuery(GET_BUSINESS)
+  const clientsData = data?.business.clients || [];
+
+
+  useEffect(() => {
+    if (!data) return;
+    setClients(clientsData)
+  }, [data])
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -25,7 +43,7 @@ export default function ClientDb() {
 
   const handleOpen = (client) => {
     setSelectedClient(client);
-    setNote(client.notes);
+    setNote(client.note);
     setOpen(true);
   };
 
@@ -37,11 +55,21 @@ export default function ClientDb() {
     setEditMode(true);
   };
 
-  const handleSave = () => {
-    setSelectedClient((prevState) => ({
-      ...prevState,
-      notes: note,
-    }));
+  const handleSave = async (event) => {
+    const id = selectedClient._id
+
+    const updObj = {
+      ...selectedClient,
+      note: note,
+      id: id
+    }
+    
+    delete updObj._id
+
+    await saveNote({
+      variables: updObj
+    });
+    refetch();
     setEditMode(false);
   };
 
@@ -60,6 +88,8 @@ export default function ClientDb() {
               handleChangePage={handleChangePage}
               handleChangeRowsPerPage={handleChangeRowsPerPage}
               handleOpen={handleOpen}
+              clients={clients}
+              refetch={refetch}
             />
             <ClientModal
               open={open}

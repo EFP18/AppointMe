@@ -24,6 +24,7 @@ export default function ClientModal({
   handleNoteChange,
   notes,
 }) {
+
   return (
     <Modal
       open={open}
@@ -54,14 +55,21 @@ export default function ClientModal({
             </Button>
           </div>
         ) : (
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <pre
               id="modal-modal-description"
               sx={{ mt: 2, whiteSpace: "pre-wrap" }}
             >
               {selectedClient ? selectedClient.notes : ""}
             </pre>
-            <Button onClick={handleEdit} sx={{ color: colors.primary}} className='box-button'>
+            <div id='edited-notes' sx={{ mt: 2, whiteSpace: 'pre-wrap' }}>
+              {notes}
+            </div>
+            <Button
+              onClick={handleEdit}
+              sx={{ color: colors.primary }}
+              className='box-button'
+            >
               Edit
             </Button>
           </div>
