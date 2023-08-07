@@ -176,7 +176,7 @@ export const ADD_SERVICE = gql`
 // remove service
 export const DEL_SERVICE = gql`
   mutation DelService($id: ID!) {
-    delService(_id: $id) {
+    DelService(_id: $id) {
       _id
     }
   }
@@ -307,3 +307,4 @@ export const MANAGE_SERVICES = gql`
     }
   }
 `;
+
