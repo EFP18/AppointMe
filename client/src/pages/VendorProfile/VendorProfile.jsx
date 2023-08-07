@@ -93,14 +93,9 @@ const DisplayServices = ({
 
     arr.push(elm);
   }
-  arr.push(elm);
-}
-
-return arr;
-};
-export default function VendorProfile() {
   return arr;
 };
+
 export default function VendorProfile() {
   // useState
   const [category, setCategory] = useState('');
