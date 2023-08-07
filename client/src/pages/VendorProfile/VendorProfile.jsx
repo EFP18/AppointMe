@@ -158,6 +158,7 @@ export default function VendorProfile() {
     });
     refetch();
   };
+
   // Service
   const handleAddServiceObj = () => {
     const _id = uuidv4();
@@ -515,6 +516,7 @@ export default function VendorProfile() {
                     serviceObj={serviceObj}
                     handleEditServiceObj={handleEditServiceObj}
                     handleEditServiceError={handleEditServiceError}
+                    deleteService={deleteService}
                   />
                   {priceError && <p style={{ color: 'red', textAlign: 'left', fontWeight: 'bold' }}>Invalid Price Format ({priceError})</p>}
                 </div>

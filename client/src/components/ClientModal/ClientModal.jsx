@@ -62,7 +62,7 @@ export default function ClientModal({
             >
               {selectedClient ? selectedClient.notes : ""}
             </pre>
-            <div id='edited-notes' sx={{ mt: 2, whiteSpace: 'pre-wrap' }}>
+            <div id='edited-notes' sx={{ mb: 2, whiteSpace: 'pre-wrap' }}>
               {notes}
             </div>
             <Button
