@@ -33,7 +33,6 @@ export default function SearchBox({ details, onSelect }) {
     } else {
       setLabelText('Business')
     }
-    console.log('hit')
   }, [inputText])
 
   const handleSearch = e => {

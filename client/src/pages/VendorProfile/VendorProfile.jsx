@@ -249,7 +249,7 @@ export default function VendorProfile() {
 
       servicesArr.forEach(convertFloat);
 
-      console.log(servicesArr);
+      // console.log(servicesArr);
       try {
         await manageServices({
           variables: {
