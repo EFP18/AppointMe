@@ -45,7 +45,7 @@ function AppointmentConfirm() {
   const businessData = data?.businessCV || {};
 
   return (
-    <Page title={'AppointMe'} className='landing-page'>
+    <Page title={'Thank you - AppointMe'} className='landing-page'>
       <HeaderNoButton />
       <Box
       >

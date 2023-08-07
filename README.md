@@ -103,7 +103,3 @@ This project is a `MERN` stack single-page application, that uses `React` for th
 
 - GitHub: `https://github.com/EFP18/AppointMe`
 - Email: `info@appointme.com`
-
-TODO:
-
-10. load error in landing page

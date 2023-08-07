@@ -33,7 +33,7 @@ function WelcomePage() {
   });
 
   return (
-    <Page title={'My Profile - AppointMe'} className='landing-page'>
+    <Page title={'Welcome to AppointMe'} className='landing-page'>
       <Navbar />
       <Box
         sx={{
@@ -41,7 +41,7 @@ function WelcomePage() {
           flexDirection: { xs: 'column', sm: 'row' },
           alignItems: 'center',
           justifyContent: 'center',
-          marginLeft: { xs: '20%', sm: '10%', md: '20xp' }
+          marginLeft: { xs: '20%', sm: '10%', md: '20xp' },
         }}
       >
         <Container maxWidth='xl'>
@@ -54,8 +54,8 @@ function WelcomePage() {
               align='left'
               style={{ color: colors.black }}
             >
-              Your one-stop solution to manage your profile, calendar,
-              schedule, and client database.
+              Your one-stop solution to manage your profile, calendar, schedule,
+              and client database.
             </Typography>
             <Grid
               container
