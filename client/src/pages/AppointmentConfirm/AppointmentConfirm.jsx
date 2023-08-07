@@ -27,7 +27,7 @@ function AppointmentConfirm() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const StyledCard = styled(Card)({
-    padding: isSmallScreen ? '20px' : '40px',
+    padding: isSmallScreen ? '20px' : '40px 120px',
     width: '80%',
     height: '55%',
     boxSizing: 'border-box',
@@ -49,16 +49,18 @@ function AppointmentConfirm() {
       <HeaderNoButton />
       <Box
       >
-        <Container fixed>
+        <Container fixed >
           <StyledCard>
-            <h1 style={{ textAlign: 'middle', color: colors.black }}>
+            <h1 style={{ textAlign: 'middle',  color: colors.black }}>
               {' '}
               Welcome to AppointMe
             </h1>
-            <Alert sx={{ backgroundColor: colors.primary}} variant='filled' severity='success'>
-              <Typography align='center'>
-                <h2>Thank you for booking your appointment with {businessData.name}!</h2>
-                <h3>Appointment Confirmed</h3>
+            <Alert sx={{ backgroundColor: colors.primary }} variant='filled' severity='success'>
+            <Typography variant='h4' sx={{ textAlign: 'center' }}>
+                Thank you for booking your appointment with {businessData.name}!
+              </Typography>
+              <Typography variant='h4' sx={{ textAlign: 'center' }}>
+                Appointment Confirmed
               </Typography>
             </Alert>
           </StyledCard>
