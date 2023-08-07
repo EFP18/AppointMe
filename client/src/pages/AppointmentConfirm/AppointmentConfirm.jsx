@@ -3,7 +3,7 @@ import { Box, styled } from '@mui/system';
 import { Card, Grid, Typography, Alert } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import Page from '../../components/Page';
 import SearchBox from '../../components/SearchBox';
 import Footer from '../../components/Footer';
@@ -46,7 +46,7 @@ function AppointmentConfirm() {
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
-      <Header />
+      <HeaderNoButton />
       <Box
         sx={{
           display: 'flex',
