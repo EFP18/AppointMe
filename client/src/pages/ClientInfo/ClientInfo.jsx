@@ -14,9 +14,10 @@ import {
   Grid,
   Stack,
 } from '@mui/material';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESSCV } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import Page from '../../components/Page';
+import { useParams } from 'react-router-dom';
 
 export default function ClientInfo() {
   const vendorImage = stockImg;
@@ -48,8 +49,12 @@ export default function ClientInfo() {
     }
   };
 
-  const { loading, data } = useQuery(GET_BUSINESS);
-  const businessData = data?.business || {};
+  const { _id } = useParams();
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: { id: _id },
+  });
+  const businessData = data?.businessCV || {};
+
 
   return (
     <Page title={`Book with ${businessData.name} - AppointMe`}>
@@ -143,7 +148,7 @@ export default function ClientInfo() {
                   />
                   <ThemeProvider theme={button}>
                     <Button
-                      href='/appointment-confirm'
+                      href={`/appointment-confirm/${_id}`}
                       type='submit'
                       style={{ margin: '10px' }}
                     >
