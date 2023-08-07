@@ -244,32 +244,13 @@ export const DEL_CLIENT = gql`
 
 // update client
 export const UPD_CLIENT = gql`
-  mutation UPD_CLIENT(
-    $firstName: String
-    $lastName: String
-    $email: String
-    $address: String
-    $phone: String
-    $note: String
-    $id: ID!
-  ) {
-    updClient(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      address: $address
-      phone: $phone
-      note: $note
-      _id: $id
-    ) {
-      firstName
-      lastName
-      email
-      address
-      phone
-      note
-    }
+mutation UPD_CLIENT($id: ID!, $firstName: String, $lastName: String, $email: String, $address: String, $phone: String, $note: String) {
+  updClient(_id: $id, firstName: $firstName, lastName: $lastName, email: $email, address: $address, phone: $phone, note: $note) {
+    firstName
+    lastName
+    note
   }
+}
 `;
 
 // update social media
