@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import stockImg from '../VendorPage-ClientView/img/stock-photo.png';
 import { colors } from '../../components/theme';
 import button from '../../components/button';
@@ -18,8 +18,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { isSameDay } from 'date-fns';
 import './BookAppointment.css';
 import Page from '../../components/Page';
-import { GET_BUSINESS } from '../../utils/queries';
+import { GET_BUSINESSCV } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 export default function BookAppointment() {
   // Temporary values for the vendor's image and name
@@ -57,13 +58,16 @@ export default function BookAppointment() {
     setSelectedTimeSlots(availableDate ? availableDate.slots : []);
   };
 
-  const { loading, data } = useQuery(GET_BUSINESS);
-  const businessData = data?.business || {};
+  const { _id } = useParams();
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: { id: _id },
+  });
+  const businessData = data?.businessCV || {};
 
   return (
     <Page title={`Book with ${businessData.name} - AppointMe`}>
       <>
-        <Header />
+        <HeaderNoButton />
         <Grid container spacing={2}>
           <Grid
             item
@@ -134,7 +138,7 @@ export default function BookAppointment() {
                       <Button
                         key={timeSlot}
                         style={{ margin: '5px' }}
-                        href='/client-info'
+                        href={`/client-info/${_id}`}
                       >
                         {timeSlot}
                       </Button>

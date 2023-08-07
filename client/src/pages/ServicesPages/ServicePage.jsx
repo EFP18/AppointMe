@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Page from '../../components/Page';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import { useParams } from 'react-router-dom';
 import ServiceCard from '../../components/ServiceCard';
 import { colors } from '../../components/theme';
@@ -13,25 +13,26 @@ export default function ServicePage() {
   const { service } = useParams();
   const { loading, data } = useQuery(GET_BUSINESSES);
 
+  
   const businessData = data?.businesses || [];
   // Filter businesses based on the service tag
   const filteredBusinesses = businessData.filter((business) => {
-    console.log(business._id);
-    console.log(typeof business.tags);
+    // console.log(business._id);
+    // console.log(typeof business.tags);
     if (business.tags && typeof business.tags === 'object') {
       return business.tags.name === service;
     }
     return false;
   });
-  console.log(filteredBusinesses);
+  // console.log(filteredBusinesses);
 
-  console.log(businessData);
+  // console.log(businessData);
   return (
     <Page
       title={`${service} - AppointMe`}
       sx={{ backgroundColor: colors.grey }}
     >
-      <Header />
+      <HeaderNoButton />
       <Box
         sx={{
           flexGrow: 1,
@@ -50,6 +51,7 @@ export default function ServicePage() {
             boxShadow: colors.shadow,
             borderRadius: '15px',
             padding: '16px',
+            
           }}
         >
           <Typography

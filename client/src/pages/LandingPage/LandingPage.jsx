@@ -15,9 +15,10 @@ const Container = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'flex-start',
+  // justifyContent: 'center',
   minHeight: '100vh',
-  boxShadow: colors.shadow,
+  flex: 1,
+  // boxShadow: colors.shadow,
 });
 
 function LandingPage() {
@@ -40,54 +41,46 @@ function LandingPage() {
   return (
     <Page title={'AppointMe'} className='landing-page'>
       <Header />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Container maxWidth='xl'>
-          <StyledCard>
-            <h1 style={{ textAlign: 'left', color: colors.black }}>
-              {' '}
-              Welcome to AppointMe
-            </h1>
-            <Typography variant='h6' align='left' style={{ color: colors.gr }}>
-              AppointMe is the ultimate platform for service providers and
-              seekers. Whether you are a vendor who wants to showcase your
-              skills and manage your bookings, or a client who wants to find and
-              book the best service for your needs, AppointMe has you covered.
-              You can create your own profile, browse through thousands of
-              services, and schedule appointments with ease. All that, under the
-              same roof!
-            </Typography>
-            <Grid
-              container
-              direction='row'
-              justifyContent='center'
-              alignItems='center'
-              spacing={2}
-              mt={2}
-            >
-              <Grid item>
-                <Typography variant='h6' style={{ color: colors.black }}>
-                  <h3>Search for a</h3>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <SearchBox
-                  details={categoryData}
-                  onSelect={service => {
-                    setSelectedService(service);
-                  }}
-                />
-              </Grid>
+
+      <Container sx={{ display: 'flex'}}>
+        <StyledCard>
+          <h1 style={{ textAlign: 'left', color: colors.black }}>
+            {' '}
+            Welcome to AppointMe
+          </h1>
+          <Typography variant='h6' align='left' style={{ color: colors.gr }}>
+            AppointMe is the ultimate platform for service providers and
+            seekers. Whether you are a vendor who wants to showcase your skills
+            and manage your bookings, or a client who wants to find and book the
+            best service for your needs, AppointMe has you covered. You can
+            create your own profile, browse through thousands of services, and
+            schedule appointments with ease. All that, under the same roof!
+          </Typography>
+          <Grid
+            container
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            spacing={2}
+            mt={2}
+          >
+            <Grid item>
+              <Typography variant='h6' style={{ color: colors.black }}>
+                <h3>Search for a</h3>
+              </Typography>
             </Grid>
-          </StyledCard>
-        </Container>
-      </Box>
+            <Grid item>
+              <SearchBox
+                details={categoryData}
+                onSelect={service => {
+                  setSelectedService(service);
+                }}
+              />
+            </Grid>
+          </Grid>
+        </StyledCard>
+      </Container>
+
       <Footer />
     </Page>
   );

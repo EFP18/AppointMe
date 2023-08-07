@@ -98,7 +98,7 @@ const typeDefs = gql`
         addTag (_id: ID!): Business
         rmvTag (_id: ID!): Business
         addService (name: String!, description: String, price: Float!): Service
-        delService (_id: ID!): Service
+        DelService (_id: ID!): Service
         updService (_id: ID!, name: String!, description: String, price: Float!): Service
         manageServices(servicesArr: [subService]): Ok
         addClient (firstName: String, lastName: String, email: String, address: String, phone: String, note: String): Client

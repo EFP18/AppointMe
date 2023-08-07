@@ -7,6 +7,7 @@ import VendorProfile from './pages/VendorProfile/VendorProfile';
 import ProfileView from './pages/ProfileView/ProfileView';
 import ClientView from './pages/VendorPage-ClientView/ClientView';
 import BookAppointment from './pages/BookAppointment/BookAppointment';
+import Affirmation from './pages/Affirmation/Affirmation';
 import ClientInfo from './pages/ClientInfo/ClientInfo';
 import {
   ApolloClient,
@@ -72,9 +73,10 @@ function App() {
               <Route path='/clientDb' element={<PrivateRoute><ClientDb /></PrivateRoute>} />
               <Route path='/services/:service' element={<ServicePage />} />
               <Route path='/clientview/:_id' element={<ClientView />} />
-              <Route path='/book-appointment' element={<BookAppointment />} />
-              <Route path='/client-info' element={<ClientInfo />} />
-              <Route path='/appointment-confirm' element={<AppointmentConfirm />} /> 
+              <Route path='/book-appointment/:_id' element={<BookAppointment />} />
+              <Route path='/client-info/:_id' element={<ClientInfo />} />
+              <Route path='/appointment-confirm/:_id' element={<AppointmentConfirm />} /> 
+              <Route path='/affirmation' element={<Affirmation />} /> 
             </Routes>
             {/* <Footer /> */}
           </BrowserRouter>

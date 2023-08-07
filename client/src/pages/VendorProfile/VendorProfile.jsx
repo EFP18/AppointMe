@@ -38,48 +38,61 @@ import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import { margin } from '@mui/system';
 
-const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
+const DisplayServices = ({
+  serviceObj,
+  handleEditServiceObj,
+  deleteService,
+  handleEditServiceError
+}) => {
   const arr = [];
 
   for (const serviceId in serviceObj) {
     const service = serviceObj[serviceId].data;
 
     const elm = (
-      <Stack key={service._id} direction='row' spacing={2}>
+      <Stack
+        key={service._id}
+        direction='row'
+        spacing={2}
+        alignItems='center'
+        sx={{ marginBottom: '15px' }}
+      >
         <TextField
           label='Service Name'
           variant='outlined'
           fullWidth
-          margin='normal'
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
-        <Box
-          display='flex'
-          flexDirection='column'
-          alignItems='flex-end'
-          flex={1}
-        >
+        <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
           <TextField
             label='Service Cost ($)'
             variant='outlined'
             fullWidth
-            margin='normal'
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onBlur={(e) => handleEditServiceError(e)}
           />
-        </Box>
+        </Stack>
+        <Button
+          variant='contained'
+          color='secondary'
+          name={service._id}
+          key={service._id}
+          onClick={deleteService}
+        >
+          Delete
+        </Button>
       </Stack>
     );
 
     arr.push(elm);
   }
-
   return arr;
 };
 
@@ -124,6 +137,7 @@ export default function VendorProfile() {
   const [businessNameError, setBusinessNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
+  const [priceError, setPriceError] = useState(false)
   const emailValidation = /.+@.+\..+/;
   const history = useNavigate();
   const navigate = useNavigate();
@@ -136,7 +150,14 @@ export default function VendorProfile() {
   const [updSocialMedia] = useMutation(UPD_SOCIALMEDIA);
   const [updVendor] = useMutation(UPD_VENDOR);
   const [addTag] = useMutation(ADD_TAG);
+  const [DelService] = useMutation(DEL_SERVICE);
 
+  const deleteService = async (e) => {
+    await DelService({
+      variables: { id: e.target.name },
+    });
+    refetch();
+  };
   // Service
   const handleAddServiceObj = () => {
     const _id = uuidv4();
@@ -171,6 +192,22 @@ export default function VendorProfile() {
         },
       },
     });
+  };
+
+  const handleEditServiceError = (e) => {
+    const { name, value } = e.target;
+
+    console.log(name)
+
+    if (name === 'price') {
+      const pricePattern = /^\d+\.\d{2}$/; // checks to see if the inputted value has exactly 2 decimal points
+      const isValidPrice = pricePattern.test(value)
+      if (!isValidPrice) {
+        setPriceError(value)
+      } else {
+        setPriceError(false)
+      }
+    }
   };
 
   // Save profile handling
@@ -225,13 +262,13 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
-      const convertFloat = obj => {
+      const convertFloat = (obj) => {
         obj.data.price = parseFloat(obj.data.price);
       };
 
       servicesArr.forEach(convertFloat);
 
-      console.log(servicesArr);
+      // console.log(servicesArr);
       try {
         await manageServices({
           variables: {
@@ -265,7 +302,7 @@ export default function VendorProfile() {
   };
 
   // Queries
-  const { loading, data } = useQuery(GET_VENDOR);
+  const { loading, data, refetch } = useQuery(GET_VENDOR);
   const { loading: tagsLoading, data: tags } = useQuery(GET_TAGS);
   const tagsData = tags?.tags || [];
   const businessData = data?.vendor?.business || {};
@@ -308,7 +345,7 @@ export default function VendorProfile() {
     setCategory(businessTagData);
   }, [data]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     // selected category returns the ID of the service
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
@@ -317,7 +354,7 @@ export default function VendorProfile() {
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
-  const handleBusinessChange = event => {
+  const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -325,17 +362,16 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = event => {
+  const handleSocial = (event) => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = event => {
+  const handleVendor = (event) => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
 
-  // TODO: services
   return (
     <Page title={'Edit Profile - AppointMe'} className='landing-page'>
       <Container>
@@ -424,7 +460,7 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {tagsData.map(category => {
+                  {tagsData.map((category) => {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
@@ -472,20 +508,24 @@ export default function VendorProfile() {
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
 
-              <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {
-                <DisplayServices
-                  serviceObj={serviceObj}
-                  handleEditServiceObj={handleEditServiceObj}
-                />
-              }
-              <Button
-                variant='contained'
-                style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-                onClick={handleAddServiceObj}
-              >
-                +
-              </Button>
+              <div>
+                <h2 style={{ textAlign: 'left' }}>Services</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <DisplayServices
+                    serviceObj={serviceObj}
+                    handleEditServiceObj={handleEditServiceObj}
+                    handleEditServiceError={handleEditServiceError}
+                  />
+                  {priceError && <p style={{ color: 'red', textAlign: 'left', fontWeight: 'bold' }}>Invalid Price Format ({priceError})</p>}
+                </div>
+                <Button
+                  variant='contained'
+                  style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                  onClick={handleAddServiceObj}
+                >
+                  +
+                </Button>
+              </div>
 
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
@@ -572,7 +612,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={event => handleFormSubmit(event, true)}
+                  onClick={(event) => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>

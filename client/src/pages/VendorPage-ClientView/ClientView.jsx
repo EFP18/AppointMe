@@ -12,7 +12,7 @@ import {
 import { ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import Page from '../../components/Page';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import { colors } from '../../components/theme';
 import { useStyles } from './clientViewStyles';
 import button from '../../components/button';
@@ -48,7 +48,7 @@ function ClientView(props) {
   return (
     // dynamically create business name
     <Page title={`${businessData.name} - AppointMe`}>
-      <Header />
+      <HeaderNoButton />
 
       <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
         <Box className={classes.profile}>
@@ -144,7 +144,7 @@ function ClientView(props) {
                 marginBottom: '20px',
               }}
             >
-              <Button disabled={!boxChecked} href='/book-appointment'>
+              <Button disabled={!boxChecked} href={`/book-appointment/${_id}`}>
                 Continue
               </Button>
             </Box>

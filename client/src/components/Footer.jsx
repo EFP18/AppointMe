@@ -9,10 +9,10 @@ const FooterContainer = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: colors.grey,
+  // backgroundColor: colors.grey,
   color: colors.black,
   padding: '20px',
-  borderTop: `1px solid ${colors.black}`,
+
 });
 
 function Footer() {

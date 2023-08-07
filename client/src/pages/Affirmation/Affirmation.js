@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { Box, styled } from '@mui/system';
-import { Card, Grid, Typography, Alert } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import HeaderNoButton from '../../components/HeaderNoButton';
 import Page from '../../components/Page';
-import SearchBox from '../../components/SearchBox';
 import Footer from '../../components/Footer';
 import { colors } from '../../components/theme';
-import categoryData from '../VendorProfile/categorySeeds.json';
-import { GET_BUSINESSCV } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+
 
 const Container = styled(Box)({
   display: 'flex',
@@ -22,12 +18,12 @@ const Container = styled(Box)({
   boxShadow: colors.shadow,
 });
 
-function AppointmentConfirm() {
+function Affirmation() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const StyledCard = styled(Card)({
-    padding: isSmallScreen ? '20px' : '40px 120px',
+    padding: isSmallScreen ? '20px' : '40px',
     width: '80%',
     height: '55%',
     boxSizing: 'border-box',
@@ -38,31 +34,36 @@ function AppointmentConfirm() {
     marginBottom: isSmallScreen ? '50px' : '100px',
   });
 
-  const { _id } = useParams();
-  const { loading, data } = useQuery(GET_BUSINESSCV, {
-    variables: { id: _id },
-  });
-  const businessData = data?.businessCV || {};
+  const affirmations = [
+    'You are enough.',
+    'You have the power to create change.',
+    'Every challenge you face is an opportunity for growth.',
+    'You are capable of achieving great things.',
+    'Your potential is limitless.',
+    'Believe in yourself, as others believe in you.',
+    'You bring a unique light to the world.',
+    'Every day, you become a better version of yourself.',
+    'Your strength is greater than any obstacle.',
+    'You deserve all the happiness in the world.',
+  ];
+
+  const randomAffirmation =
+    affirmations[Math.floor(Math.random() * affirmations.length)];
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
       <HeaderNoButton />
-      <Box
-      >
-        <Container fixed >
+      <Box>
+        <Container fixed>
           <StyledCard>
-            <h1 style={{ textAlign: 'middle',  color: colors.black }}>
+            <h1 style={{ textAlign: 'middle', color: colors.black }}>
               {' '}
-              Welcome to AppointMe
+              Words of Affirmation
             </h1>
-            <Alert sx={{ backgroundColor: colors.primary }} variant='filled' severity='success'>
-            <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                Thank you for booking your appointment with {businessData.name}!
-              </Typography>
-              <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                Appointment Confirmed
-              </Typography>
-            </Alert>
+
+            <Typography align='center'>
+              <h2>{randomAffirmation}</h2>
+            </Typography>
           </StyledCard>
         </Container>
       </Box>
@@ -71,4 +72,4 @@ function AppointmentConfirm() {
   );
 }
 
-export default AppointmentConfirm;
+export default Affirmation;
