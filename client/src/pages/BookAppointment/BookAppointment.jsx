@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import stockImg from '../VendorPage-ClientView/img/stock-photo.png';
 import { colors } from '../../components/theme';
 import button from '../../components/button';
@@ -63,7 +63,7 @@ export default function BookAppointment() {
   return (
     <Page title={`Book with ${businessData.name} - AppointMe`}>
       <>
-        <Header />
+        <HeaderNoButton />
         <Grid container spacing={2}>
           <Grid
             item

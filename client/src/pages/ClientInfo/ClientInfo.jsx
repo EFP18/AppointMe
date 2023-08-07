@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import stockImg from '../VendorPage-ClientView/img/stock-photo.png';
 import { colors } from '../../components/theme';
 import button from '../../components/button';
@@ -54,7 +54,7 @@ export default function ClientInfo() {
   return (
     <Page title={`Book with ${businessData.name} - AppointMe`}>
       <>
-        <Header />
+        <HeaderNoButton />
         <Grid container>
           <Grid item xs={12} lg={10} style={{ margin: '20px auto' }}>
             <Card sx={{ backgroundColor: colors.white, padding: '20px' }}>
