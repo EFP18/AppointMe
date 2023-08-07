@@ -48,12 +48,6 @@ function AppointmentConfirm() {
     <Page title={'AppointMe'} className='landing-page'>
       <HeaderNoButton />
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
       >
         <Container fixed>
           <StyledCard>
@@ -61,7 +55,7 @@ function AppointmentConfirm() {
               {' '}
               Welcome to AppointMe
             </h1>
-            <Alert color='success' variant='filled' severity='success'>
+            <Alert sx={{ backgroundColor: colors.primary}} variant='filled' severity='success'>
               <Typography align='center'>
                 <h2>Thank you for booking your appointment with {businessData.name}!</h2>
                 <h3>Appointment Confirmed</h3>
