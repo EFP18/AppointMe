@@ -106,9 +106,4 @@ This project is a `MERN` stack single-page application, that uses `React` for th
 
 TODO:
 
-1. book an appointment button adds client appointment to db --> Ted !!!!!!!!!!!!
-2. client notes modal --> Drew
-3. month view calendar can't open the event 2nd time --> Ted
-5. upload images --> Hunter
-9. calendar can't view on month
 10. load error in landing page
