@@ -94,7 +94,7 @@ export default function SearchBox({ details, onSelect }) {
       // Call the onSelect function when a service is selected
       onChange={(event, value) => {
         if (value) {
-          onSelect(value.option.name);
+          onSelect(value.name);
         }
       }}
       // Use Link component for navigation when a service is selected
