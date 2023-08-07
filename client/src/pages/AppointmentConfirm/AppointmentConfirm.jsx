@@ -3,7 +3,7 @@ import { Box, styled } from '@mui/system';
 import { Card, Grid, Typography, Alert } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Header from '../../components/Header';
+import HeaderNoButton from '../../components/HeaderNoButton';
 import Page from '../../components/Page';
 import SearchBox from '../../components/SearchBox';
 import Footer from '../../components/Footer';
@@ -46,14 +46,8 @@ function AppointmentConfirm() {
 
   return (
     <Page title={'AppointMe'} className='landing-page'>
-      <Header />
+      <HeaderNoButton />
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
       >
         <Container fixed>
           <StyledCard>
@@ -61,7 +55,7 @@ function AppointmentConfirm() {
               {' '}
               Welcome to AppointMe
             </h1>
-            <Alert color='success' variant='filled' severity='success'>
+            <Alert sx={{ backgroundColor: colors.primary}} variant='filled' severity='success'>
               <Typography align='center'>
                 <h2>Thank you for booking your appointment with {businessData.name}!</h2>
                 <h3>Appointment Confirmed</h3>

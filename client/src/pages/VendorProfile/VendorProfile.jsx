@@ -51,6 +51,7 @@ export default function VendorProfile() {
           direction='row'
           spacing={2}
           alignItems='center'
+          sx={{marginBottom: '15px'}}
         >
           <TextField
             label='Service Name'
@@ -598,3 +599,5 @@ export default function VendorProfile() {
     </Page>
   );
 }
+
+
