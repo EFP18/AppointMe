@@ -24,7 +24,6 @@ export default function ServicePage() {
     return false;
   });
   console.log(filteredBusinesses);
-
   console.log(businessData);
   return (
     <Page
@@ -50,7 +49,7 @@ export default function ServicePage() {
             boxShadow: colors.shadow,
             borderRadius: '15px',
             padding: '16px',
-            
+
           }}
         >
           <Typography
@@ -87,7 +86,11 @@ export default function ServicePage() {
                 <ServiceCard
                   id={business._id}
                   name={business.name}
-                  description={business.description}
+                  description={(business.description.length > 100)
+                    ? business.description.substring(0, 100) + '...'
+                    : business.description
+                  }
+                  // description={business.description}
                   image={business.image}
                 />
               </Grid>
