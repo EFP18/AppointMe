@@ -45,36 +45,32 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
     const service = serviceObj[serviceId].data;
 
     const elm = (
-      <Stack key={service._id} direction='row' spacing={2}>
-        <TextField
-          label='Service Name'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          style={{ marginBottom: '0px', flex: 3 }}
-          name='name'
-          value={service.name}
-          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
-        />
+      <Stack key={service._id} direction='row' spacing={2} alignItems='center'>
+  <TextField
+    label='Service Name'
+    variant='outlined'
+    fullWidth
 
-        <Box
-          display='flex'
-          flexDirection='column'
-          alignItems='flex-end'
-          flex={1}
-        >
-          <TextField
-            label='Service Cost ($)'
-            variant='outlined'
-            fullWidth
-            margin='normal'
-            style={{ marginBottom: '0px' }}
-            name='price'
-            value={service.price}
-            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
-          />
-        </Box>
-      </Stack>
+    style={{ marginBottom: '0px', flex: 3 }}
+    name='name'
+    value={service.name}
+    onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+  />
+  
+  <Stack direction='column' spacing={1} alignItems='flex-end' flex={1}>
+    <TextField
+      label='Service Cost ($)'
+      variant='outlined'
+      fullWidth
+      style={{ marginBottom: '0px' }}
+      name='price'
+      value={service.price}
+      onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+    />
+  </Stack>
+    <Button variant="contained" color="secondary">Delete</Button>
+</Stack>
+
     );
 
     arr.push(elm);
@@ -473,11 +469,13 @@ export default function VendorProfile() {
               />
 
               <h2 style={{ textAlign: 'left' }}>Services</h2>
+              
               {
                 <DisplayServices
                   serviceObj={serviceObj}
                   handleEditServiceObj={handleEditServiceObj}
                 />
+                
               }
               <Button
                 variant='contained'
