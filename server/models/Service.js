@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 // service information saved in Business schema
-    const serviceSchema = new Schema(
+const serviceSchema = new Schema(
     {
         name: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         description: {
             type: String,

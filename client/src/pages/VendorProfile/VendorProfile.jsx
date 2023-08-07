@@ -36,9 +36,8 @@ import {
 } from '../../utils/mutation';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
-import { margin } from '@mui/system';
 
-const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
+const DisplayServices = ({ serviceObj, handleEditServiceObj, handleEditServiceError }) => {
   const arr = [];
 
   for (const serviceId in serviceObj) {
@@ -54,7 +53,7 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
           style={{ marginBottom: '0px', flex: 3 }}
           name='name'
           value={service.name}
-          onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+          onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
         />
 
         <Box
@@ -71,7 +70,8 @@ const DisplayServices = ({ serviceObj, handleEditServiceObj }) => {
             style={{ marginBottom: '0px' }}
             name='price'
             value={service.price}
-            onChange={e => handleEditServiceObj(e, service._id, serviceObj)}
+            onChange={(e) => handleEditServiceObj(e, service._id, serviceObj)}
+            onBlur={(e) => handleEditServiceError(e)}
           />
         </Box>
       </Stack>
@@ -124,6 +124,7 @@ export default function VendorProfile() {
   const [businessNameError, setBusinessNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
+  const [priceError, setPriceError] = useState(false)
   const emailValidation = /.+@.+\..+/;
   const history = useNavigate();
   const navigate = useNavigate();
@@ -161,6 +162,8 @@ export default function VendorProfile() {
       ...serviceObj[_id],
     };
 
+    console.log(value)
+
     setServiceObj({
       ...serviceObj,
       [_id]: {
@@ -171,6 +174,22 @@ export default function VendorProfile() {
         },
       },
     });
+  };
+
+  const handleEditServiceError = (e) => {
+    const { name, value } = e.target;
+
+    console.log(name)
+
+    if (name === 'price') {
+      const pricePattern = /^\d+\.\d{2}$/;
+      const isValidPrice = pricePattern.test(value)
+      if (!isValidPrice) {
+        setPriceError(value)
+      } else {
+        setPriceError(false)
+      }
+    }
   };
 
   // Save profile handling
@@ -225,7 +244,7 @@ export default function VendorProfile() {
       // Service handling
       const servicesArr = Object.values(serviceObj);
 
-      const convertFloat = obj => {
+      const convertFloat = (obj) => {
         obj.data.price = parseFloat(obj.data.price);
       };
 
@@ -308,7 +327,7 @@ export default function VendorProfile() {
     setCategory(businessTagData);
   }, [data]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     // selected category returns the ID of the service
     const selectedCategoryId = event.target.value;
     setCategory(selectedCategoryId);
@@ -317,7 +336,7 @@ export default function VendorProfile() {
     setBusiness({ ...business, category: selectedCategoryId });
   };
 
-  const handleBusinessChange = event => {
+  const handleBusinessChange = (event) => {
     // name of field being updated
     const name = event.target.name;
     // value: input from keyboard on field
@@ -325,12 +344,12 @@ export default function VendorProfile() {
     setBusiness({ ...business, [name]: event.target.value });
   };
 
-  const handleSocial = event => {
+  const handleSocial = (event) => {
     const name = event.target.name;
     setSocial({ ...social, [name]: event.target.value });
   };
 
-  const handleVendor = event => {
+  const handleVendor = (event) => {
     const name = event.target.name;
     setVendor({ ...vendor, [name]: event.target.value });
   };
@@ -343,8 +362,7 @@ export default function VendorProfile() {
 
         <Box
           sx={{
-            margin: '10px 0',
-            marginLeft: '90px',
+            margin: '10px 150px',
             padding: '20px',
             borderRadius: '15px',
             flexGrow: 1,
@@ -424,7 +442,7 @@ export default function VendorProfile() {
                   label='Category'
                 >
                   {/* dynamically create the different industries/categories */}
-                  {tagsData.map(category => {
+                  {tagsData.map((category) => {
                     return (
                       <MenuItem key={category._id} value={category._id}>
                         {category.name}
@@ -472,20 +490,24 @@ export default function VendorProfile() {
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
               />
 
-              <h2 style={{ textAlign: 'left' }}>Services</h2>
-              {
-                <DisplayServices
-                  serviceObj={serviceObj}
-                  handleEditServiceObj={handleEditServiceObj}
-                />
-              }
-              <Button
-                variant='contained'
-                style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
-                onClick={handleAddServiceObj}
-              >
-                +
-              </Button>
+              <div>
+                <h2 style={{ textAlign: 'left' }}>Services</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <DisplayServices
+                    serviceObj={serviceObj}
+                    handleEditServiceObj={handleEditServiceObj}
+                    handleEditServiceError={handleEditServiceError}
+                  />
+                  {priceError && <p style={{ color: 'red', textAlign: 'left', fontWeight: 'bold' }}>Invalid Price Format ({priceError})</p>}
+                </div>
+                <Button
+                  variant='contained'
+                  style={{ marginBottom: '0px', alignSelf: 'flex-end' }}
+                  onClick={handleAddServiceObj}
+                >
+                  +
+                </Button>
+              </div>
 
               <Divider
                 style={{ margin: '30px 0', backgroundColor: colors.black }}
@@ -497,6 +519,7 @@ export default function VendorProfile() {
                   label='First Name'
                   variant='outlined'
                   fullWidth
+                  margin='normal'
                   name='firstName'
                   value={vendor.firstName}
                   onChange={handleVendor}
@@ -505,6 +528,7 @@ export default function VendorProfile() {
                   label='Last Name'
                   variant='outlined'
                   fullWidth
+                  margin='normal'
                   name='lastName'
                   value={vendor.lastName}
                   onChange={handleVendor}
@@ -572,7 +596,7 @@ export default function VendorProfile() {
                   href='/profileview'
                   variant='contained'
                   style={{ marginBottom: '0px' }}
-                  onClick={event => handleFormSubmit(event, true)}
+                  onClick={(event) => handleFormSubmit(event, true)}
                 >
                   Save Profile
                 </Button>
