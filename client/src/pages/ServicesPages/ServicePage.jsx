@@ -50,6 +50,7 @@ export default function ServicePage() {
             boxShadow: colors.shadow,
             borderRadius: '15px',
             padding: '16px',
+            
           }}
         >
           <Typography
