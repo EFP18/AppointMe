@@ -144,7 +144,7 @@ function ClientView(props) {
                 marginBottom: '20px',
               }}
             >
-              <Button disabled={!boxChecked} href='/book-appointment'>
+              <Button disabled={!boxChecked} href={`/book-appointment/${_id}`}>
                 Continue
               </Button>
             </Box>

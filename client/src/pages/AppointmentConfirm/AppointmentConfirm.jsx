@@ -9,6 +9,9 @@ import SearchBox from '../../components/SearchBox';
 import Footer from '../../components/Footer';
 import { colors } from '../../components/theme';
 import categoryData from '../VendorProfile/categorySeeds.json';
+import { GET_BUSINESSCV } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 const Container = styled(Box)({
   display: 'flex',
@@ -35,6 +38,12 @@ function AppointmentConfirm() {
     marginBottom: isSmallScreen ? '50px' : '100px',
   });
 
+  const { _id } = useParams();
+  const { loading, data } = useQuery(GET_BUSINESSCV, {
+    variables: { id: _id },
+  });
+  const businessData = data?.businessCV || {};
+
   return (
     <Page title={'AppointMe'} className='landing-page'>
       <Header />
@@ -54,7 +63,7 @@ function AppointmentConfirm() {
             </h1>
             <Alert color='success' variant='filled' severity='success'>
               <Typography align='center'>
-                <h2>Thank you for booking your appointment with us!</h2>
+                <h2>Thank you for booking your appointment with {businessData.name}!</h2>
                 <h3>Appointment Confirmed</h3>
               </Typography>
             </Alert>
