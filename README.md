@@ -33,7 +33,7 @@ AppointMe is a platform for service providers and seekers. It targets freelancer
 
 ![BookAppointment](./client/src/images/bookAppointment.png)
 
-- Follow the link to access the live version of AppointMe: `add link`
+- Follow the link to access the live version of AppointMe: `https://aqueous-fortress-81692-b2b05a92fd74.herokuapp.com`
 
 - GitHub repository: `https://github.com/EFP18/AppointMe`
 
